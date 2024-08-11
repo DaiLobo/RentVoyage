@@ -1,4 +1,6 @@
 import { Loader2 } from 'lucide-react';
+import Link from 'next/link';
+import Router from 'next/router';
 import { MouseEvent, useState } from 'react';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 
@@ -21,6 +23,8 @@ export function Register() {
     const handleSignUp = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         createUserWithEmailAndPassword(email, password);
+
+        Router.push("/login");
     }
 
     return (
@@ -57,6 +61,8 @@ export function Register() {
                     Continuar
                 </Button>
             </div>
+
+            <Link href='/login' className='underline'>Já tem uma conta? Clique aqui</Link>
         </div>
     )
 }

@@ -1,9 +1,33 @@
 import '../styles/globals.css';
-import { ShadcnProvider } from '@/lib/shadcn';
-import { AppProps } from 'next/app';
 
-export default function App({ Component, pageProps }: AppProps) {
-    return <ShadcnProvider>
-        <Component {...pageProps} />
-    </ShadcnProvider>
+import { GetStaticProps } from 'next';
+import { appWithTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { AppProps } from 'next/app';
+import { Toaster } from 'sonner';
+
+import Header from '@/components/Header';
+import { AuthProvider } from '@/context/AuthContext';
+import { ShadcnProvider } from '@/lib/shadcn';
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+    return {
+        props: {
+            ...(await serverSideTranslations(locale ?? 'pt', ['common'])),
+        },
+    };
+};
+
+function App({ Component, pageProps }: AppProps) {
+    return (
+        <ShadcnProvider>
+            <AuthProvider>
+                <Header />
+                <Component {...pageProps} />
+                <Toaster position='bottom-right' />
+            </AuthProvider>
+        </ShadcnProvider>
+    )
 }
+
+export default appWithTranslation(App);
