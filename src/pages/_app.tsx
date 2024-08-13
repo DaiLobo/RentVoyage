@@ -10,14 +10,6 @@ import Header from '@/components/Header';
 import { AuthProvider } from '@/context/AuthContext';
 import { ShadcnProvider } from '@/lib/shadcn';
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-    return {
-        props: {
-            ...(await serverSideTranslations(locale ?? 'pt', ['common'])),
-        },
-    };
-};
-
 function App({ Component, pageProps }: AppProps) {
     return (
         <ShadcnProvider>
@@ -29,5 +21,13 @@ function App({ Component, pageProps }: AppProps) {
         </ShadcnProvider>
     )
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+    return {
+        props: {
+            ...(await serverSideTranslations(locale ?? 'pt', ['common', 'login', 'register'])),
+        },
+    };
+};
 
 export default appWithTranslation(App);

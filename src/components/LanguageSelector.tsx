@@ -26,7 +26,7 @@ export default function LanguageSelector() {
         <Popover>
             <PopoverTrigger asChild>
                 <button className="relative w-10 h-10 rounded-full overflow-hidden border border-gray-300 bg-transparent flex items-center justify-center">
-                    <Image src={getFlagSrc()} alt="Selecione o idioma" layout="fill" objectFit='cover' sizes='30' />
+                    <Image src={getFlagSrc()} alt="Selecione o idioma" width={100} height={100} className='absolute w-full h-full' />
                 </button>
             </PopoverTrigger>
 

@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? 'en', ['common'])),
+      ...(await serverSideTranslations(locale ?? 'pt', ['common', 'login', 'register'])),
     },
   };
 };

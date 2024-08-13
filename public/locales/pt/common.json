@@ -3,5 +3,7 @@
   "reserve": "Reserve já",
   "about": "Sobre",
   "register": "Cadastre-se",
-  "login": "Login"
+  "login": "Login",
+  "profile": "Perfil",
+  "logout": "Sair"
 }

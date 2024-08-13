@@ -1,4 +1,7 @@
 import { Loader2 } from 'lucide-react';
+import { GetStaticProps } from 'next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Link from 'next/link';
 import Router from 'next/router';
 import { MouseEvent, useState } from 'react';
@@ -12,6 +15,7 @@ import { auth } from '@/services/firebaseConfig';
 export function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { t } = useTranslation('register');
 
     const [
         createUserWithEmailAndPassword,
@@ -30,27 +34,27 @@ export function Register() {
     return (
         <div className="pt-16 px-20 grid grid-cols-1 gap-8 justify-items-center">
             <p className="flex justify-start text-4xl text-slate-700">
-                Criar conta
+                {t("create-account")}
             </p>
 
             <div className="flex flex-1 grid grid-rows-3 grid-cols-1 gap-2 w-full max-w-md">{/*  form */}
                 <div>
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email">E-mail</Label>
                     <Input
                         id="email"
                         type="email"
-                        placeholder="Insira seu e-mail"
+                        placeholder={t("email.name")}
                         className="mt-1"
                         onChange={e => setEmail(e.target.value)}
                     />
                 </div>
 
                 <div>
-                    <Label htmlFor="senha">Senha</Label>
+                    <Label htmlFor="senha">{t("password.name")}</Label>
                     <Input
                         id="password"
                         type="password"
-                        placeholder="Insira sua senha"
+                        placeholder={t("password.placeholder")}
                         className="mt-1"
                         onChange={e => setPassword(e.target.value)}
                     />
@@ -58,13 +62,22 @@ export function Register() {
 
                 <Button variant="default" className="mt-2" onClick={handleSignUp} disabled={loading}>
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin bg-transparent" />}
-                    Continuar
+                    {t("continue")}
                 </Button>
             </div>
 
-            <Link href='/login' className='underline'>Já tem uma conta? Clique aqui</Link>
+            <span>{t("already-have-account")} <Link href='/login' className='underline font-bold'> {t("click-here")}</Link></span>
+
         </div>
     )
 }
+
+export const getStaticProps: GetStaticProps = async ({
+    locale,
+}) => ({
+    props: {
+        ...(await serverSideTranslations(locale ?? 'pt', ['register',])),
+    },
+})
 
 export default Register;

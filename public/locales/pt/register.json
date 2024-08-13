@@ -1,0 +1,14 @@
+{
+  "create-account": "Criar conta",
+  "email": {
+    "name": "E-mail",
+    "placeholder": "Insira seu e-mail"
+  },
+  "password": {
+    "name": "Senha",
+    "placeholder": "Insira sua senha"
+  },
+  "continue": "Continuar",
+  "already-have-account": "Já tem uma conta?",
+  "click-here": "Clique aqui"
+}

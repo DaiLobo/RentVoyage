@@ -1,5 +1,9 @@
 import { Loader2 } from 'lucide-react';
+import { GetStaticProps } from 'next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -15,6 +19,8 @@ import { login } from '@/validations/signIn';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 export function Login() {
+    const { t } = useTranslation('login');
+
     const form = useForm<z.infer<typeof login>>({
         resolver: zodResolver(login),
         defaultValues: {
@@ -23,16 +29,19 @@ export function Login() {
         },
     })
 
-    const { handleSignIn, signInWithGoogle, loading } = useAuth();
+    const { handleSignIn, signInWithGoogle, loading, error } = useAuth();
 
     const handleOnSubmit = async (values: z.infer<typeof login>) => {
         try {
             await handleSignIn(values.email, values.password);
             form.reset();
-
         } catch (error) {
+            toast.error(`${t("message.error")}`, {
+                className: "bg-transparent text-red-500",
+            })
             console.log(error);
         }
+
     }
 
     const handleGoogleSignIn = async () => {
@@ -62,11 +71,11 @@ export function Login() {
                         name="email"
                         render={({ field }) => (
                             <FormItem className="relative">
-                                <FormLabel>E-mail</FormLabel>
+                                <FormLabel>{t("email.name")}</FormLabel>
                                 <FormControl>
                                     <Input id="email"
                                         type="email"
-                                        placeholder="Insira seu e-mail"
+                                        placeholder={t("email.placeholder")}
                                         className="mt-1"
                                         {...field}
                                     />
@@ -81,11 +90,11 @@ export function Login() {
                         name="password"
                         render={({ field }) => (
                             <FormItem className="relative">
-                                <FormLabel>Senha</FormLabel>
+                                <FormLabel>{t("password.name")}</FormLabel>
                                 <FormControl>
                                     <Input id="password"
                                         type="password"
-                                        placeholder="Insira sua senha"
+                                        placeholder={t("password.placeholder")}
                                         className="mt-1"
                                         {...field}
                                     />
@@ -97,7 +106,7 @@ export function Login() {
 
                     <Button variant="default" className="mt-6" type='submit' disabled={loading}>
                         {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin bg-transparent" />}
-                        Entrar
+                        {t("enter")}
                     </Button>
                 </form>
             </Form>
@@ -105,18 +114,28 @@ export function Login() {
             <div className="flex flex-1 flex-col space-y-4 items-center">
                 <div className="flex items-center justify-center w-full max-w-28 ">
                     <Separator />
-                    <span className="mx-4">OU</span>
+                    <span className="mx-4">{t("or")}</span>
                     <Separator />
                 </div>
 
                 <Button variant="outline" className='gap-2' onClick={handleGoogleSignIn}>
-                    <Image src="/assets/google_icon.webp" alt="Google" width={18} height={18} />
-                    <span> Entrar com Google</span>
+                    <Image src="/assets/google_icon.webp" alt="Google" width={18} height={18} className='bg-transparent' />
+                    <span className='hover:text-primary'>{t("enter-google")}</span>
                 </Button>
             </div>
+
+            <span className='pt-8'>{t("dont-have-account")} <Link href='/register' className='underline font-bold'> {t("click-here")}</Link></span>
 
         </div>
     )
 }
+
+export const getStaticProps: GetStaticProps = async ({
+    locale,
+}) => ({
+    props: {
+        ...(await serverSideTranslations(locale ?? 'pt', ['login'])),
+    },
+})
 
 export default Login;

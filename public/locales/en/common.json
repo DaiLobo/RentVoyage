@@ -3,5 +3,7 @@
   "reserve": "Book now",
   "about": "About",
   "register": "Register",
-  "login": "Login"
+  "login": "Login",
+  "profile": "Profile",
+  "logout": "Logout"
 }

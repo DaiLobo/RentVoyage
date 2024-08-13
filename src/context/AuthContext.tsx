@@ -1,6 +1,7 @@
 import {
-    GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut, User, UserCredential
+    AuthError, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut, User
 } from 'firebase/auth';
+import { useTranslation } from 'next-i18next';
 import Router from 'next/router';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
@@ -11,6 +12,7 @@ import { auth } from '@/services/firebaseConfig';
 interface AuthContextType {
     userAuth: User | null;
     loading: boolean;
+    error: AuthError | undefined;
     handleSignIn: (email: string, password: string) => Promise<void>;
     signInWithGoogle: () => Promise<void>;
     logOut: () => Promise<void>;
@@ -20,6 +22,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [userAuth, setUserAuth] = useState<User | null>({} as User);
+    const { t } = useTranslation('login');
 
     const [
         signInWithEmailAndPassword,
@@ -31,7 +34,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setUserAuth(user);
-
         });
 
         return () => unsubscribe();
@@ -48,14 +50,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 console.log(userAuth);
             } else {
                 console.log(error?.message)
-                toast.error("Falha na autenticação", {
+                toast.error(`${t("message.error")}: ${error}`, {
                     className: "bg-transparent text-red-500",
                 })
             }
 
         } catch (error) {
             console.log(error);
-            toast(`Houve um erro: ${error}`, {
+            toast(`${t("message.error")}: ${error}`, {
                 className: "bg-transparent text-red-500",
             })
         }
@@ -80,7 +82,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     return (
-        <AuthContext.Provider value={{ userAuth, loading, handleSignIn, signInWithGoogle, logOut }}>
+        <AuthContext.Provider value={{ userAuth, loading, error, handleSignIn, signInWithGoogle, logOut }}>
             {children}
         </AuthContext.Provider>
     );

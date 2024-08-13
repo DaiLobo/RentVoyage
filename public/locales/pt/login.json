@@ -1,0 +1,20 @@
+{
+  "login": "Login",
+  "email": {
+    "name": "E-mail",
+    "placeholder": "Insira seu e-mail"
+  },
+  "password": {
+    "name": "Senha",
+    "placeholder": "Insira sua senha"
+  },
+  "enter": "Entrar",
+  "or": "OU",
+  "enter-google": "Entrar com Google",
+  "dont-have-account": "Não tem uma conta?",
+  "click-here": "Clique aqui",
+  "message": {
+    "success": "",
+    "error": "Falha na autenticação"
+  }
+}
