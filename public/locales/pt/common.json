@@ -5,5 +5,13 @@
   "register": "Cadastre-se",
   "login": "Login",
   "profile": "Perfil",
-  "logout": "Sair"
+  "logout": "Sair",
+  "footer": {
+    "call": "Ligue e faça sua reserva",
+    "contact": "Contato",
+    "phone": "Telefone",
+    "address": "Endereço",
+    "follow": "Siga a gente",
+    "rights": "Todos os direitos reservados."
+  }
 }

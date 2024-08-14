@@ -2,6 +2,7 @@ import { GetStaticProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react';
+import { useForm } from 'react-hook-form';
 
 import { NavigationMenuLink } from '@/components/ui/navigation-menu';
 import { cn } from '@/lib/utils';
@@ -17,51 +18,17 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 export default function Home() {
   const { t } = useTranslation('common');
 
+  const form = useForm();
+
   return (
-    <div>
+    <div className="relative bg-cover bg-center h-auto" style={{ backgroundImage: "url('/assets/open_door.jpg')" }}>
 
-      <div className="pt-16 flex justify-center">
-        {/* <NavigationMenu >
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  {t('home')}
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
 
-            <NavigationMenuItem>
-              <Link href="/booking" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>Reserve já</NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
+      <div className='h-[80vh] bg-black opacity-40' ></div>
 
-            <NavigationMenuItem>
-              <Link href="/about" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Sobre
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
 
-            <NavigationMenuItem>
-              <Link href="/register" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Cadastre-se
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/login" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Login
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu> */}
-      </div>
+
+      {/* <Image src="/assets/paronamic.jpg" alt="" width={200} height={200} /> */}
     </div >
 
   );

@@ -23,11 +23,9 @@ export default function Header() {
     const isAuthPage = router.pathname === '/login' || router.pathname === '/register';
 
     return (
-        <header className="relative bg-cover bg-center h-400" style={{ backgroundImage: "url('/assets/paronamic.jpg')" }}>
-            <div className="absolute inset-0 bg-black opacity-30" />
+        <header>
             <div className="relative flex flex-col h-full">
-
-                <div className="flex fixed top-4 right-4 p-4 space-x-4 pr-32">
+                <div className="flex self-end mt-4 p-4 space-x-4 pr-32">
                     <LanguageSelector />
                     <div className="flex items-center space-x-4">
                         {userAuth ? (
@@ -55,7 +53,7 @@ export default function Header() {
 
 
                 {!isAuthPage ? (
-                    <div className="pt-16 flex justify-center space-x-8">
+                    <div className="flex justify-center space-x-8">
 
                         <NavigationMenu className="flex justify-center space-x-8 p-2">
                             <NavigationMenuList className="flex items-end space-x-4 p-2">
@@ -74,17 +72,17 @@ export default function Header() {
                                 </NavigationMenuItem>
 
                                 <NavigationMenuItem>
-                                    <Link href="/booking" legacyBehavior passHref>
-                                        <NavigationMenuLink className={userAuth ? cn(buttonVariants({ variant: "outline" })) : navigationMenuTriggerStyle()}>
-                                            {t("reserve")}
+                                    <Link href="/about" legacyBehavior passHref>
+                                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                                            {t("about")}
                                         </NavigationMenuLink>
                                     </Link>
                                 </NavigationMenuItem>
 
                                 <NavigationMenuItem>
-                                    <Link href="/about" legacyBehavior passHref>
-                                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                                            {t("about")}
+                                    <Link href="/booking" legacyBehavior passHref>
+                                        <NavigationMenuLink className={userAuth ? cn(buttonVariants({ variant: "outline" })) : navigationMenuTriggerStyle()}>
+                                            {t("reserve")}
                                         </NavigationMenuLink>
                                     </Link>
                                 </NavigationMenuItem>

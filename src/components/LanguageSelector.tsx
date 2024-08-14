@@ -1,16 +1,16 @@
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
-import { useRouter } from 'next/router';
 
 export default function LanguageSelector() {
     const { i18n } = useTranslation();
     const router = useRouter()
     const { pathname, asPath, query } = router;
 
-    const [language, setLanguage] = useState<'en' | 'pt'>('pt');
+    const [language, setLanguage] = useState<string>('pt');
 
     const changeLanguage = (lng: 'en' | 'pt') => {
         i18n.changeLanguage(lng);
@@ -21,6 +21,10 @@ export default function LanguageSelector() {
     const getFlagSrc = () => {
         return language === 'en' ? '/assets/eng-lang.png' : '/assets/pt-br-lang.png';
     };
+
+    useEffect(() => {
+        setLanguage(router.locale || "pt");
+    }, [router.locale])
 
     return (
         <Popover>

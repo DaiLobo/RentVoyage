@@ -6,6 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { AppProps } from 'next/app';
 import { Toaster } from 'sonner';
 
+import { Footer } from '@/components/Footer';
 import Header from '@/components/Header';
 import { AuthProvider } from '@/context/AuthContext';
 import { ShadcnProvider } from '@/lib/shadcn';
@@ -17,6 +18,7 @@ function App({ Component, pageProps }: AppProps) {
                 <Header />
                 <Component {...pageProps} />
                 <Toaster position='bottom-right' />
+                <Footer />
             </AuthProvider>
         </ShadcnProvider>
     )

@@ -32,7 +32,7 @@ export function Register() {
     }
 
     return (
-        <div className="pt-16 px-20 grid grid-cols-1 gap-8 justify-items-center">
+        <div className="pt-16 px-20 grid grid-cols-1 gap-8 justify-items-center pb-40">
             <p className="flex justify-start text-4xl text-slate-700">
                 {t("create-account")}
             </p>
@@ -76,7 +76,7 @@ export const getStaticProps: GetStaticProps = async ({
     locale,
 }) => ({
     props: {
-        ...(await serverSideTranslations(locale ?? 'pt', ['register',])),
+        ...(await serverSideTranslations(locale ?? 'pt', ['register', "common"])),
     },
 })
 

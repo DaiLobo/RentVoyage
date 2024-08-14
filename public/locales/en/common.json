@@ -5,5 +5,13 @@
   "register": "Register",
   "login": "Login",
   "profile": "Profile",
-  "logout": "Logout"
+  "logout": "Logout",
+  "footer": {
+    "call": "Call and make your reservation",
+    "contact": "Contact us",
+    "phone": "Phone",
+    "address": "Address",
+    "follow": "Follow us",
+    "rights": "All rights reserved."
+  }
 }

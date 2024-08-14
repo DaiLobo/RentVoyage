@@ -1,6 +1,9 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 export function Booking() {
     return (
@@ -25,5 +28,13 @@ export function Booking() {
         </div>
     )
 }
+
+export const getStaticProps: GetStaticProps = async ({
+    locale,
+}) => ({
+    props: {
+        ...(await serverSideTranslations(locale ?? 'pt', ['login'])),
+    },
+})
 
 export default Booking;
