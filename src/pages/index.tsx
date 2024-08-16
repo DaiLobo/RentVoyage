@@ -2,7 +2,6 @@ import { GetStaticProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react';
-import { useForm } from 'react-hook-form';
 
 import { NavigationMenuLink } from '@/components/ui/navigation-menu';
 import { cn } from '@/lib/utils';
@@ -18,13 +17,12 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 export default function Home() {
   const { t } = useTranslation('common');
 
-  const form = useForm();
-
   return (
     <div className="relative bg-cover bg-center h-auto" style={{ backgroundImage: "url('/assets/open_door.jpg')" }}>
 
 
-      <div className='h-[80vh] bg-black opacity-40' ></div>
+      <div className='h-[80vh] bg-black opacity-40' />
+
 
 
 

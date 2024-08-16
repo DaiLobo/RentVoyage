@@ -5,8 +5,8 @@ import { useTranslation } from 'next-i18next';
 import Router from 'next/router';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { toast } from 'sonner';
 
+import { showToast } from '@/components/Toast';
 import { auth } from '@/services/firebaseConfig';
 
 interface AuthContextType {
@@ -32,11 +32,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     ] = useSignInWithEmailAndPassword(auth);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => { //monitora mudanças no estado de autenticação do usuário
             setUserAuth(user);
         });
 
-        return () => unsubscribe();
+        return () => unsubscribe(); //parar de escutar mudanças no estado de autenticação. evitar memory leaks
     }, [userAuth]);
 
     const handleSignIn = async (email: string, password: string) => {
@@ -50,16 +50,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 console.log(userAuth);
             } else {
                 console.log(error?.message)
-                toast.error(`${t("message.error")}: ${error}`, {
-                    className: "bg-transparent text-red-500",
-                })
+                showToast("error", `${t("message.error")}: ${error}`)
             }
 
         } catch (error) {
             console.log(error);
-            toast(`${t("message.error")}: ${error}`, {
-                className: "bg-transparent text-red-500",
-            })
+            showToast("error", `${t("message.error")}: ${error}`)
         }
 
     };

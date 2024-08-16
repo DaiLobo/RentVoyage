@@ -5,9 +5,9 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
-import { z } from 'zod';
 
+import { PasswordInput } from '@/components/PasswordInput';
+import { showToast } from '@/components/Toast';
 import { Button } from '@/components/ui/button';
 import {
     Form, FormControl, FormField, FormItem, FormLabel, FormMessage
@@ -15,14 +15,11 @@ import {
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { useAuth } from '@/context/AuthContext';
-import { login } from '@/validations/signIn';
-import { zodResolver } from '@hookform/resolvers/zod';
 
 export function Login() {
     const { t } = useTranslation('login');
 
-    const form = useForm<z.infer<typeof login>>({
-        resolver: zodResolver(login),
+    const form = useForm({
         defaultValues: {
             email: "",
             password: ""
@@ -31,15 +28,13 @@ export function Login() {
 
     const { handleSignIn, signInWithGoogle, loading, error } = useAuth();
 
-    const handleOnSubmit = async (values: z.infer<typeof login>) => {
+    const handleOnSubmit = async (values: { email: string, password: string }) => {
         try {
             await handleSignIn(values.email, values.password);
             form.reset();
-        } catch (error) {
-            toast.error(`${t("message.error")}`, {
-                className: "bg-transparent text-red-500",
-            })
-            console.log(error);
+        } catch (erro) {
+            showToast("error", `${t("message.error")}: ${error}`)
+            console.log(erro);
         }
 
     }
@@ -48,14 +43,12 @@ export function Login() {
         try {
             await signInWithGoogle();
         } catch (error) {
-            toast(`Error: ${error}`, {
-                className: "bg-transparent text-red-500",
-            })
+            showToast("error", `Error: ${error}`)
         }
     }
 
     return (
-        <div className="pt-16 px-20 grid grid-cols-1 gap-8 justify-items-center">
+        <div className="pt-10 pb-20 px-20 grid grid-cols-1 gap-8 justify-items-center">
             <p className="flex justify-start text-4xl text-slate-700">
                 Login
             </p>
@@ -65,7 +58,6 @@ export function Login() {
                     className="flex flex-1 grid grid-rows-3 grid-cols-1 gap-2 w-full max-w-md"
                     onSubmit={form.handleSubmit(handleOnSubmit)}
                 >
-
                     <FormField
                         control={form.control}
                         name="email"
@@ -92,12 +84,17 @@ export function Login() {
                             <FormItem className="relative">
                                 <FormLabel>{t("password.name")}</FormLabel>
                                 <FormControl>
-                                    <Input id="password"
+                                    <PasswordInput
+                                        id="password"
+                                        placeholder={t("password.placeholder")}
+                                        className="mt-1"
+                                        {...field} />
+                                    {/* <Input id="password"
                                         type="password"
                                         placeholder={t("password.placeholder")}
                                         className="mt-1"
                                         {...field}
-                                    />
+                                    /> */}
                                 </FormControl>
                                 <FormMessage className="absolute text-red-500 text-xs left-0" />
                             </FormItem>
@@ -124,7 +121,7 @@ export function Login() {
                 </Button>
             </div>
 
-            <span className='pt-8'>{t("dont-have-account")} <Link href='/register' className='underline font-bold'> {t("click-here")}</Link></span>
+            <span className='pt-8 pb-1'>{t("dont-have-account")} <Link href='/register' className='underline font-bold'> {t("click-here")}</Link></span>
 
         </div>
     )

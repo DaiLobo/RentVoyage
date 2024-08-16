@@ -4,18 +4,31 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Link from 'next/link';
 import Router from 'next/router';
-import { MouseEvent, useState } from 'react';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
+import { PasswordInput } from '@/components/PasswordInput';
+import { showToast } from '@/components/Toast';
 import { Button } from '@/components/ui/button';
+import {
+    Form, FormControl, FormField, FormItem, FormLabel, FormMessage
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { auth } from '@/services/firebaseConfig';
+import { register } from '@/validations/signUp';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 export function Register() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const { t } = useTranslation('register');
+
+    const form = useForm<z.infer<typeof register>>({
+        resolver: zodResolver(register),
+        defaultValues: {
+            email: "",
+            password: ""
+        },
+    })
 
     const [
         createUserWithEmailAndPassword,
@@ -24,49 +37,82 @@ export function Register() {
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
 
-    const handleSignUp = (e: MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        createUserWithEmailAndPassword(email, password);
+    const handleSignUp = async (values: z.infer<typeof register>) => {
+        try {
+            const result = await createUserWithEmailAndPassword(values.email, values.password);
 
-        Router.push("/login");
+            if (result) {
+                showToast("success", t("message.success"));
+                Router.push("/");
+            } else {
+                showToast("error", `${t("message.error")} ${error?.message}`);
+            }
+            console.log(user)
+
+        } catch (erro) {
+            showToast("error", `Error: ${error}`);
+        }
+
     }
 
     return (
-        <div className="pt-16 px-20 grid grid-cols-1 gap-8 justify-items-center pb-40">
+        <div className="pt-10 pb-56 px-20 grid grid-cols-1 gap-8 justify-items-center pb-40">
             <p className="flex justify-start text-4xl text-slate-700">
                 {t("create-account")}
             </p>
 
-            <div className="flex flex-1 grid grid-rows-3 grid-cols-1 gap-2 w-full max-w-md">{/*  form */}
-                <div>
-                    <Label htmlFor="email">E-mail</Label>
-                    <Input
-                        id="email"
-                        type="email"
-                        placeholder={t("email.name")}
-                        className="mt-1"
-                        onChange={e => setEmail(e.target.value)}
+            <Form {...form}>
+                <form
+                    className="flex flex-1 grid grid-rows-3 grid-cols-1 gap-2 w-full max-w-md"
+                    onSubmit={form.handleSubmit(handleSignUp)}
+                >
+
+                    <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                            <FormItem className="relative">
+                                <FormLabel>{t("email.name")}</FormLabel>
+                                <FormControl>
+                                    <Input id="email"
+                                        type="email"
+                                        placeholder={t("email.placeholder")}
+                                        className="mt-1"
+                                        {...field}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
                     />
-                </div>
 
-                <div>
-                    <Label htmlFor="senha">{t("password.name")}</Label>
-                    <Input
-                        id="password"
-                        type="password"
-                        placeholder={t("password.placeholder")}
-                        className="mt-1"
-                        onChange={e => setPassword(e.target.value)}
+                    <FormField
+                        control={form.control}
+                        name="password"
+                        render={({ field }) => (
+                            <FormItem className="relative">
+                                <FormLabel>{t("password.name")}</FormLabel>
+                                <FormControl>
+                                    <PasswordInput
+                                        id="password"
+                                        placeholder={t("password.placeholder")}
+                                        className="mt-1"
+                                        {...field} />
+                                </FormControl>
+                                <FormMessage className="absolute text-red-500 text-xs left-0" />
+                            </FormItem>
+                        )}
                     />
-                </div>
 
-                <Button variant="default" className="mt-2" onClick={handleSignUp} disabled={loading}>
-                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin bg-transparent" />}
-                    {t("continue")}
-                </Button>
-            </div>
+                    <Button variant="default" className="mt-6" type="submit" disabled={loading}>
+                        {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin bg-transparent" />}
+                        {t("continue")}
+                    </Button>
 
-            <span>{t("already-have-account")} <Link href='/login' className='underline font-bold'> {t("click-here")}</Link></span>
+                </form>
+            </Form>
+
+            <span className='pb-1'>{t("already-have-account")} <Link href='/login' className='underline font-bold'> {t("click-here")}</Link></span>
 
         </div>
     )

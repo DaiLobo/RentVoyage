@@ -10,5 +10,9 @@
   },
   "continue": "Continuar",
   "already-have-account": "Já tem uma conta?",
-  "click-here": "Clique aqui"
+  "click-here": "Clique aqui",
+  "message": {
+    "success": "Cadastro criado com sucesso!",
+    "error": "Houve um erro:"
+  }
 }

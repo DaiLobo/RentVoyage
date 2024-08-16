@@ -10,5 +10,9 @@
   },
   "continue": "Continue",
   "already-have-account": "Already have an account?",
-  "click-here": "Sign in"
+  "click-here": "Sign in",
+  "message": {
+    "success": "Account created successfully!",
+    "error": "An error occurred:"
+  }
 }

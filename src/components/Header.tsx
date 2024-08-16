@@ -81,7 +81,7 @@ export default function Header() {
 
                                 <NavigationMenuItem>
                                     <Link href="/booking" legacyBehavior passHref>
-                                        <NavigationMenuLink className={userAuth ? cn(buttonVariants({ variant: "outline" })) : navigationMenuTriggerStyle()}>
+                                        <NavigationMenuLink className={userAuth ? cn(buttonVariants({ variant: "outline" }), "text-base") : navigationMenuTriggerStyle()}>
                                             {t("reserve")}
                                         </NavigationMenuLink>
                                     </Link>
@@ -91,14 +91,14 @@ export default function Header() {
                                     <>
                                         <NavigationMenuItem className='pl-16'>
                                             <Link href="/register" legacyBehavior passHref>
-                                                <NavigationMenuLink className={cn(buttonVariants({ variant: "outline" }))}>
+                                                <NavigationMenuLink className={cn(buttonVariants({ variant: "outline" }), "text-base")}>
                                                     {t("register")}
                                                 </NavigationMenuLink>
                                             </Link>
                                         </NavigationMenuItem>
                                         <NavigationMenuItem>
                                             <Link href="/login" legacyBehavior passHref>
-                                                <NavigationMenuLink className={cn(buttonVariants({ variant: "outline" }))}>
+                                                <NavigationMenuLink className={cn(buttonVariants({ variant: "outline" }), "text-base")}>
                                                     {t("login")}
                                                 </NavigationMenuLink>
                                             </Link>
