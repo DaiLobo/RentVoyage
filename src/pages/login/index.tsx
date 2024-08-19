@@ -33,7 +33,7 @@ export function Login() {
             await handleSignIn(values.email, values.password);
             form.reset();
         } catch (erro) {
-            showToast("error", `${t("message.error")}: ${error}`)
+            showToast("error", `${t("message.error")}: ${error}`);
             console.log(erro);
         }
 
@@ -43,12 +43,12 @@ export function Login() {
         try {
             await signInWithGoogle();
         } catch (error) {
-            showToast("error", `Error: ${error}`)
+            showToast("error", `Error: ${error}`);
         }
     }
 
     return (
-        <div className="pt-10 pb-20 px-20 grid grid-cols-1 gap-8 justify-items-center">
+        <div className="pt-10 pb-28 px-20 grid grid-cols-1 gap-8 justify-items-center">
             <p className="flex justify-start text-4xl text-slate-700">
                 Login
             </p>
