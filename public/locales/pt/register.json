@@ -14,5 +14,11 @@
   "message": {
     "success": "Cadastro criado com sucesso!",
     "error": "Houve um erro:"
+  },
+  "errors-field": {
+    "min": "Senha deve conter no mínimo 6 caracteres.",
+    "noUppercase": "A senha deve ter pelo menos uma letra maiúscula.",
+    "number": "A senha deve ter pelo menos um número.",
+    "special-caracter": "A senha deve ter pelo menos um caractere especial."
   }
 }

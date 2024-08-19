@@ -14,5 +14,11 @@
   "message": {
     "success": "Account created successfully!",
     "error": "An error occurred:"
+  },
+  "errors-field": {
+    "min": "Password must be at least 8 characters long.",
+    "noUppercase": "Password must contain at least one uppercase letter.",
+    "number": "Password must contain at least one number.",
+    "special-caracter": "Password must contain at least one special character."
   }
 }
