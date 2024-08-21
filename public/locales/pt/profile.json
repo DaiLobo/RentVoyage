@@ -1,0 +1,37 @@
+{
+  "account-settings": "Configurações da conta",
+  "email": {
+    "name": "E-mail",
+    "placeholder": "Insira seu e-mail"
+  },
+  "name": {
+    "name": "Nome",
+    "placeholder": "Insira seu nome"
+  },
+  "last-name": {
+    "name": "Sobrenome",
+    "placeholder": "Insira seu sobrenome"
+  },
+  "phone": {
+    "name": "Telefone",
+    "placeholder": "Insira seu telefone para contato"
+  },
+  "address": {
+    "name": "Endereço",
+    "placeholder": "Insira seu endereço"
+  },
+  "gender": {
+    "name": "Gênero",
+    "placeholder": "Insira seu gênero"
+  },
+  "date-birth": {
+    "name": "Data de nascimento",
+    "placeholder": "Insira sua data de nascimento"
+  },
+  "save": "Salvar",
+  "cancel": "Cancelar",
+  "message": {
+    "success": "",
+    "error": "Houve um erro:"
+  }
+}

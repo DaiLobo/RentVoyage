@@ -45,7 +45,7 @@ export default function Header() {
                   </button>
                 </PopoverTrigger>
                 <PopoverContent className="w-60 p-2 flex flex-col items-start gap-2">
-                  <button className="w-full text-left bg-transparent hover:bg-accent hover:text-accent-foreground">
+                  <button className="w-full text-left bg-transparent hover:bg-accent hover:text-accent-foreground" onClick={() => router.push("/my-profile")}>
                     {t("profile")}: <br />
                     {userAuth.email}
                   </button>
@@ -103,9 +103,9 @@ export default function Header() {
                       className={
                         userAuth
                           ? cn(
-                              buttonVariants({ variant: "outline" }),
-                              "text-base"
-                            )
+                            buttonVariants({ variant: "outline" }),
+                            "text-base"
+                          )
                           : navigationMenuTriggerStyle()
                       }
                     >

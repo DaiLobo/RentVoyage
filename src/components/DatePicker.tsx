@@ -1,0 +1,67 @@
+import { format } from 'date-fns';
+import { CalendarIcon } from 'lucide-react';
+import { Control, FieldValues } from 'react-hook-form';
+
+import { cn } from '@/lib/utils';
+
+import { Button } from './ui/button';
+import { Calendar } from './ui/calendar';
+import {
+  FormControl, FormField, FormItem, FormLabel, FormMessage
+} from './ui/form';
+import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
+
+interface DatePickerProps {
+  control?: Control<FieldValues> | undefined;
+  name: string;
+  label?: string;
+  placeholder?: string;
+}
+
+export const DatePicker: React.FC<DatePickerProps> = ({ control, name, label, placeholder }) => {
+  return <FormField
+    control={control}
+    name={name}
+    render={({ field }) => (
+      <FormItem className="flex flex-col">
+        <FormLabel>{label}</FormLabel>
+        <Popover>
+          <PopoverTrigger asChild>
+            <FormControl>
+              <Button
+                variant={"outline"}
+                className={cn(
+                  "group pl-3 text-left font-normal bg-background hover:bg-terceary/[0.4] hover:text-black border-input placeholder:text-muted-foreground",
+                  !field.value && "text-muted-foreground"
+                )}
+              >
+                {field.value ? (
+                  format(field.value, "PPP")
+                ) : (
+                  <span className=
+                    "text-muted-foreground"
+                  >{placeholder}</span>
+                )}
+                <CalendarIcon className="ml-auto h-4 w-4 opacity-50 bg-transparent hover:bg-transparent group-hover:text-muted-foreground" />
+              </Button>
+            </FormControl>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0 bg-background" align="start">
+            <Calendar
+              mode="single"
+              selected={field.value}
+              onSelect={field.onChange}
+              disabled={(date) =>
+                date > new Date() || date < new Date("1900-01-01")
+              }
+              initialFocus
+              className="bg-transparent"
+            />
+          </PopoverContent>
+        </Popover>
+
+        <FormMessage />
+      </FormItem >
+    )}
+  />
+}
