@@ -4,7 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>{/* Adicione aqui suas tags de meta ou fontes */}</Head>
-      <body className="bg-white text-black dark:bg-black dark:text-white">
+      <body className="bg-primary text-black">
         <Main />
         <NextScript />
       </body>

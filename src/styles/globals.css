@@ -61,10 +61,10 @@
 
 @layer base {
   * {
-    @apply border-border bg-primary;
+    @apply border-border;
   }
   body {
-    @apply bg-primary text-foreground;
+    @apply text-foreground;
   }
 
   p,

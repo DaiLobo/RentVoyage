@@ -27,7 +27,7 @@ export default function Header() {
     router.pathname === "/login" || router.pathname === "/register";
 
   return (
-    <header>
+    <header className="bg-primary">
       <div className="relative flex flex-col h-full">
         <div className="flex self-end mt-4 p-4 space-x-4 pr-32">
           <LanguageSelector />
@@ -35,6 +35,7 @@ export default function Header() {
             {userAuth ? (
               <Popover>
                 <PopoverTrigger asChild>
+                  {/* <div className="grid grid-rows-2 justify-items-center"> */}
                   <button className="relative w-10 h-10 rounded-full overflow-hidden">
                     <Image
                       src={userAuth?.photoURL ?? "/assets/avatar.png"}
@@ -43,6 +44,8 @@ export default function Header() {
                       objectFit="cover"
                     />
                   </button>
+                  {/* {userAuth?.displayName ? <p className="text-black">{userAuth?.displayName}</p> : null} */}
+                  {/* </div> */}
                 </PopoverTrigger>
                 <PopoverContent className="w-60 p-2 flex flex-col items-start gap-2">
                   <button className="w-full text-left bg-transparent hover:bg-accent hover:text-accent-foreground" onClick={() => router.push("/my-profile")}>

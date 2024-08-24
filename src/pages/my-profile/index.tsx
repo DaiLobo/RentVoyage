@@ -1,53 +1,113 @@
-import { Loader2 } from "lucide-react";
-import { GetStaticProps } from "next";
-import { useTranslation } from "next-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import Link from "next/link";
-import Router from "next/router";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { Camera, Loader2 } from 'lucide-react';
+import { GetStaticProps } from 'next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import Router from 'next/router';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
-import { PasswordInput } from "@/components/PasswordInput";
-import { showToast } from "@/components/Toast";
-import { Button } from "@/components/ui/button";
+import { DatePicker } from '@/components/DatePicker';
+import { showToast } from '@/components/Toast';
+import { Button } from '@/components/ui/button';
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { auth } from "@/services/firebaseConfig";
-import { useFormRegister } from "@/validations/signUp";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { DatePicker } from "@/components/DatePicker";
+  Form, FormControl, FormField, FormItem, FormLabel, FormMessage
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useAuth } from '@/context/AuthContext';
+import { SignUpService } from '@/services/SignUpService';
+import { useFormEdit } from '@/validations/editUser';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect, useState } from 'react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { FormInput } from '@/components/FormInput';
 
 export function MyProfile() {
   const { t } = useTranslation("profile");
-  const register = useFormRegister();
+  const edit = useFormEdit();
 
-  const form = useForm();
+  const { userAuth } = useAuth();
 
-  const handleSignUp = async (values) => {
+  const form = useForm<z.infer<typeof edit>>({
+    resolver: zodResolver(edit),
+    defaultValues: {
+      name: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      birthDate: undefined,
+      address: "",
+      gender: ""
+    }
+  });
+  const [file, setFile] = useState<File | null>(null);
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0]);
+    }
   };
+  const handleEditUser = async (values: z.infer<typeof edit>) => {
+    try {
+      await SignUpService.registerUser({ uid: userAuth?.uid, ...values, profileImage: file, });
+
+      showToast("success", "Usuário atualizado com sucesso!")
+    } catch (error) {
+      showToast("error", "Erro ao realizar a edição");
+    }
+  };
+
+  useEffect(() => {
+    if (!userAuth) {
+      Router.push("/");
+    }
+
+  }, [userAuth])
 
   return (
     <div className="pt-24 pb-54 grid grid-cols-1 justify-items-center pb-40 w-full">
       <Form {...form}>
         <form
-          className="flex flex-1 grid grid-rows-3 grid-cols-1 gap-2 w-full max-w-xl"
-          onSubmit={form.handleSubmit(handleSignUp)}
+          className="grid grid-rows-3 grid-cols-1 gap-2 w-full max-w-xl"
+          onSubmit={form.handleSubmit(handleEditUser)}
         >
-          <p className="flex justify-start justify-self-start text-4xl text-slate-700 pb-8">
-            Configurações da conta
-          </p>
+
+          <div className="flex grid-cols-2 gap-4 justify-items-end">
+            <p className="flex-1 justify-start justify-self-start text-4xl text-slate-700 pb-8 grow">
+              {t("account-settings")}
+            </p>
+
+            {/* <FormField
+              control={form.control}
+              name="profileImage"
+              render={({ field }) => (
+                <FormItem className="relative">
+                  <FormControl>
+                    <Input
+                      id="profileImage"
+                      type="file"
+                      accept="image/*"
+                      className="mt-1 rounded-full w-20 h-20 bg-terceary absolute inset-0 opacity-0 cursor-pointer"
+                      required
+                      {...field}
+                      onChange={handleFileChange}
+                    />
+                  </FormControl>
+                  <label
+                    htmlFor="profileImage"
+                    className="flex items-center justify-center w-20 h-20 bg-terceary rounded-full cursor-pointer"
+                  >
+                    <Camera className="text-gray-500 bg-transparent" size={24} />
+                  </label>
+                  <FormMessage />
+                </FormItem>
+              )}
+            /> */}
+          </div>
 
           <div className="grid grid-cols-2 gap-4 w-full">
-            <FormField
+            <FormInput type="text" control={form.control} name="name" label={t("name.name")} placeholder={t("name.placeholder")} />
+            <FormInput type="text" control={form.control} name="lastName" label={t("last-name.name")} placeholder={t("last-name.placeholder")} />
+            {/* <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
@@ -58,7 +118,6 @@ export function MyProfile() {
                       id="name"
                       type="text"
                       placeholder={t("name.placeholder")}
-                      className="mt-1"
                       required
                       {...field}
                     />
@@ -66,9 +125,9 @@ export function MyProfile() {
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            /> */}
 
-            <FormField
+            {/* <FormField
               control={form.control}
               name="lastName"
               render={({ field }) => (
@@ -79,18 +138,19 @@ export function MyProfile() {
                       id="lastName"
                       type="text"
                       placeholder={t("last-name.placeholder")}
-                      className="mt-1"
-                      required
                       {...field}
                     />
                   </FormControl>
                   <FormMessage className="absolute text-red-500 text-xs left-0" />
                 </FormItem>
               )}
-            />
+            /> */}
           </div>
 
-          <FormField
+          <FormInput type="email" control={form.control} name="email" label={t("email.name")} placeholder={t("email.placeholder")} />
+
+
+          {/* <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
@@ -102,14 +162,13 @@ export function MyProfile() {
                     type="email"
                     placeholder={t("email.placeholder")}
                     className="mt-1"
-                    required
                     {...field}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
 
           <FormField
             control={form.control}
@@ -132,7 +191,7 @@ export function MyProfile() {
             )}
           />
 
-          <DatePicker name="dateBirth" label={t("date-birth.name")} placeholder={t("date-birth.placeholder")} />
+          <DatePicker name="birthDate" label={t("date-birth.name")} placeholder={t("date-birth.placeholder")} />
 
           <FormField
             control={form.control}
@@ -146,7 +205,6 @@ export function MyProfile() {
                     type="text"
                     placeholder={t("address.placeholder")}
                     className="mt-1"
-                    required
                     {...field}
                   />
                 </FormControl>
@@ -161,16 +219,18 @@ export function MyProfile() {
             render={({ field }) => (
               <FormItem className="relative">
                 <FormLabel>{t("gender.name")}</FormLabel>
-                <FormControl>
-                  <Input
-                    id="gender"
-                    type="text"
-                    placeholder={t("gender.placeholder")}
-                    className="mt-1"
-                    required
-                    {...field}
-                  />
-                </FormControl>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder={t("gender.placeholder")} />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="female">Feminino</SelectItem>
+                    <SelectItem value="male">Masculino</SelectItem>
+                    <SelectItem value="other">Outro</SelectItem>
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
@@ -180,8 +240,8 @@ export function MyProfile() {
             <Button
               variant="outline"
               className="mt-6 hover:bg-destructive/[0.8]"
-              type="submit"
               disabled={false}
+              onClick={() => Router.back()}
             >
               {false && (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin bg-transparent" />
