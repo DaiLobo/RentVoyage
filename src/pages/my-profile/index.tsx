@@ -1,32 +1,33 @@
-import { Camera, Loader2 } from 'lucide-react';
-import { GetStaticProps } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import Router from 'next/router';
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { Camera, Loader2 } from "lucide-react";
+import { GetStaticProps } from "next";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import Router from "next/router";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { DatePicker } from '@/components/DatePicker';
-import { FormInput } from '@/components/FormInput';
-import { showToast } from '@/components/Toast';
-import { Button } from '@/components/ui/button';
+import { DatePicker } from "@/components/DatePicker";
+import { FormInput } from "@/components/FormInput";
+import { showToast } from "@/components/Toast";
+import { Button } from "@/components/ui/button";
 import {
   Form, FormControl, FormField, FormItem, FormLabel, FormMessage
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/ui/select';
-import { useAuth } from '@/context/AuthContext';
-import { GetUserService } from '@/services/GetUserService';
-import { SignUpEditService } from '@/services/SignUpEditService';
-import { useFormEdit } from '@/validations/editUser';
-import { zodResolver } from '@hookform/resolvers/zod';
+} from "@/components/ui/select";
+import { useAuth } from "@/context/AuthContext";
+import { UserType } from "@/interfaces/UserType";
+import { GetUserService } from "@/services/GetUserService";
+import { SignUpEditService } from "@/services/SignUpEditService";
+import { useFormEdit } from "@/validations/editUser";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export function MyProfile() {
   const { t } = useTranslation("profile");
-  const { userAuth, userData } = useAuth();
+  const { userAuth, userData, setUserData } = useAuth();
   const [selectedImage, setSelectedImage] = useState<string | null>(userData?.profileImage as unknown as string);
   const [loading, setLoading] = useState(false);
   const edit = useFormEdit();
@@ -67,6 +68,9 @@ export function MyProfile() {
       } else {
         await SignUpEditService.registerUser({ uid: userAuth?.uid, ...values });
       }
+
+      const updateUser = await GetUserService.getUser();
+      if (updateUser) setUserData(updateUser.data() as UserType);
 
       showToast("success", "Usuário atualizado com sucesso!");
       setLoading(false);
@@ -123,9 +127,9 @@ export function MyProfile() {
           </div>
 
           <FormInput type="email" control={form.control} name="email" label={t("email.name")} placeholder={t("email.placeholder")} />
-          <FormInput type="phone" control={form.control} name="phone" label={t("phone.name")} placeholder={t("phone.placeholder")} />
+          <FormInput required type="phone" control={form.control} name="phone" label={t("phone.name")} placeholder={t("phone.placeholder")} />
 
-          <DatePicker name="birthDate" label={t("date-birth.name")} placeholder={t("date-birth.placeholder")} />
+          <DatePicker required name="birthDate" label={t("date-birth.name")} placeholder={t("date-birth.placeholder")} />
 
           <FormInput type="text" control={form.control} name="address" label={t("address.name")} placeholder={t("address.placeholder")} />
 
@@ -142,9 +146,9 @@ export function MyProfile() {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="female">Feminino</SelectItem>
-                    <SelectItem value="male">Masculino</SelectItem>
-                    <SelectItem value="other">Outro</SelectItem>
+                    <SelectItem value="female">{t("gender.female")}</SelectItem>
+                    <SelectItem value="male">{t("gender.male")}</SelectItem>
+                    <SelectItem value="other">{t("gender.other")}</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />

@@ -14,6 +14,7 @@ import { GetUserService } from "@/services/GetUserService";
 interface AuthContextType {
   userAuth: User | null;
   userData: UserType | null;
+  setUserData: React.Dispatch<React.SetStateAction<UserType | null>>;
   loading: boolean;
   error: AuthError | undefined;
   handleSignIn: (email: string, password: string) => Promise<void>;
@@ -41,6 +42,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
     return () => unsubscribe(); //parar de escutar mudanças no estado de autenticação. evitar memory leaks
   }, [userAuth]);
+
+  // Carregar dados do usuário do localStorage
+  useEffect(() => {
+    const storedUserData = localStorage.getItem("userData");
+    if (storedUserData) {
+      setUserData(JSON.parse(storedUserData));
+    }
+  }, []);
+
+  // Salvar dados do usuário no localStorage
+  useEffect(() => {
+    if (userData) {
+      localStorage.setItem("userData", JSON.stringify(userData));
+    } else {
+      localStorage.removeItem("userData");
+    }
+  }, [userData]);
 
   const handleSignIn = async (email: string, password: string) => {
     try {
@@ -78,6 +96,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const logOut = async () => {
     await signOut(auth);
+
+    setUserAuth(null);
+    setUserData(null);
   };
 
   return (
@@ -85,6 +106,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       value={{
         userAuth,
         userData,
+        setUserData,
         loading,
         error,
         handleSignIn,

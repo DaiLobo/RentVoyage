@@ -22,7 +22,10 @@
   },
   "gender": {
     "name": "Gender",
-    "placeholder": "Enter your gender"
+    "placeholder": "Enter your gender",
+    "female": "Female",
+    "male": "Masculine",
+    "other": "Other"
   },
   "date-birth": {
     "name": "Date of birth",
@@ -33,5 +36,10 @@
   "message": {
     "success": "",
     "error": "Houve um erro:"
+  },
+  "validation": {
+    "name": "Name is required",
+    "max-size-img": "Max image size is 5MB.",
+    "format-accept-img": "Only .jpg, .jpeg, .png and .webp formats are supported."
   }
 }

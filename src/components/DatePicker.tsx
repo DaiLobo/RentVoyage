@@ -16,9 +16,10 @@ interface DatePickerProps {
   name: string;
   label?: string;
   placeholder?: string;
+  required?: boolean;
 }
 
-export const DatePicker: React.FC<DatePickerProps> = ({ control, name, label, placeholder }) => {
+export const DatePicker: React.FC<DatePickerProps> = ({ control, name, label, placeholder, required }) => {
   return <FormField
     control={control}
     name={name}
@@ -48,9 +49,13 @@ export const DatePicker: React.FC<DatePickerProps> = ({ control, name, label, pl
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0 bg-background" align="start">
             <Calendar
+              required={required}
               mode="single"
+              captionLayout="dropdown-buttons"
               selected={field.value}
               onSelect={field.onChange}
+              fromYear={1960}
+              toYear={2030}
               disabled={(date) =>
                 date > new Date() || date < new Date("1900-01-01")
               }

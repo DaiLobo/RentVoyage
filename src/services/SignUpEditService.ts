@@ -17,7 +17,7 @@ async function registerUser(user: UserType) {
     await addDoc(collection(db, "users"), {
       uid: user.uid,
       name: user.name,
-      lasName: user.lastName,
+      lastName: user.lastName,
       email: user.email,
       profileImage: urlImage,
       phone: user.phone,
@@ -40,7 +40,7 @@ async function editUser(userDocRef: DocumentReference, data: UserType) {
 
     await updateDoc(userDocRef, {
       name: data.name,
-      lasName: data.lastName,
+      lastName: data.lastName,
       email: data.email,
       profileImage: urlImage,
       phone: data.phone,

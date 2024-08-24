@@ -39,7 +39,8 @@ export default function Header() {
                   {/* <div className="grid grid-rows-2 justify-items-center"> */}
                   <button className="relative w-10 h-10 rounded-full overflow-hidden">
                     <Image
-                      src={typeof userData?.profileImage === "string" ? userData.profileImage : "/assets/avatar.png"}
+                      // @ts-ignore
+                      src={userData?.profileImage ? userData.profileImage : "/assets/avatar.png"}
                       alt="Profile"
                       layout="fill"
                       objectFit="cover"
