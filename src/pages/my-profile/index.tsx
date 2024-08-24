@@ -26,22 +26,21 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 export function MyProfile() {
   const { t } = useTranslation("profile");
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const { userAuth, userData } = useAuth();
+  const [selectedImage, setSelectedImage] = useState<string | null>(userData?.profileImage as unknown as string);
   const [loading, setLoading] = useState(false);
   const edit = useFormEdit();
-
-  const { userAuth } = useAuth();
 
   const form = useForm<z.infer<typeof edit>>({
     resolver: zodResolver(edit),
     defaultValues: {
-      name: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      birthDate: undefined,
-      address: "",
-      gender: ""
+      name: userData?.name,
+      lastName: userData?.lastName,
+      email: userData?.email,
+      phone: userData?.phone,
+      birthDate: undefined, //#TODO: Colocar valor e converter para date, ou o formato que for para o campo
+      address: userData?.address,
+      gender: userData?.gender
     }
   });
 
@@ -64,8 +63,7 @@ export function MyProfile() {
       const existUser = await GetUserService.getUser();
 
       if (existUser) {
-        console.log("entrou aqui")
-        await SignUpEditService.editUser(existUser, { ...values });
+        await SignUpEditService.editUser(existUser.ref, { ...values });
       } else {
         await SignUpEditService.registerUser({ uid: userAuth?.uid, ...values });
       }

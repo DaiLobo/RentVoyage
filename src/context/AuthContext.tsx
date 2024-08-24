@@ -1,10 +1,5 @@
 import {
-  AuthError,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  signInWithPopup,
-  signOut,
-  User
+  AuthError, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut, User
 } from "firebase/auth";
 import { useTranslation } from "next-i18next";
 import Router from "next/router";
@@ -12,10 +7,13 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 
 import { showToast } from "@/components/Toast";
+import { UserType } from "@/interfaces/UserType";
 import { auth } from "@/services/firebaseConfig";
+import { GetUserService } from "@/services/GetUserService";
 
 interface AuthContextType {
   userAuth: User | null;
+  userData: UserType | null;
   loading: boolean;
   error: AuthError | undefined;
   handleSignIn: (email: string, password: string) => Promise<void>;
@@ -29,6 +27,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
   const [userAuth, setUserAuth] = useState<User | null>({} as User);
+  const [userData, setUserData] = useState<UserType | null>({} as UserType);
   const { t } = useTranslation("login");
 
   const [signInWithEmailAndPassword, user, loading, error] =
@@ -50,8 +49,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       setUserAuth(result?.user || null);
 
       if (result?.user) {
+        const data = await GetUserService.getUser();
+        setUserData(data?.data() as UserType);
+        console.log('data', data)
         Router.push("/");
-        console.log(userAuth);
       } else {
         console.log(error?.message);
         showToast("error", `${t("message.error")}: ${error}`);
@@ -83,6 +84,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     <AuthContext.Provider
       value={{
         userAuth,
+        userData,
         loading,
         error,
         handleSignIn,

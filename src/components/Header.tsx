@@ -20,12 +20,13 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 export default function Header() {
   const { t } = useTranslation("common");
-  const { userAuth, logOut } = useAuth();
+  const { userAuth, userData, logOut } = useAuth();
   const router = useRouter();
 
   const isAuthPage =
     router.pathname === "/login" || router.pathname === "/register";
 
+  console.log(userData)
   return (
     <header className="bg-primary">
       <div className="relative flex flex-col h-full">
@@ -38,7 +39,7 @@ export default function Header() {
                   {/* <div className="grid grid-rows-2 justify-items-center"> */}
                   <button className="relative w-10 h-10 rounded-full overflow-hidden">
                     <Image
-                      src={userAuth?.photoURL ?? "/assets/avatar.png"}
+                      src={typeof userData?.profileImage === "string" ? userData.profileImage : "/assets/avatar.png"}
                       alt="Profile"
                       layout="fill"
                       objectFit="cover"

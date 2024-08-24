@@ -38,8 +38,6 @@ async function editUser(userDocRef: DocumentReference, data: UserType) {
   try {
     const urlImage = await authUploadService(data?.profileImage, data.uid);
 
-    console.log(userDocRef);
-
     await updateDoc(userDocRef, {
       name: data.name,
       lasName: data.lastName,
@@ -50,7 +48,6 @@ async function editUser(userDocRef: DocumentReference, data: UserType) {
       address: data.address,
       gender: data.gender
     });
-    console.log("EDITOU");
   } catch (error) {
     console.error(error);
   }

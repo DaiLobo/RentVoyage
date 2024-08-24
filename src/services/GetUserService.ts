@@ -1,20 +1,14 @@
 import {
   collection,
-  DocumentReference,
   getDocs,
   query,
+  QueryDocumentSnapshot,
   where
 } from "firebase/firestore";
 
-import { UserType } from "@/interfaces/UserType";
-
 import { auth, db } from "./firebaseConfig";
 
-export interface GetUserData extends UserType {
-  idDoc: DocumentReference;
-}
-
-async function getUser(): Promise<DocumentReference | null> {
+async function getUser(): Promise<QueryDocumentSnapshot | null> {
   const user = auth.currentUser;
 
   if (user) {
@@ -25,9 +19,8 @@ async function getUser(): Promise<DocumentReference | null> {
       const querySnapshot = await getDocs(q);
       if (!querySnapshot.empty) {
         const userDoc = querySnapshot.docs[0];
-        // const userData = userDoc.data() as GetUserData;
 
-        return userDoc.ref;
+        return userDoc;
       } else {
         return null;
       }

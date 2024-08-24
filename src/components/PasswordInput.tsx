@@ -18,11 +18,11 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
         <div
-          className="absolute inset-y-0 right-0 flex cursor-pointer items-center p-3 text-muted-foreground bg-transparent"
+          className="absolute inset-y-0 right-0 flex cursor-pointer items-center p-3 text-muted-foreground"
           onClick={() => setShowPassword(!showPassword)}
         >
           {React.createElement(showPassword ? EyeOffIcon : EyeIcon, {
-            className: "h-6 w-6 bg-transparent"
+            className: "h-6 w-6"
           })}
         </div>
       </div>
