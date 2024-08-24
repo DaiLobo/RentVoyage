@@ -10,10 +10,11 @@ interface FormInputProps<T extends FieldValues> {
   placeholder?: string;
   type?: string;
   className?: string;
+  required?: boolean;
 }
 
 // @ts-ignore
-export const FormInput: React.FC<FormInputProps<T>> = ({ control, name, label, placeholder, type, className }) => {
+export const FormInput: React.FC<FormInputProps<T>> = ({ control, name, label, placeholder, type, className, required }) => {
   return (
     <FormField
       control={control}
@@ -26,7 +27,7 @@ export const FormInput: React.FC<FormInputProps<T>> = ({ control, name, label, p
               id={name}
               type={type}
               placeholder={placeholder}
-              required
+              required={required}
               className={className}
               {...field}
             />

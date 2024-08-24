@@ -1,4 +1,9 @@
-import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  DocumentReference,
+  updateDoc
+} from "firebase/firestore";
 
 import { UserType } from "@/interfaces/UserType";
 
@@ -9,7 +14,7 @@ async function registerUser(user: UserType) {
   try {
     const urlImage = await authUploadService(user?.profileImage, user.uid);
 
-    const docRef = await addDoc(collection(db, "users"), {
+    await addDoc(collection(db, "users"), {
       uid: user.uid,
       name: user.name,
       lasName: user.lastName,
@@ -21,7 +26,6 @@ async function registerUser(user: UserType) {
       gender: user.gender,
       createdAt: new Date().toISOString()
     });
-    console.log(docRef);
 
     return true;
   } catch (error) {
@@ -30,28 +34,29 @@ async function registerUser(user: UserType) {
   }
 }
 
-async function editUser(user: UserType) {
+async function editUser(userDocRef: DocumentReference, data: UserType) {
   try {
-    const docRef = await updateDoc(doc(db, "users", user.email), {
-      uid: user.uid,
-      name: user.name,
-      lasName: user.lastName,
-      email: user.email,
-      phone: user.phone,
-      birthDate: user.birthDate,
-      address: user.address,
-      gender: user.gender,
-      createdAt: new Date().toISOString()
-    });
-    console.log("DocRef:" + docRef);
+    const urlImage = await authUploadService(data?.profileImage, data.uid);
 
-    return true;
+    console.log(userDocRef);
+
+    await updateDoc(userDocRef, {
+      name: data.name,
+      lasName: data.lastName,
+      email: data.email,
+      profileImage: urlImage,
+      phone: data.phone,
+      birthDate: data.birthDate,
+      address: data.address,
+      gender: data.gender
+    });
+    console.log("EDITOU");
   } catch (error) {
     console.error(error);
-    return false;
   }
 }
 
-export const SignUpService = {
-  registerUser
+export const SignUpEditService = {
+  registerUser,
+  editUser
 };

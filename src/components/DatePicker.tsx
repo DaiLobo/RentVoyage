@@ -23,7 +23,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({ control, name, label, pl
     control={control}
     name={name}
     render={({ field }) => (
-      <FormItem className="flex flex-col">
+      <FormItem className="flex flex-col self-center">
         <FormLabel>{label}</FormLabel>
         <Popover>
           <PopoverTrigger asChild>

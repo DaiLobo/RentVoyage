@@ -52,7 +52,6 @@ export function Register() {
       } else {
         showToast("error", `${t("message.error")} ${error?.message}`);
       }
-      console.log(user);
     } catch (erro) {
       showToast("error", `Error: ${error}`);
     }
