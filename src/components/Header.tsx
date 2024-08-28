@@ -23,10 +23,8 @@ export default function Header() {
   const { userAuth, userData, logOut } = useAuth();
   const router = useRouter();
 
-  const isAuthPage =
-    router.pathname === "/login" || router.pathname === "/register";
+  const isAuthPage = router.pathname === "/login" || router.pathname === "/register";
 
-  console.log(userData)
   return (
     <header className="bg-primary">
       <div className="relative flex flex-col h-full">

@@ -106,4 +106,8 @@
     -webkit-box-shadow: 0 0 0px 1000px var(--background-color) inset; /* Cor de fundo desejada */
     transition: background-color 5000s ease-in-out 0s;
   }
+
+  .rdp-vhidden {
+    @apply hidden;
+  }
 }

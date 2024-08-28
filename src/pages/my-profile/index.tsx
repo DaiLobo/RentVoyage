@@ -22,6 +22,7 @@ import { useAuth } from "@/context/AuthContext";
 import { UserType } from "@/interfaces/UserType";
 import { GetUserService } from "@/services/GetUserService";
 import { SignUpEditService } from "@/services/SignUpEditService";
+import { convertFirebaseDateToJSDate } from "@/utils/format";
 import { useFormEdit } from "@/validations/editUser";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -39,7 +40,7 @@ export function MyProfile() {
       lastName: userData?.lastName,
       email: userData?.email,
       phone: userData?.phone,
-      birthDate: undefined, //#TODO: Colocar valor e converter para date, ou o formato que for para o campo
+      birthDate: convertFirebaseDateToJSDate(userData?.birthDate as any),
       address: userData?.address,
       gender: userData?.gender
     }
@@ -59,6 +60,7 @@ export function MyProfile() {
   };
 
   const handleEditUser = async (values: z.infer<typeof edit>) => {
+    console.log(values.birthDate)
     setLoading(true);
     try {
       const existUser = await GetUserService.getUser();
@@ -192,3 +194,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
 });
 
 export default MyProfile;
+function convertToDateForDatePicker(birthDate: Date | undefined): Date | undefined {
+  throw new Error("Function not implemented.");
+}
+

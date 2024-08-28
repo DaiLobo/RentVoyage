@@ -69,7 +69,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       if (result?.user) {
         const data = await GetUserService.getUser();
         setUserData(data?.data() as UserType);
-        console.log('data', data)
+
         Router.push("/");
       } else {
         console.log(error?.message);
