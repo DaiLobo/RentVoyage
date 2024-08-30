@@ -1,4 +1,4 @@
-import { LogOutIcon } from "lucide-react";
+import { HotelIcon, LogOutIcon } from "lucide-react";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import Link from "next/link";
@@ -52,12 +52,18 @@ export default function Header() {
                     {t("profile")}: <br />
                     {userAuth.email}
                   </button>
+
+                  <button className="w-full flex items-center text-left bg-transparent hover:bg-accent hover:text-accent-foreground" onClick={() => router.push("/my-properties")}>
+                    Propiedades
+                    <HotelIcon size={20} className="ml-2" />
+                  </button>
+
                   <button
                     className="w-full flex items-center text-left bg-transparent hover:bg-accent hover:text-accent-foreground"
                     onClick={logOut}
                   >
                     {t("logout")}{" "}
-                    <LogOutIcon size={20} className="ml-2 bg-transparent" />
+                    <LogOutIcon size={20} className="ml-2" />
                   </button>
                 </PopoverContent>
               </Popover>
@@ -101,6 +107,23 @@ export default function Header() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
+                  <Link href="/register-property" legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={
+                        userAuth
+                          ? cn(
+                            buttonVariants({ variant: "ghost" }),
+                            "text-base"
+                          )
+                          : navigationMenuTriggerStyle()
+                      }
+                    >
+                      Anuncie sua propriedade
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
                   <Link href="/booking" legacyBehavior passHref>
                     <NavigationMenuLink
                       className={
@@ -116,6 +139,7 @@ export default function Header() {
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
+
 
                 {!userAuth && (
                   <>

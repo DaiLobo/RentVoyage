@@ -3,6 +3,7 @@ import {
 } from "firebase/auth";
 import { useTranslation } from "next-i18next";
 import Router from "next/router";
+import { setCookie } from "nookies";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 
@@ -53,8 +54,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // Salvar dados do usuário no localStorage
   useEffect(() => {
-    if (userData) {
+    if (userData?.uid) {
       localStorage.setItem("userData", JSON.stringify(userData));
+      setCookie(null, 'uid', userData.uid, { path: '/' });
     } else {
       localStorage.removeItem("userData");
     }
