@@ -34,8 +34,8 @@
   "save": "Salvar",
   "cancel": "Cancelar",
   "message": {
-    "success": "",
-    "error": "Houve um erro:"
+    "success": "Usuário atualizado com sucesso!",
+    "error": "Error when editing:"
   },
   "validation": {
     "name": "Nome é obrigatório",

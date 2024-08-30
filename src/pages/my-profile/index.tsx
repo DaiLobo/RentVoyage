@@ -74,10 +74,10 @@ export function MyProfile() {
       const updateUser = await GetUserService.getUser();
       if (updateUser) setUserData(updateUser.data() as UserType);
 
-      showToast("success", "Usuário atualizado com sucesso!");
+      showToast("success", t("message.success"));
       setLoading(false);
     } catch (error) {
-      showToast("error", "Erro ao realizar a edição");
+      showToast("error", t("message.error"));
       setLoading(false);
     }
   };
@@ -194,7 +194,3 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
 });
 
 export default MyProfile;
-function convertToDateForDatePicker(birthDate: Date | undefined): Date | undefined {
-  throw new Error("Function not implemented.");
-}
-
