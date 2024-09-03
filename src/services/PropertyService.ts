@@ -1,7 +1,9 @@
 import {
   addDoc,
   collection,
+  doc,
   DocumentReference,
+  getDoc,
   getDocs,
   query,
   updateDoc,
@@ -21,7 +23,6 @@ async function registerProperty(property: PropertyType) {
     }
 
     // const urlImage = await authUploadService(user?.profileImage, user.uid);
-    console.log("valor:", property);
     await addDoc(collection(db, "property"), {
       uidUser: user.uid,
       ...property,
@@ -35,14 +36,12 @@ async function registerProperty(property: PropertyType) {
   }
 }
 
-async function editProperty(
-  propertyDocRef: DocumentReference,
-  data: PropertyType
-) {
+async function editProperty(propertyId: string, data: PropertyType) {
   try {
     // const urlImage = await authUploadService(data?.profileImage, data.uid);
+    const propertyDocRef = await getDoc(doc(db, "property", propertyId));
 
-    await updateDoc(propertyDocRef, {
+    await updateDoc(propertyDocRef.ref, {
       name: data.name,
       address: data.address,
       propertyType: data.propertyType,
@@ -69,8 +68,25 @@ async function getProperties(uid: string): Promise<any[] | null> {
   }
 }
 
+async function getProperty(id: string): Promise<any | null> {
+  try {
+    const docRef = doc(db, "property", id);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      return docSnap.data();
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    return null;
+  }
+}
+
 export const PropertyService = {
   registerProperty,
   editProperty,
-  getProperties
+  getProperties,
+  getProperty
 };

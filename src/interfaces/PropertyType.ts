@@ -1,7 +1,5 @@
-import { PropertyTypeEnum } from "@/utils/list";
-
 export interface PropertyType {
-  uid?: string;
+  id?: string;
   uidUser?: string;
   name: string;
   address: string;

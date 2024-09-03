@@ -1,0 +1,25 @@
+import { useTranslation } from "next-i18next";
+import { useFormContext } from "react-hook-form";
+
+import { listTypeProperty } from "@/utils/list";
+
+import { FormInput } from "./FormInput";
+import { FormSelect } from "./FormSelect";
+import { FormTextArea } from "./FormTextArea";
+
+export const PropertyForm = () => {
+  const form = useFormContext();
+  const { t } = useTranslation("profile");
+
+  return (
+    <>
+      <div className="grid grid-rows-3 grid-cols-1 gap-2 w-full max-w-xl">
+        <FormInput required type="text" control={form.control} name="name" label={t("name.name")} placeholder={t("name.placeholder")} />
+        <FormInput required type="text" control={form.control} name="address" label={t("address.name")} placeholder={t("address.placeholder")} />
+        <FormSelect control={form.control} listOptions={listTypeProperty} name="propertyType" label="Tipo da propriedade" placeholder="Tipo da propriedade" />
+      </div>
+
+      <FormTextArea control={form.control} name="description" label="Descrição" placeholder="Descrição" />
+    </>
+  )
+}

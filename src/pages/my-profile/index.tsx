@@ -60,7 +60,6 @@ export function MyProfile() {
   };
 
   const handleEditUser = async (values: z.infer<typeof edit>) => {
-    console.log(values.birthDate)
     setLoading(true);
     try {
       const existUser = await GetUserService.getUser();

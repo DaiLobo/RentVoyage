@@ -8,6 +8,7 @@ import { Toaster } from "sonner";
 
 import { Footer } from "@/components/Footer";
 import Header from "@/components/Header";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/context/AuthContext";
 import { ShadcnProvider } from "@/lib/shadcn";
 
@@ -15,10 +16,12 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <ShadcnProvider>
       <AuthProvider>
-        <Header />
-        <Component {...pageProps} />
-        <Toaster position="bottom-right" />
-        <Footer />
+        <TooltipProvider>
+          <Header />
+          <Component {...pageProps} />
+          <Toaster position="bottom-right" />
+          <Footer />
+        </TooltipProvider>
       </AuthProvider>
     </ShadcnProvider>
   );

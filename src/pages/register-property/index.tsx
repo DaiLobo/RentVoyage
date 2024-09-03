@@ -35,9 +35,8 @@ export function RegisterProperty() {
     }
   });
 
-  const handleEditUser = async (values: z.infer<typeof property>) => {
+  const handleRegisterProperty = async (values: z.infer<typeof property>) => {
     try {
-      console.log(values)
       const result = await PropertyService.registerProperty(values)
 
       if (result) {
@@ -68,7 +67,7 @@ export function RegisterProperty() {
       <Form {...form}>
         <form
           className="grid grid-cols-1 gap-2 w-full max-w-xl"
-          onSubmit={form.handleSubmit(handleEditUser)}
+          onSubmit={form.handleSubmit(handleRegisterProperty)}
         >
           <div className="grid grid-rows-3 grid-cols-1 gap-2 w-full max-w-xl">
             <FormInput required type="text" control={form.control} name="name" label={t("name.name")} placeholder={t("name.placeholder")} />
