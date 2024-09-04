@@ -1,14 +1,15 @@
-import { Control, FieldValues } from 'react-hook-form';
+import { HTMLInputTypeAttribute } from "react";
+import { Control, FieldValues } from "react-hook-form";
 
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
-import { Input } from './ui/input';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
+import { Input } from "./ui/input";
 
 interface FormInputProps<T extends FieldValues> {
   control?: Control<T> | undefined;
   name: string;
   label?: string;
   placeholder?: string;
-  type?: string;
+  type?: HTMLInputTypeAttribute;
   className?: string;
   required?: boolean;
 }

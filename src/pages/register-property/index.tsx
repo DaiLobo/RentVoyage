@@ -31,6 +31,8 @@ export function RegisterProperty() {
       address: "",
       propertyType: "",
       description: "",
+      price: "",
+      capacity: ""
     }
   });
 

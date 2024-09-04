@@ -61,7 +61,7 @@ export function MyProperties({ properties }: MyPropertiesProps) {
                   {/* @ts-ignore */}
                   <TableCell>{PropertyTypeEnum[property.propertyType]}</TableCell>
                   <TableCell>{property.address}</TableCell>
-                  <TableCell className="text-right">R$250.00</TableCell>
+                  <TableCell className="text-right">R${property?.price || 0}</TableCell>
                   <TableCell className="text-right cursor-pointer">
                     <Tooltip>
                       <TooltipTrigger asChild>

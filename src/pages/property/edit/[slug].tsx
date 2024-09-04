@@ -39,6 +39,8 @@ const EditProperty: React.FC<EditPropertyProps> = ({ property, propertyId }) => 
       address: property.address,
       propertyType: property.propertyType,
       description: property.description,
+      price: property.price,
+      capacity: property.capacity
     }
   });
 

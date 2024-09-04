@@ -13,7 +13,9 @@ export const useRegisterProperty = () => {
     }),
     address: z.string(),
     propertyType: z.string(),
-    description: z.string()
+    description: z.string(),
     // images: z.array(z.instanceof(File))
+    price: z.string().optional(),
+    capacity: z.string().optional()
   });
 };

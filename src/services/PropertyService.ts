@@ -57,7 +57,9 @@ async function editProperty(propertyId: string, data: PropertyType) {
         address: data.address,
         propertyType: data.propertyType,
         description: data.description,
-        images: arrayUnion(...urlImages)
+        images: arrayUnion(...urlImages),
+        price: data.price,
+        capacity: data.capacity
       });
     }
   } catch (error) {
