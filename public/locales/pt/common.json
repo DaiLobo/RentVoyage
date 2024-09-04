@@ -2,9 +2,11 @@
   "home": "Início",
   "reserve": "Reserve já",
   "about": "Sobre",
+  "list-property": "Anuncie sua propriedade",
   "register": "Cadastre-se",
   "login": "Login",
   "profile": "Perfil",
+  "properties": "Propiedades",
   "logout": "Sair",
   "footer": {
     "call": "Ligue e faça sua reserva",

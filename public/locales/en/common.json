@@ -2,9 +2,11 @@
   "home": "Home",
   "reserve": "Book now",
   "about": "About",
+  "list-property": "List your property",
   "register": "Register",
   "login": "Login",
   "profile": "Profile",
+  "properties": "Properties",
   "logout": "Logout",
   "footer": {
     "call": "Call and make your reservation",

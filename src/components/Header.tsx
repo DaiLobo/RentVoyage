@@ -54,7 +54,7 @@ export default function Header() {
                   </button>
 
                   <button className="w-full flex items-center text-left bg-transparent hover:bg-accent hover:text-accent-foreground" onClick={() => router.push("/my-properties")}>
-                    Propiedades
+                    {t("properties")}
                     <HotelIcon size={20} className="ml-2" />
                   </button>
 
@@ -118,7 +118,7 @@ export default function Header() {
                           : navigationMenuTriggerStyle()
                       }
                     >
-                      Anuncie sua propriedade
+                      {t("list-property")}
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>

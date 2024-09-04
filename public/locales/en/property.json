@@ -1,0 +1,33 @@
+{
+  "properties": "Properties",
+  "advertise": "Advertise your property",
+  "advertise-edit": "Edit your property",
+  "dropzone": {
+    "button": "Attach Images",
+    "dragdrop": "or Drag & Drop"
+  },
+  "save": "Save",
+  "cancel": "Cancel",
+  "edit": "Edit",
+  "details": "See more details",
+  "name": {
+    "name": "Name",
+    "placeholder": "Enter your name"
+  },
+  "address": {
+    "name": "Address",
+    "placeholder": "Enter your address"
+  },
+  "price": {
+    "name": "Price",
+    "placeholder": "Enter the price of adversite"
+  },
+  "type-property": {
+    "name": "Type of property",
+    "placeholder": "Type of property"
+  },
+  "description": {
+    "name": "Description",
+    "placeholder": "Type about..."
+  }
+}

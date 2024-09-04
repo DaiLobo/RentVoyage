@@ -1,0 +1,33 @@
+{
+  "properties": "Propriedades",
+  "advertise": "Anuncie sua propriedade",
+  "advertise-edit": "Edite os dados de sua propriedade",
+  "dropzone": {
+    "button": "Anexar Imagens",
+    "dragdrop": "ou arraste e solte"
+  },
+  "edit": "Editar",
+  "details": "Ver mais detalhes",
+  "save": "Salvar",
+  "cancel": "Cancelar",
+  "name": {
+    "name": "Nome",
+    "placeholder": "Insira seu nome"
+  },
+  "address": {
+    "name": "Endereço",
+    "placeholder": "Insira seu endereço"
+  },
+  "price": {
+    "name": "Preço",
+    "placeholder": "Insira o preço da reserva"
+  },
+  "type-property": {
+    "name": "Tipo da propriedade",
+    "placeholder": "Tipo da propriedade"
+  },
+  "description": {
+    "name": "Descrição",
+    "placeholder": "Digite sobre..."
+  }
+}

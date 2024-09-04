@@ -14,5 +14,6 @@ export const useRegisterProperty = () => {
     address: z.string(),
     propertyType: z.string(),
     description: z.string()
+    // images: z.array(z.instanceof(File))
   });
 };

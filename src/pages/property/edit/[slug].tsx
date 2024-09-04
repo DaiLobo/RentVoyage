@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { DropzoneImages } from "@/components/DropzoneImages";
 import { PropertyForm } from "@/components/PropertyForm";
 import { showToast } from "@/components/Toast";
 import { Button } from "@/components/ui/button";
@@ -22,9 +23,10 @@ interface EditPropertyProps {
 }
 
 const EditProperty: React.FC<EditPropertyProps> = ({ property, propertyId }) => {
-  const { t } = useTranslation("profile");
-  const propertyEdit = useRegisterProperty();
+  const { t } = useTranslation("property");
   const [loading, setLoading] = useState(false);
+  const [files, setFiles] = useState<File[]>();
+  const propertyEdit = useRegisterProperty();
 
   if (!property) {
     return <div>Property not found.</div>;
@@ -41,10 +43,8 @@ const EditProperty: React.FC<EditPropertyProps> = ({ property, propertyId }) => 
   });
 
   const handleEditProperty = async (values: z.infer<typeof propertyEdit>) => {
-    // await PropertyService.editProperty(property.ref, values);
-
     try {
-      await PropertyService.editProperty(propertyId, values);
+      await PropertyService.editProperty(propertyId, { ...values, images: files });
       showToast("success", "Dados editados com sucesso")
 
       Router.push("/my-properties")
@@ -56,7 +56,7 @@ const EditProperty: React.FC<EditPropertyProps> = ({ property, propertyId }) => 
   return (
     <div className="pt-28 pb-40 px-2 grid grid-cols-1 justify-items-center pb-40 w-full">
       <p className="flex-1 justify-center justify-self-center text-4xl text-slate-700 pb-8 grow">
-        Edite os dados de sua propriedade
+        {t("advertise-edit")}
       </p>
       <Form {...form}>
         <form
@@ -64,6 +64,8 @@ const EditProperty: React.FC<EditPropertyProps> = ({ property, propertyId }) => 
           onSubmit={form.handleSubmit(handleEditProperty)}
         >
           <PropertyForm />
+
+          <DropzoneImages files={files} setFiles={setFiles} />
 
           <div className="grid grid-cols-2 gap-4 w-full">
             <Button
@@ -111,7 +113,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       property,
       propertyId: slug,
-      ...(await serverSideTranslations(locale ?? "pt", ["profile", "common"]))
+      ...(await serverSideTranslations(locale ?? "pt", ["property", "common"]))
     }
   };
 }

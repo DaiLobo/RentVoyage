@@ -5,5 +5,5 @@ export interface PropertyType {
   address: string;
   propertyType: string;
   description?: string;
-  images?: string[];
+  images?: File[] | null;
 }

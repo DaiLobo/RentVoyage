@@ -1,8 +1,8 @@
 import {
   addDoc,
+  arrayUnion,
   collection,
   doc,
-  DocumentReference,
   getDoc,
   getDocs,
   query,
@@ -13,6 +13,7 @@ import {
 import { PropertyType } from "@/interfaces/PropertyType";
 
 import { auth, db } from "./firebaseConfig";
+import { StorageServices } from "./RegisterUploadService";
 
 async function registerProperty(property: PropertyType) {
   try {
@@ -22,10 +23,15 @@ async function registerProperty(property: PropertyType) {
       throw new Error("User not authenticated");
     }
 
-    // const urlImage = await authUploadService(user?.profileImage, user.uid);
+    // const urlImage = await StorageServices.uploadImagesService(
+    //   property.images,
+    //   property.id
+    // );
+
     await addDoc(collection(db, "property"), {
       uidUser: user.uid,
       ...property,
+      // images: urlImage,
       createdAt: new Date().toISOString()
     });
 
@@ -38,15 +44,22 @@ async function registerProperty(property: PropertyType) {
 
 async function editProperty(propertyId: string, data: PropertyType) {
   try {
-    // const urlImage = await authUploadService(data?.profileImage, data.uid);
+    const urlImages = await StorageServices.uploadImagesService(
+      data.images,
+      propertyId
+    );
+
     const propertyDocRef = await getDoc(doc(db, "property", propertyId));
 
-    await updateDoc(propertyDocRef.ref, {
-      name: data.name,
-      address: data.address,
-      propertyType: data.propertyType,
-      description: data.description
-    });
+    if (propertyDocRef.exists()) {
+      await updateDoc(propertyDocRef.ref, {
+        name: data.name,
+        address: data.address,
+        propertyType: data.propertyType,
+        description: data.description,
+        images: arrayUnion(...urlImages)
+      });
+    }
   } catch (error) {
     console.error(error);
   }

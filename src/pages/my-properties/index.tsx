@@ -1,5 +1,6 @@
 import { FileIcon, PencilIcon, Search } from "lucide-react";
 import { GetServerSideProps } from "next";
+import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Router from "next/router";
 import { parseCookies } from "nookies";
@@ -18,6 +19,8 @@ interface MyPropertiesProps {
 }
 
 export function MyProperties({ properties }: MyPropertiesProps) {
+  const { t } = useTranslation("property");
+
   if (!properties) {
     return <div className="flex flex-row gap-1 pt-28 pb-40 px-2 justify-center pb-40 w-full">
       <FileIcon className="justify-self-end" /> Não existe propriedades cadastradas
@@ -37,16 +40,16 @@ export function MyProperties({ properties }: MyPropertiesProps) {
       <div className="grid justify-items-center pb-40 w-1/2">
 
         <p className="flex-1 justify-start justify-self-start text-4xl text-slate-700 pb-8 grow">
-          Propriedades
+          {t("properties")}
         </p>
 
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[200px]">Nome</TableHead>
-              <TableHead>Tipo</TableHead>
-              <TableHead>Endereço</TableHead>
-              <TableHead className="text-right">Preço</TableHead>
+              <TableHead className="w-[200px]">{t("name.name")}</TableHead>
+              <TableHead>{t("type-property.name")}</TableHead>
+              <TableHead>{t("address.name")}</TableHead>
+              <TableHead className="text-right">{t("price.name")}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -65,7 +68,7 @@ export function MyProperties({ properties }: MyPropertiesProps) {
                         <PencilIcon size={20} onClick={() => handleEditClick(property.id)} />
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>Editar</p>
+                        <p>{t("edit")}</p>
                       </TooltipContent>
                     </Tooltip>
                   </TableCell>
@@ -75,7 +78,7 @@ export function MyProperties({ properties }: MyPropertiesProps) {
                         <Search size={20} />
                       </TooltipTrigger>
                       <TooltipContent>
-                        Ver mais detalhes
+                        {t("details")}
                       </TooltipContent>
                     </Tooltip>
                   </TableCell>
@@ -109,7 +112,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       properties,
-      ...(await serverSideTranslations(locale ?? "pt", ["profile", "common"]))
+      ...(await serverSideTranslations(locale ?? "pt", ["property", "common"]))
     }
   };
 };
