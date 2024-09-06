@@ -2,6 +2,7 @@
   "properties": "Properties",
   "advertise": "Advertise your property",
   "advertise-edit": "Edit your property",
+  "details-property": "Details of your property",
   "dropzone": {
     "button": "Attach Images",
     "dragdrop": "or Drag & Drop"
@@ -22,6 +23,10 @@
     "name": "Price",
     "placeholder": "Enter the price of adversite"
   },
+  "capacity": {
+    "name": "Capacity",
+    "placeholder": "Number of guests"
+  },
   "type-property": {
     "name": "Type of property",
     "placeholder": "Type of property"
@@ -29,5 +34,20 @@
   "description": {
     "name": "Description",
     "placeholder": "Type about..."
-  }
+  },
+  "validation": {
+    "name": "Name is required",
+    "number": "Number invalid"
+  },
+  "message": {
+    "success": {
+      "create": "Property successfully registered!",
+      "edit": "Property successfully updated!"
+    },
+    "error": {
+      "create": "Error occurred while registering",
+      "edit": "Error occurred while updating the data!"
+    }
+  },
+  "person": "guests"
 }

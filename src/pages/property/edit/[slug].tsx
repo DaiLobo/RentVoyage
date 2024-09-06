@@ -3,7 +3,7 @@ import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Router from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -12,6 +12,7 @@ import { PropertyForm } from "@/components/PropertyForm";
 import { showToast } from "@/components/Toast";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { useAuth } from "@/context/AuthContext";
 import { PropertyType } from "@/interfaces/PropertyType";
 import { PropertyService } from "@/services/PropertyService";
 import { useRegisterProperty } from "@/validations/registerProperty";
@@ -24,6 +25,7 @@ interface EditPropertyProps {
 
 const EditProperty: React.FC<EditPropertyProps> = ({ property, propertyId }) => {
   const { t } = useTranslation("property");
+  const { userAuth } = useAuth();
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState<File[]>();
   const propertyEdit = useRegisterProperty();
@@ -45,15 +47,32 @@ const EditProperty: React.FC<EditPropertyProps> = ({ property, propertyId }) => 
   });
 
   const handleEditProperty = async (values: z.infer<typeof propertyEdit>) => {
+    setLoading(true);
+
     try {
-      await PropertyService.editProperty(propertyId, { ...values, images: files });
-      showToast("success", "Dados editados com sucesso")
+      const result = await PropertyService.editProperty(propertyId, { ...values, images: files, price: Number(values.price), capacity: Number(values.capacity) });
 
-      Router.push("/my-properties")
+      if (result) {
+        showToast("success", t("message.success.edit"));
+        Router.push("/my-properties")
+      } else {
+        showToast("error", t("message.error.edit"));
+      }
+
     } catch (error) {
-
+      console.error(error);
+      showToast("error", t("message.error.edit"));
+    } finally {
+      setLoading(false);
     }
   }
+
+  useEffect(() => {
+    if (!userAuth) {
+      Router.push("/");
+    }
+
+  }, [userAuth]);
 
   return (
     <div className="pt-28 pb-40 px-2 grid grid-cols-1 justify-items-center pb-40 w-full">

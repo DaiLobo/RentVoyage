@@ -18,7 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 export function RegisterProperty() {
   const { t } = useTranslation("property");
-  const { userAuth, userData, setUserData } = useAuth();
+  const { userAuth } = useAuth();
   const [loading, setLoading] = useState(false);
 
   // const [files, setFiles] = useState<File[]>();
@@ -29,27 +29,27 @@ export function RegisterProperty() {
     defaultValues: {
       name: "",
       address: "",
-      propertyType: "",
+      propertyType: undefined,
       description: "",
-      price: "",
-      capacity: ""
+      price: 0,
+      capacity: 0
     }
   });
 
   const handleRegisterProperty = async (values: z.infer<typeof property>) => {
     try {
-      const result = await PropertyService.registerProperty(values)
+      const result = await PropertyService.registerProperty({ ...values, price: Number(values.price), capacity: Number(values.capacity) })
 
       if (result) {
-        showToast("success", "Propriedade cadastrada com sucesso!");
+        showToast("success", t("message.success.create"));
         form.reset();
       } else {
-        showToast("error", "Erro ao realizar o cadastro");
+        showToast("error", t("message.error.create"));
       }
 
       setLoading(false);
     } catch (error) {
-      showToast("error", "Erro ao realizar o cadastro");
+      showToast("error", t("message.error.create"));
       setLoading(false);
     }
   };

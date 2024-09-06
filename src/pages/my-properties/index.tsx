@@ -4,12 +4,14 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Router from "next/router";
 import { parseCookies } from "nookies";
+import { useEffect } from "react";
 
 import { showToast } from "@/components/Toast";
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow
 } from "@/components/ui/table";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { useAuth } from "@/context/AuthContext";
 import { PropertyType } from "@/interfaces/PropertyType";
 import { PropertyService } from "@/services/PropertyService";
 import { PropertyTypeEnum } from "@/utils/list";
@@ -20,6 +22,7 @@ interface MyPropertiesProps {
 
 export function MyProperties({ properties }: MyPropertiesProps) {
   const { t } = useTranslation("property");
+  const { userAuth } = useAuth();
 
   if (!properties) {
     return <div className="flex flex-row gap-1 pt-28 pb-40 px-2 justify-center pb-40 w-full">
@@ -34,6 +37,21 @@ export function MyProperties({ properties }: MyPropertiesProps) {
       showToast("error", "Ocorreu um erro, tente novamente!");
     }
   };
+
+  const handleViewClick = (propertyId?: string) => {
+    if (propertyId) {
+      Router.push(`/property/view/${propertyId}`);
+    } else {
+      showToast("error", "Ocorreu um erro, tente novamente!");
+    }
+  };
+
+  useEffect(() => {
+    if (!userAuth) {
+      Router.push("/");
+    }
+
+  }, [userAuth]);
 
   return (
     <div className="grid pt-28 pb-40 px-2 grid grid-cols-1 justify-items-center pb-40 w-full">
@@ -75,7 +93,7 @@ export function MyProperties({ properties }: MyPropertiesProps) {
                   <TableCell className="text-right cursor-pointer">
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Search size={20} />
+                        <Search size={20} onClick={() => handleViewClick(property.id)} />
                       </TooltipTrigger>
                       <TooltipContent>
                         {t("details")}

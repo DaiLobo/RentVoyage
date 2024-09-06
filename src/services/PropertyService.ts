@@ -44,24 +44,40 @@ async function registerProperty(property: PropertyType) {
 
 async function editProperty(propertyId: string, data: PropertyType) {
   try {
+    const user = auth.currentUser;
+    if (!user) {
+      throw new Error("User is not authenticated");
+    }
+    const uid = user.uid;
+
+    const propertyDocRef = await getDoc(doc(db, "property", propertyId));
+
+    if (!propertyDocRef.exists()) {
+      throw new Error("Property does not exist");
+    }
+
+    const propertyData = propertyDocRef.data();
+
+    if (propertyData.uidUser !== uid) {
+      return false;
+    }
+
     const urlImages = await StorageServices.uploadImagesService(
       data.images,
       propertyId
     );
 
-    const propertyDocRef = await getDoc(doc(db, "property", propertyId));
+    await updateDoc(propertyDocRef.ref, {
+      name: data.name,
+      address: data.address,
+      propertyType: data.propertyType,
+      description: data.description,
+      images: arrayUnion(...urlImages),
+      price: data.price,
+      capacity: data.capacity
+    });
 
-    if (propertyDocRef.exists()) {
-      await updateDoc(propertyDocRef.ref, {
-        name: data.name,
-        address: data.address,
-        propertyType: data.propertyType,
-        description: data.description,
-        images: arrayUnion(...urlImages),
-        price: data.price,
-        capacity: data.capacity
-      });
-    }
+    return true;
   } catch (error) {
     console.error(error);
   }

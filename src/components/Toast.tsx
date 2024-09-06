@@ -18,7 +18,7 @@ const getToastStyle = (type: ToastType) => {
 
 export const showToast = (type: ToastType, message: ReactNode) => {
   toast.custom((t) => (
-    <div className={`${getToastStyle(type)} p-2 rounded-lg text-sm`}>
+    <div className={`${getToastStyle(type)} p-2 px-2 rounded-lg text-sm`}>
       {message}
     </div>
   ));

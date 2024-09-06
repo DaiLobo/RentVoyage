@@ -4,7 +4,7 @@ import { useTranslation } from "next-i18next";
 import { z } from "zod";
 
 export const useRegisterProperty = () => {
-  const { t } = useTranslation("profile");
+  const { t } = useTranslation("property");
 
   return z.object({
     name: z.string({
@@ -15,7 +15,17 @@ export const useRegisterProperty = () => {
     propertyType: z.string(),
     description: z.string(),
     // images: z.array(z.instanceof(File))
-    price: z.string().optional(),
-    capacity: z.string().optional()
+    price: z.preprocess(
+      (val) => Number(val),
+      z.number().positive({
+        message: t("validation.number")
+      })
+    ),
+    capacity: z.preprocess(
+      (val) => Number(val),
+      z.number().positive({
+        message: t("validation.number")
+      })
+    )
   });
 };

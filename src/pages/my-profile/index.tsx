@@ -86,7 +86,7 @@ export function MyProfile() {
       Router.push("/");
     }
 
-  }, [userAuth])
+  }, [userAuth]);
 
   return (
     <div className="pt-28 pb-40 px-2 grid grid-cols-1 justify-items-center pb-40 w-full">

@@ -106,7 +106,7 @@ export default function Header() {
                   </Link>
                 </NavigationMenuItem>
 
-                <NavigationMenuItem>
+                {userAuth && <NavigationMenuItem>
                   <Link href="/register-property" legacyBehavior passHref>
                     <NavigationMenuLink
                       className={
@@ -121,7 +121,7 @@ export default function Header() {
                       {t("list-property")}
                     </NavigationMenuLink>
                   </Link>
-                </NavigationMenuItem>
+                </NavigationMenuItem>}
 
                 <NavigationMenuItem>
                   <Link href="/booking" legacyBehavior passHref>

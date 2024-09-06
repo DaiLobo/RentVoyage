@@ -2,6 +2,7 @@
   "properties": "Propriedades",
   "advertise": "Anuncie sua propriedade",
   "advertise-edit": "Edite os dados de sua propriedade",
+  "details-property": "Detalhes da propriedade",
   "dropzone": {
     "button": "Anexar Imagens",
     "dragdrop": "ou arraste e solte"
@@ -22,6 +23,10 @@
     "name": "Preço",
     "placeholder": "Insira o preço da reserva"
   },
+  "capacity": {
+    "name": "Capacidade",
+    "placeholder": "Número de convidados"
+  },
   "type-property": {
     "name": "Tipo da propriedade",
     "placeholder": "Tipo da propriedade"
@@ -29,5 +34,20 @@
   "description": {
     "name": "Descrição",
     "placeholder": "Digite sobre..."
-  }
+  },
+  "validation": {
+    "name": "Nome é obrigatório",
+    "number": "Número inválido"
+  },
+  "message": {
+    "success": {
+      "crate": "Propriedade cadastrada com sucesso!",
+      "edit": "Propriedade atualizada com sucesso!"
+    },
+    "error": {
+      "crate": "Erro ao realizar o cadastro",
+      "edit": "Erro ao atualizar os dados!"
+    }
+  },
+  "person": "pessoas"
 }

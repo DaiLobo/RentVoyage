@@ -6,6 +6,6 @@ export interface PropertyType {
   propertyType: string;
   description?: string;
   images?: File[] | null;
-  price?: string;
-  capacity?: string;
+  price?: number;
+  capacity?: number;
 }
