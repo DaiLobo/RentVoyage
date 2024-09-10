@@ -123,16 +123,18 @@ export function MyProfile() {
           </div>
 
           <div className="grid grid-cols-2 gap-4 w-full">
-            <FormInput required type="text" control={form.control} name="name" label={t("name.name")} placeholder={t("name.placeholder")} />
-            <FormInput type="text" control={form.control} name="lastName" label={t("last-name.name")} placeholder={t("last-name.placeholder")} />
+            <FormInput required type="text" name="name" label={t("name.name")} placeholder={t("name.placeholder")} />
+            <FormInput type="text" name="lastName" label={t("last-name.name")} placeholder={t("last-name.placeholder")} />
           </div>
 
-          <FormInput type="email" control={form.control} name="email" label={t("email.name")} placeholder={t("email.placeholder")} />
-          <FormInput required type="phone" control={form.control} name="phone" label={t("phone.name")} placeholder={t("phone.placeholder")} />
+          <FormInput type="email" name="email" label={t("email.name")} placeholder={t("email.placeholder")} />
+          <FormInput required type="phone" name="phone" label={t("phone.name")} placeholder={t("phone.placeholder")} />
 
-          <DatePicker required name="birthDate" label={t("date-birth.name")} placeholder={t("date-birth.placeholder")} />
+          <DatePicker required disabled={(date) =>
+            date > new Date() || date < new Date("1900-01-01")
+          } name="birthDate" label={t("date-birth.name")} placeholder={t("date-birth.placeholder")} />
 
-          <FormInput type="text" control={form.control} name="address" label={t("address.name")} placeholder={t("address.placeholder")} />
+          <FormInput type="text" name="address" label={t("address.name")} placeholder={t("address.placeholder")} />
 
           <FormField
             control={form.control}
@@ -160,6 +162,7 @@ export function MyProfile() {
           <div className="grid grid-cols-2 gap-4 w-full">
             <Button
               variant="outline"
+              type="button"
               className="mt-6 hover:bg-destructive/[0.8]"
               disabled={loading}
               onClick={() => Router.back()}

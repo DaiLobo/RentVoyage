@@ -34,7 +34,7 @@ export function PropertyView({ name, description, address, images, propertyType,
       </div>
 
       {
-        images ?
+        images && images?.length > 0 ?
           <Carousel className="w-1/4">
             <CarouselContent>
               {images.map((image, index) => (
@@ -49,7 +49,7 @@ export function PropertyView({ name, description, address, images, propertyType,
           : null
       }
 
-      <div className="grid grid-row-4 w-1/2 mt-16 ml-32 gap-2">
+      <div className="grid grid-row-4 w-1/2 mt-12 ml-32 gap-2">
         <div className="flex flex-row gap-1 text-lg">
           <p className="font-semibold">{t("address.name")}:</p> {address}
         </div>
@@ -57,12 +57,12 @@ export function PropertyView({ name, description, address, images, propertyType,
           {/* @ts-ignore */}
           <p className="font-semibold">{t("description.name")}:</p> {description} - {PropertyTypeEnum[propertyType]}
         </div>
-        <div className="flex flex-row gap-1 text-lg">
+        {price ? <div className="flex flex-row gap-1 text-lg">
           <p className="font-semibold">{t("price.name")}:</p> R${price?.toFixed(2)}
-        </div>
-        <div className="flex flex-row gap-1 text-lg">
+        </div> : null}
+        {capacity && <div className="flex flex-row gap-1 text-lg">
           <p className="font-semibold">{t("capacity.name")}:</p> {capacity} {t("person")}
-        </div>
+        </div>}
       </div>
     </div>
   )
@@ -91,7 +91,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       notFound: true,
     };
   }
-  console.log(property)
+
   return {
     props: {
       ...property,

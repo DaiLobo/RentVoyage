@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
+import { Matcher } from "react-day-picker";
 import { Control, FieldValues } from "react-hook-form";
 
 import { cn } from "@/lib/utils";
@@ -16,16 +17,18 @@ interface DatePickerProps {
   label?: string;
   placeholder?: string;
   required?: boolean;
+  className?: string;
+  disabled?: Matcher | Matcher[];
 }
 
-export const DatePicker: React.FC<DatePickerProps> = ({ control, name, label, placeholder, required }) => {
+export const DatePicker: React.FC<DatePickerProps> = ({ control, name, label, placeholder, required, disabled, className }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return <FormField
     control={control}
     name={name}
     render={({ field }) => (
-      <FormItem className="flex flex-col self-center">
+      <FormItem className={`flex flex-col self-center ${className}`} >
         <FormLabel>{label}</FormLabel>
         <Popover open={isOpen} onOpenChange={setIsOpen}>
           <PopoverTrigger asChild>
@@ -58,9 +61,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({ control, name, label, pl
               onDayClick={() => setIsOpen(false)}
               fromYear={1960}
               toYear={2030}
-              disabled={(date) =>
-                date > new Date() || date < new Date("1900-01-01")
-              }
+              disabled={disabled}
               initialFocus
             />
           </PopoverContent>

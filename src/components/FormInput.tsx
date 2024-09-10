@@ -1,11 +1,10 @@
 import { HTMLInputTypeAttribute } from "react";
-import { Control, FieldValues } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { Input } from "./ui/input";
 
-interface FormInputProps<T extends FieldValues> {
-  control?: Control<T> | undefined;
+interface FormInputProps {
   name: string;
   label?: string;
   placeholder?: string;
@@ -14,11 +13,12 @@ interface FormInputProps<T extends FieldValues> {
   required?: boolean;
 }
 
-// @ts-ignore
-export const FormInput: React.FC<FormInputProps<T>> = ({ control, name, label, placeholder, type, className, required }) => {
+export const FormInput: React.FC<FormInputProps> = ({ name, label, placeholder, type, className, required }) => {
+  const form = useFormContext();
+
   return (
     <FormField
-      control={control}
+      control={form.control}
       name={name}
       render={({ field }) => (
         <FormItem className="relative">
