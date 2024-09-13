@@ -3,7 +3,7 @@ import {
 } from "firebase/auth";
 import { useTranslation } from "next-i18next";
 import Router from "next/router";
-import { setCookie } from "nookies";
+import { setCookie, destroyCookie } from "nookies";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 
@@ -101,6 +101,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
     setUserAuth(null);
     setUserData(null);
+    destroyCookie(null, "uid");
   };
 
   return (

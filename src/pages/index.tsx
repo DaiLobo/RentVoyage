@@ -2,6 +2,7 @@ import { Minus, Plus, SearchIcon } from "lucide-react";
 import { GetStaticProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import Router from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -12,21 +13,38 @@ import {
   Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
 } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { SearchValuesTypes } from "@/interfaces/SearchType";
+import { generateQueryString } from "@/utils/format";
 
 export default function Home() {
-  const { t } = useTranslation("common");
-  const form = useForm();
+  const { t } = useTranslation("home");
+  const form = useForm({
+    defaultValues: {
+      localization: "",
+      startDate: null,
+      endDate: null,
+      guests: 0,
+    }
+  });
   const [guests, setGuests] = useState(0);
   const [open, setOpen] = useState(false);
 
   function onClick(adjustment: number) {
-    setGuests(Math.max(1, Math.min(15, guests + adjustment)))
+    setGuests(Math.max(1, Math.min(15, guests + adjustment)));
   }
 
-  const handleSearch = async (values) => {
+  const handleSearch = async (values: SearchValuesTypes) => {
+    const query = generateQueryString(
+      {
+        startDate: values?.startDate,
+        endDate: values?.endDate
+      },
+      guests
+    );
 
+    Router.push(`/booking?${query}`);
   };
 
   return (
@@ -37,33 +55,33 @@ export default function Home() {
       <div className="relative h-[80vh]">
         <div className="absolute inset-0 bg-gradient-to-r from-black opacity-60" />
 
-        <div className="relative pt-28 px-24 z-10">
-          <p className="text-5xl text-white">Your Journey Begins Here</p>
-          <p className="mt-4 text-xl text-white w-2/6">Start your travel story with us—choose from a variety of unique properties around the world.</p>
+        <div className="relative pt-24 px-24 z-10">
+          <p className="text-5xl text-white">{t("title")}</p>
+          <p className="mt-4 text-xl text-white w-2/6">{t("text")}</p>
 
-          <Card className="mt-10 w-2/6">
+          <Card className="mt-10 w-2/6 shadow-lg">
             <CardHeader>
-              <CardTitle>Book your stays</CardTitle>
-              <CardDescription>Search for hotel, villas, chalet, apartment and more.</CardDescription>
+              <CardTitle>{t("form.title")}</CardTitle>
+              <CardDescription>{t("form.description")}</CardDescription>
             </CardHeader>
-            <CardContent>
-              <Form {...form}>
-                <form className="grid grid-cols-1 gap-2 w-full max-w-xl" onSubmit={form.handleSubmit(handleSearch)}>
+            <Form {...form}>
+              <form className="grid grid-cols-1 gap-2 w-full max-w-xl" onSubmit={form.handleSubmit(handleSearch)}>
+                <CardContent>
                   <div className="grid w-full items-center gap-4">
                     <div className="flex flex-col space-y-1">
-                      <FormInput name="Localização" label="Localização" />
+                      <FormInput type="text" name="localization" label={t("form.local.name")} placeholder={t("form.local.placeholder")} />
                     </div>
 
                     <div className="grid grid-cols-2 space-y-1 gap-4">
-                      <DatePicker control={form.control} disabled={(date) => date < new Date()} name="startDate" label="Check-in" placeholder="Check-in" className="w-full" />
-                      <DatePicker control={form.control} name="endDate" label="Check out" placeholder="Check out" className="w-full" />
+                      <DatePicker disabled={(date) => date < new Date()} name="startDate" label="Check-in" placeholder="Check-in" className="w-full" />
+                      <DatePicker disabled={(date) => date < new Date()} name="endDate" label="Check out" placeholder="Check out" className="w-full" />
                     </div>
 
-                    <Label className="-mb-2">Guests</Label>
+                    <Label className="-mb-2">{t("form.guests.name")}</Label>
                     <Popover open={open} onOpenChange={setOpen}>
                       <PopoverTrigger asChild>
-                        <Button variant="outline" className="font-normal justify-start border-slades text-muted-foreground hover:bg-terceary/[0.4] hover:text-black">
-                          {guests < 1 ? "Hóspedes" : `${guests} hóspedes`}
+                        <Button type="button" variant="outline" className="font-normal justify-start border-slades text-muted-foreground hover:bg-terceary/[0.4] hover:text-black">
+                          {guests < 1 ? t("form.guests.name") : `${guests} ${t("form.guests.placeholder")}`}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-full p-4 px-6" align="end">
@@ -71,6 +89,7 @@ export default function Home() {
                         <div className="flex flex-col space-y-1">
                           <div className="flex items-center justify-center space-x-2">
                             <Button
+                              type="button"
                               variant="outline"
                               size="icon"
                               className="h-6 w-6 shrink-0 rounded-full p-0"
@@ -88,6 +107,7 @@ export default function Home() {
                             <Button
                               variant="outline"
                               size="icon"
+                              type="button"
                               className="h-6 w-6 shrink-0 rounded-full p-0"
                               onClick={() => onClick(1)}
                               disabled={guests >= 15}
@@ -101,12 +121,12 @@ export default function Home() {
                       </PopoverContent>
                     </Popover>
                   </div>
-                </form>
-              </Form>
-            </CardContent>
-            <CardFooter >
-              <Button type="submit" className="gap-2 w-full">Buscar <SearchIcon /></Button>
-            </CardFooter>
+                </CardContent>
+                <CardFooter >
+                  <Button type="submit" className="gap-2 w-full">{t("form.search")} <SearchIcon /></Button>
+                </CardFooter>
+              </form>
+            </Form>
           </Card>
         </div>
 
@@ -123,7 +143,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       ...(await serverSideTranslations(locale ?? "pt", [
         "common",
         "login",
-        "register"
+        "register",
+        "home"
       ]))
     }
   };

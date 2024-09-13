@@ -1,4 +1,4 @@
-import { HotelIcon, LogOutIcon } from "lucide-react";
+import { HotelIcon, LogOutIcon, MapPinned } from "lucide-react";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,10 +10,7 @@ import { cn } from "@/lib/utils";
 import LanguageSelector from "../components/LanguageSelector";
 import { buttonVariants } from "./ui/button";
 import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
+  NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList,
   navigationMenuTriggerStyle
 } from "./ui/navigation-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
@@ -56,6 +53,11 @@ export default function Header() {
                   <button className="w-full flex items-center text-left bg-transparent hover:bg-accent hover:text-accent-foreground" onClick={() => router.push("/my-properties")}>
                     {t("properties")}
                     <HotelIcon size={20} className="ml-2" />
+                  </button>
+
+                  <button className="w-full flex items-center text-left bg-transparent hover:bg-accent hover:text-accent-foreground" onClick={() => router.push("/my-bookings")}>
+                    {t("booking")}
+                    <MapPinned size={20} className="ml-2" />
                   </button>
 
                   <button

@@ -1,0 +1,17 @@
+{
+  "title": "Your Journey Begins Here",
+  "text": "Start your travel story with us—choose from a variety of unique properties around the world.",
+  "form": {
+    "title": "Book your stays",
+    "description": "Search for hotel, villas, chalet, apartment and more.",
+    "search": "Search",
+    "local": {
+      "name": "Localization",
+      "placeholder": "Where are you going?"
+    },
+    "guests": {
+      "name": "Guests",
+      "placeholder": "guests"
+    }
+  }
+}

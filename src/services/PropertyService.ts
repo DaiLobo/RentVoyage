@@ -83,6 +83,22 @@ async function editProperty(propertyId: string, data: PropertyType) {
   }
 }
 
+async function getAllProperties(): Promise<any[] | null> {
+  const q = query(collection(db, "property"));
+
+  try {
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+      return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    return null;
+  }
+}
+
 async function getProperties(uid: string): Promise<any[] | null> {
   const q = query(collection(db, "property"), where("uidUser", "==", uid));
 
@@ -118,6 +134,7 @@ async function getProperty(id: string): Promise<any | null> {
 export const PropertyService = {
   registerProperty,
   editProperty,
+  getAllProperties,
   getProperties,
   getProperty
 };

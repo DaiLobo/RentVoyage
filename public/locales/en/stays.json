@@ -1,0 +1,20 @@
+{
+  "stays": "Stays",
+  "message": {
+    "success": "Reservation was successfully completed!",
+    "error": "Unable to complete the reservation. Please try again."
+  },
+  "not-found": "No property found",
+  "search": {
+    "title": "Search",
+    "local": {
+      "name": "Localization",
+      "placeholder": "Where are you going?"
+    },
+    "guests": {
+      "name": "Guests",
+      "placeholder": "guests"
+    },
+    "reserve": "Reserve"
+  }
+}

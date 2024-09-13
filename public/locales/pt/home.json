@@ -1,0 +1,17 @@
+{
+  "title": "Sua Jornada Começa Aqui",
+  "text": "Inicie sua história de viagem conosco — escolha entre uma variedade de propriedades únicas ao redor do mundo.",
+  "form": {
+    "title": "Reserve sua estadia",
+    "description": "Pesquise por hotel, vilas, chalés, apartamentos e mais.",
+    "search": "Pesquisar",
+    "local": {
+      "name": "Localização",
+      "placeholder": "Para onde você vai?"
+    },
+    "guests": {
+      "name": "Hóspedes",
+      "placeholder": "hóspedes"
+    }
+  }
+}

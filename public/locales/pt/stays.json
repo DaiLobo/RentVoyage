@@ -1,0 +1,20 @@
+{
+  "stays": "Hospedagens",
+  "message": {
+    "success": "A reserva foi realizada com sucesso!",
+    "error": "Não foi possível completar a reserva. Por favor, tente novamente."
+  },
+  "not-found": "Não existe propriedades cadastradas",
+  "search": {
+    "title": "Buscar",
+    "local": {
+      "name": "Localização",
+      "placeholder": "Onde estás indo?"
+    },
+    "guests": {
+      "name": "Hóspedes",
+      "placeholder": "hóspedes"
+    }
+  },
+  "reserve": "Reserve"
+}
