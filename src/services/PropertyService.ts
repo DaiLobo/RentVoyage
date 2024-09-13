@@ -11,6 +11,7 @@ import {
 } from "firebase/firestore";
 
 import { PropertyType } from "@/interfaces/PropertyType";
+import { convertFirebaseDateToJSDate } from "@/utils/format";
 
 import { auth, db } from "./firebaseConfig";
 import { StorageServices } from "./RegisterUploadService";
@@ -84,15 +85,55 @@ async function editProperty(propertyId: string, data: PropertyType) {
 }
 
 async function getAllProperties(): Promise<any[] | null> {
-  const q = query(collection(db, "property"));
+  const propertyQuery = query(collection(db, "property"));
 
   try {
-    const querySnapshot = await getDocs(q);
-    if (!querySnapshot.empty) {
-      return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    } else {
+    const propertySnapshot = await getDocs(propertyQuery);
+
+    if (propertySnapshot.empty) {
       return null;
     }
+
+    const propertiesWithReservations = await Promise.all(
+      propertySnapshot.docs.map(async (propertyDoc) => {
+        const propertyId = propertyDoc.id;
+        const propertyData = { id: propertyId, ...propertyDoc.data() };
+
+        // Busca de reservas da propriedade
+        const reservationQuery = query(
+          collection(db, "reservations"),
+          where("propertyId", "==", propertyId)
+        );
+
+        const reservationSnapShot = await getDocs(reservationQuery);
+        if (reservationSnapShot.empty) {
+          return propertyData;
+        }
+
+        const reservations = reservationSnapShot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+          startDate: `${convertFirebaseDateToJSDate(doc.data()?.startDate ?? "")}`,
+          endDate: `${convertFirebaseDateToJSDate(doc.data()?.endDate ?? "")}`
+        }));
+
+        return {
+          ...propertyData,
+          reservations
+        };
+      })
+    );
+
+    return propertiesWithReservations;
+
+    // if (!propertySnapshot.empty) {
+    //   return propertySnapshot.docs.map((doc) => ({
+    //     id: doc.id,
+    //     ...doc.data()
+    //   }));
+    // } else {
+    //   return null;
+    // }
   } catch (error) {
     console.error("Error fetching user data:", error);
     return null;

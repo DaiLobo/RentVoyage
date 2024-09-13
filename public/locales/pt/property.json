@@ -3,6 +3,7 @@
   "advertise": "Anuncie sua propriedade",
   "advertise-edit": "Edite os dados de sua propriedade",
   "details-property": "Detalhes da propriedade",
+  "not-found": "Não existe propriedades cadastradas",
   "dropzone": {
     "button": "Anexar Imagens",
     "dragdrop": "ou arraste e solte"

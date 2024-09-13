@@ -3,6 +3,7 @@
   "advertise": "Advertise your property",
   "advertise-edit": "Edit your property",
   "details-property": "Details of your property",
+  "not-found": "No property found",
   "dropzone": {
     "button": "Attach Images",
     "dragdrop": "or Drag & Drop"

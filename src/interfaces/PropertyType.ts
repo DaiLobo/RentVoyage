@@ -1,3 +1,5 @@
+import { ReservationType } from "./ReservationType";
+
 export interface PropertyType {
   id?: string;
   uidUser?: string;
@@ -8,4 +10,5 @@ export interface PropertyType {
   images?: File[] | null;
   price?: number;
   capacity?: number;
+  reservations?: ReservationType[];
 }

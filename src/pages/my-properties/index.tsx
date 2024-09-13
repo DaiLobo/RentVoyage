@@ -23,7 +23,7 @@ export function MyProperties({ properties }: MyPropertiesProps) {
 
   if (!properties) {
     return <div className="flex flex-row gap-1 pt-28 pb-40 px-2 justify-center pb-40 w-full">
-      <FileIcon className="justify-self-end" /> Não existe propriedades cadastradas
+      <FileIcon className="justify-self-end" /> {t("not-found")}
     </div>
   }
 

@@ -1,9 +1,10 @@
 import { Loader2 } from "lucide-react";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Router from "next/router";
-import { useEffect, useState } from "react";
+import { parseCookies } from "nookies";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -11,14 +12,12 @@ import { PropertyForm } from "@/components/PropertyForm";
 import { showToast } from "@/components/Toast";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { useAuth } from "@/context/AuthContext";
 import { PropertyService } from "@/services/PropertyService";
 import { useRegisterProperty } from "@/validations/registerProperty";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export function RegisterProperty() {
   const { t } = useTranslation("property");
-  const { userAuth } = useAuth();
   const [loading, setLoading] = useState(false);
 
   // const [files, setFiles] = useState<File[]>();
@@ -53,13 +52,6 @@ export function RegisterProperty() {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (!userAuth) {
-      Router.push("/");
-    }
-
-  }, [userAuth])
 
   return (
     <div className="pt-28 pb-40 px-2 grid grid-cols-1 justify-items-center pb-40 w-full">
@@ -106,11 +98,26 @@ export function RegisterProperty() {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale ?? "pt", ["property", "common"]))
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { locale } = context;
+  const cookies = parseCookies(context);
+  const uid = cookies.uid;
+
+  if (!uid) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
   }
-});
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? "pt", ["property", "common"]))
+    }
+  };
+};
 
 export default RegisterProperty;
 

@@ -71,6 +71,7 @@ export function Booking({ properties, checkin, checkout, guests }: BookingProps)
             <div className="ml-4 flex-1">
               <h2 className="text-xl font-semibold">{property.name}</h2>
               <p className="text-gray-500 mr-8">{property.address}</p>
+              <p className="text-gray-500 mr-8">Quantidade de reservas: {property?.reservations?.length ?? 0}</p>
             </div>
 
             <div className="flex flex-col gap-4">
