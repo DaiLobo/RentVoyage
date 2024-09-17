@@ -12,6 +12,7 @@ export const createReservation = async (reservation: ReservationType) => {
       throw new Error("User not authenticated");
     }
 
+    //Buscar as reservas da propriedade para validar se está disponível
     const reservationRef = await addDoc(collection(db, "reservations"), {
       ...reservation,
       userId: user.uid,

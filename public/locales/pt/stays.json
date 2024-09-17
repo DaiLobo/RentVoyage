@@ -16,5 +16,7 @@
       "placeholder": "hóspedes"
     }
   },
-  "reserve": "Reserve"
+  "reserve": "Reserve",
+  "details": "Ver mais detalhes",
+  "error-generic": "Ocorreu um erro, tente novamente!"
 }

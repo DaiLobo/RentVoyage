@@ -45,13 +45,16 @@ const parseDate = (dateString: string | null) => {
  * Generate a query to search for date intervals and number guests
  * @param values
  * @param updateGuests
+ * @param local
  * @returns
  */
 function generateQueryString(
   values: { startDate?: Date | null; endDate?: Date | null },
-  updateGuests: number
+  updateGuests: number,
+  local: string
 ) {
   const query = new URLSearchParams({
+    localization: local,
     checkin: values?.startDate ? formatDate(`${values.startDate}`) : "",
     checkout: values?.endDate ? formatDate(`${values.endDate}`) : "",
     guests: updateGuests.toString()

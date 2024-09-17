@@ -40,7 +40,8 @@ export const SearchBar: React.FC<SearchTypes> = ({ localization, startDate, endD
         startDate: values?.startDate,
         endDate: values?.endDate
       },
-      updateGuests
+      updateGuests,
+      values.localization
     );
 
     Router.push(`/booking?${query}`);

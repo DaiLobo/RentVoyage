@@ -84,6 +84,88 @@ async function editProperty(propertyId: string, data: PropertyType) {
   }
 }
 
+async function getAllPropertiesFiltered(searchParams: {
+  location?: string;
+  startDate?: Date | null;
+  endDate?: Date | null;
+  guests?: number | null;
+}): Promise<any[] | null> {
+  const { location, startDate, endDate, guests } = searchParams;
+
+  //Primeira consulta de propriedades
+  let propertyQuery = query(collection(db, "property"));
+
+  if (location) {
+    propertyQuery = query(
+      collection(db, "property"),
+      where("address", ">=", location),
+      where("address", "<=", location + "\uf8ff")
+    );
+  }
+
+  try {
+    const propertySnapshot = await getDocs(propertyQuery);
+
+    if (propertySnapshot.empty) {
+      return null;
+    }
+
+    const propertiesWithReservations = await Promise.all(
+      propertySnapshot.docs.map(async (propertyDoc) => {
+        const propertyId = propertyDoc.id;
+        const propertyData = { id: propertyId, ...propertyDoc.data() };
+
+        // @ts-ignore
+        console.log(propertyData.capacity);
+        // @ts-ignore
+        if (guests && propertyData.capacity < guests) {
+          return null;
+        }
+
+        // Busca de reservas da propriedade
+        const reservationQuery = query(
+          collection(db, "reservations"),
+          where("propertyId", "==", propertyId)
+        );
+
+        const reservationSnapShot = await getDocs(reservationQuery);
+        if (reservationSnapShot.empty) {
+          return propertyData;
+        }
+
+        const availableReservations = reservationSnapShot.docs
+          .filter((doc) => {
+            const reservation = doc.data();
+            const reservationStart = reservation?.startDate.toDate();
+            const reservationEnd = reservation?.endDate.toDate();
+
+            if (startDate && endDate) {
+              return reservationEnd < startDate || reservationStart > endDate; // Se a reserva não está dentro do intervalo
+            }
+
+            return true;
+          })
+          .map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+            startDate: `${convertFirebaseDateToJSDate(doc.data()?.startDate ?? "")}`,
+            endDate: `${convertFirebaseDateToJSDate(doc.data()?.endDate ?? "")}`
+          }));
+
+        return {
+          ...propertyData,
+          reservations: availableReservations
+        };
+      })
+    );
+
+    return propertiesWithReservations.filter((property) => property !== null);
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    return null;
+  }
+}
+
 async function getAllProperties(): Promise<any[] | null> {
   const propertyQuery = query(collection(db, "property"));
 
@@ -175,6 +257,7 @@ async function getProperty(id: string): Promise<any | null> {
 export const PropertyService = {
   registerProperty,
   editProperty,
+  getAllPropertiesFiltered,
   getAllProperties,
   getProperties,
   getProperty
