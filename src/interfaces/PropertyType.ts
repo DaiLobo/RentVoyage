@@ -9,6 +9,6 @@ export interface PropertyType {
   description?: string;
   images?: File[] | null;
   price?: number;
-  capacity?: number;
+  capacity: number;
   reservations?: ReservationType[];
 }

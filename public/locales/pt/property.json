@@ -40,6 +40,17 @@
     "name": "Nome é obrigatório",
     "number": "Número inválido"
   },
+  "search": {
+    "title": "Reserve já",
+    "local": {
+      "name": "Localização",
+      "placeholder": "Onde estás indo?"
+    },
+    "guests": {
+      "name": "Hóspedes",
+      "placeholder": "hóspedes"
+    }
+  },
   "message": {
     "success": {
       "crate": "Propriedade cadastrada com sucesso!",

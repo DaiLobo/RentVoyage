@@ -93,15 +93,15 @@ async function getAllPropertiesFiltered(searchParams: {
   const { location, startDate, endDate, guests } = searchParams;
 
   //Primeira consulta de propriedades
-  let propertyQuery = query(collection(db, "property"));
+  const propertyQuery = query(collection(db, "property"));
 
-  if (location) {
-    propertyQuery = query(
-      collection(db, "property"),
-      where("address", ">=", location),
-      where("address", "<=", location + "\uf8ff")
-    );
-  }
+  // if (location) {
+  //   propertyQuery = query(
+  //     collection(db, "property"),
+  //     where("address", ">=", location),
+  //     where("address", "<=", location + "\uf8ff")
+  //   );
+  // }
 
   try {
     const propertySnapshot = await getDocs(propertyQuery);
@@ -110,13 +110,11 @@ async function getAllPropertiesFiltered(searchParams: {
       return null;
     }
 
-    const propertiesWithReservations = await Promise.all(
+    const propertiesWithReservations: any[] | null = await Promise.all(
       propertySnapshot.docs.map(async (propertyDoc) => {
         const propertyId = propertyDoc.id;
         const propertyData = { id: propertyId, ...propertyDoc.data() };
 
-        // @ts-ignore
-        console.log(propertyData.capacity);
         // @ts-ignore
         if (guests && propertyData.capacity < guests) {
           return null;
@@ -159,7 +157,11 @@ async function getAllPropertiesFiltered(searchParams: {
       })
     );
 
-    return propertiesWithReservations.filter((property) => property !== null);
+    return propertiesWithReservations
+      .filter((property) => property !== null)
+      .filter((property) =>
+        property.address.toLowerCase().trim().includes(location)
+      );
   } catch (error) {
     console.error("Error fetching user data:", error);
     return null;

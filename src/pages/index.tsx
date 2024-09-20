@@ -41,9 +41,10 @@ export default function Home() {
         startDate: values?.startDate,
         endDate: values?.endDate
       },
-      guests
+      guests,
+      values?.localization ?? null
     );
-
+    console.log("query", query);
     Router.push(`/booking?${query}`);
   };
 

@@ -1,6 +1,7 @@
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 
 import { ReservationType } from "@/interfaces/ReservationType";
+import { convertFirebaseDateToJSDate } from "@/utils/format";
 
 import { auth, db } from "./firebaseConfig";
 
@@ -10,6 +11,10 @@ export const createReservation = async (reservation: ReservationType) => {
 
     if (!user) {
       throw new Error("User not authenticated");
+    }
+
+    if (!reservation.propertyId) {
+      throw new Error("Property not found");
     }
 
     //Buscar as reservas da propriedade para validar se está disponível
@@ -25,6 +30,28 @@ export const createReservation = async (reservation: ReservationType) => {
   }
 };
 
+async function getReservedDates(
+  propertyId: string
+): Promise<{ startDate: string; endDate: string }[]> {
+  const reservationsQuery = query(
+    collection(db, "reservations"),
+    where("propertyId", "==", propertyId)
+  );
+
+  const reservationSnapshot = await getDocs(reservationsQuery);
+
+  const reservedDates = reservationSnapshot.docs.map((doc) => {
+    const data = doc.data();
+    return {
+      startDate: `${convertFirebaseDateToJSDate(data.startDate ?? "")}`, // Converter o timestamp do Firebase para Date
+      endDate: `${convertFirebaseDateToJSDate(data.endDate ?? "")}` // Converter o timestamp do Firebase para Date
+    };
+  });
+
+  return reservedDates;
+}
+
 export const ReservationService = {
-  createReservation
+  createReservation,
+  getReservedDates
 };

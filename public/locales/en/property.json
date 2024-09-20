@@ -40,6 +40,13 @@
     "name": "Name is required",
     "number": "Number invalid"
   },
+  "search": {
+    "title": "Book now",
+    "guests": {
+      "name": "Guests",
+      "placeholder": "guests"
+    }
+  },
   "message": {
     "success": {
       "create": "Property successfully registered!",

@@ -17,7 +17,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
   const handleSeeMore = () => {
     console.log("Abrir modal ou ir para outra página");
     if (property.id) {
-      Router.push(`/property/view/${property.id}`);
+      Router.push(`/booking/view/${property.id}`);
     } else {
       showToast("error", t("error-generic"));
     }
