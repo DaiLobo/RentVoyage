@@ -1,5 +1,9 @@
+
 import { useTranslation } from "next-i18next";
-import Link from "next/link";
+
+import { FacebookLogo, GithubLogo, InstagramLogo } from "@phosphor-icons/react";
+
+import { Separator } from "./ui/separator";
 
 export const Footer = () => {
   const { t } = useTranslation("common");
@@ -8,17 +12,23 @@ export const Footer = () => {
     <footer className="bg-secondary text-white py-8 bottom-0 xs:bottom-10 w-auto">
       <div className="bg-secondary container mx-auto px-4">
         <div className=" bg-secondary flex flex-wrap justify-between">
-          <div className="w-full md:w-1/4 mb-6 md:mb-0 bg-secondary ">
-            <Link href="/booking" className="text-xl font-bold text-white">
+          <div className="w-full md:w-1/4 md:mb-0 bg-secondary">
+            <Separator className="w-20 h-1 mb-2 rounded" />
+
+            <h2 className="font-bold text-white text-xl">
               {t("footer.call")}
-            </Link>
-            <p className="mt-2 text-gray-300">(21) 3456-7890</p>
+            </h2>
+
+            <p className="mt-4 text-gray-300">(21) 3456-7890</p>
           </div>
 
           <div className="bg-secondary w-full md:w-1/4 mb-6 md:mb-0">
-            <h2 className="font-semibold mb-4 text-white text-xl">
+            <Separator className="w-20 h-1 mb-2 rounded" />
+
+            <h2 className="font-bold mb-4 text-white text-xl">
               {t("footer.contact")}
             </h2>
+
             <ul className="bg-secondary">
               <li className="mb-2 bg-secondary text-gray-300">
                 Email: contato@rentvoyage.com
@@ -26,14 +36,17 @@ export const Footer = () => {
               <li className="mb-2 bg-secondary text-gray-300">
                 {t("footer.phone")}: +55 (21) 99999-9999
               </li>
-              {/* <li className="mb-2 bg-secondary text-gray-300">{t("footer.address")}: Av. Exemplo, 123, Rio de Janeiro, RJ</li> */}
+              <li className="mb-2 bg-secondary text-gray-300">{t("footer.address")}: Av. Exemplo, 123, Rio de Janeiro, RJ</li>
             </ul>
           </div>
 
           <div className="w-full md:w-1/4 bg-secondary">
-            <h2 className="font-semibold mb-4 bg-secondary text-white text-xl">
+            <Separator className="w-20 h-1 mb-2 rounded" />
+
+            <h2 className="font-bold mb-4 bg-secondary text-white text-xl">
               {t("footer.follow")}
             </h2>
+
             <ul className="flex space-x-4 bg-secondary">
               <li className="bg-secondary">
                 <a
@@ -42,11 +55,7 @@ export const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/b/b9/2023_Facebook_icon.svg"
-                    alt="Facebook"
-                    className="w-6 h-6 bg-secondary"
-                  />
+                  <FacebookLogo size={28} color="white" />
                 </a>
               </li>
               <li>
@@ -55,24 +64,16 @@ export const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png"
-                    alt="Instagram"
-                    className="w-6 h-6 bg-secondary"
-                  />
+                  <InstagramLogo size={28} color="white" />
                 </a>
               </li>
               <li>
                 <a
-                  href="https://twitter.com"
+                  href="https://github.com/DaiLobo/RentVoyage"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img
-                    src="https://freelogopng.com/images/all_img/1657045903twitter-logo-transparent-background.png"
-                    alt="Twitter"
-                    className="w-6 h-6 bg-secondary"
-                  />
+                  <GithubLogo size={28} color="white" />
                 </a>
               </li>
             </ul>
