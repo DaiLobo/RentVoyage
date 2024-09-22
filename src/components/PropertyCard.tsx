@@ -52,7 +52,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
 
 
         <Button className="ml-auto px-8" onClick={() => handleSeeMore()}>
-          {t("details")}
+          {t("search.details")}
         </Button>
       </div>
 

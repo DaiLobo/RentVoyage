@@ -36,7 +36,7 @@ export const Footer = () => {
               <li className="mb-2 bg-secondary text-gray-300">
                 {t("footer.phone")}: +55 (21) 99999-9999
               </li>
-              <li className="mb-2 bg-secondary text-gray-300">{t("footer.address")}: Av. Exemplo, 123, Rio de Janeiro, RJ</li>
+              <li className="mb-2 bg-secondary text-gray-300">{t("footer.address")}: Av. Exemplo, 123, Pernambuco, PE</li>
             </ul>
           </div>
 

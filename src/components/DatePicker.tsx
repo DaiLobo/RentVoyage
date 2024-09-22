@@ -36,7 +36,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({ control, name, label, pl
               <Button
                 variant={"outline"}
                 className={cn(
-                  "group pl-3 text-left font-normal bg-background hover:bg-terceary/[0.4] hover:text-black border-input placeholder:text-muted-foreground",
+                  "group pl-3 text-left font-normal hover:bg-terceary/[0.4] hover:text-black border-input placeholder:text-muted-foreground",
                   !field.value && "text-muted-foreground"
                 )}
               >
@@ -51,7 +51,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({ control, name, label, pl
               </Button>
             </FormControl>
           </PopoverTrigger>
-          <PopoverContent className="w-auto p-0 bg-background" align="start">
+          <PopoverContent className="w-auto p-0" align="start">
             <Calendar
               required={required}
               mode="single"
@@ -60,7 +60,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({ control, name, label, pl
               onSelect={field.onChange}
               onDayClick={() => setIsOpen(false)}
               fromYear={1960}
-              toYear={2030}
+              toYear={2070}
               disabled={disabled}
               initialFocus
             />

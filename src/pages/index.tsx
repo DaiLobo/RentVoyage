@@ -1,4 +1,4 @@
-import { Minus, Plus, SearchIcon } from "lucide-react";
+import { Loader2, SearchIcon } from "lucide-react";
 import { GetStaticProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -6,20 +6,21 @@ import Router from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { DatePicker } from "@/components/DatePicker";
+import { DateRangePicker } from "@/components/DateRangePicker";
 import { FormInput } from "@/components/FormInput";
+import { FormNumberInput } from "@/components/FormNumberInput";
 import { Button } from "@/components/ui/button";
 import {
   Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
 } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
-import { Label } from "@/components/ui/label";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { SearchValuesTypes } from "@/interfaces/SearchType";
 import { generateQueryString } from "@/utils/format";
 
 export default function Home() {
   const { t } = useTranslation("home");
+  const [loading, setLoading] = useState(false);
+
   const form = useForm({
     defaultValues: {
       localization: "",
@@ -28,23 +29,21 @@ export default function Home() {
       guests: 0,
     }
   });
-  const [guests, setGuests] = useState(0);
-  const [open, setOpen] = useState(false);
 
-  function onClick(adjustment: number) {
-    setGuests(Math.max(1, Math.min(15, guests + adjustment)));
-  }
-
-  const handleSearch = async (values: SearchValuesTypes) => {
+  const handleSearch = (values: SearchValuesTypes) => {
+    setLoading(true);
+    console.log(values)
     const query = generateQueryString(
       {
-        startDate: values?.startDate,
-        endDate: values?.endDate
+        // startDate: values?.startDate,
+        // endDate: values?.endDate
+        startDate: values?.startEndDate.from,
+        endDate: values?.startEndDate.to
       },
-      guests,
+      values?.guests ?? null,
       values?.localization ?? null
     );
-    console.log("query", query);
+
     Router.push(`/booking?${query}`);
   };
 
@@ -60,7 +59,7 @@ export default function Home() {
           <p className="text-5xl text-white">{t("title")}</p>
           <p className="mt-4 text-xl text-white w-2/6">{t("text")}</p>
 
-          <Card className="mt-10 w-2/6 shadow-lg">
+          <Card className="mt-10 w-fit shadow-lg">
             <CardHeader>
               <CardTitle>{t("form.title")}</CardTitle>
               <CardDescription>{t("form.description")}</CardDescription>
@@ -68,17 +67,23 @@ export default function Home() {
             <Form {...form}>
               <form className="grid grid-cols-1 gap-2 w-full max-w-xl" onSubmit={form.handleSubmit(handleSearch)}>
                 <CardContent>
-                  <div className="grid w-full items-center gap-4">
+                  <div className="grid w-full items-center gap-6">
                     <div className="flex flex-col space-y-1">
                       <FormInput type="text" name="localization" label={t("form.local.name")} placeholder={t("form.local.placeholder")} />
                     </div>
 
-                    <div className="grid grid-cols-2 space-y-1 gap-4">
-                      <DatePicker disabled={(date) => date < new Date()} name="startDate" label="Check-in" placeholder="Check-in" className="w-full" />
-                      <DatePicker disabled={(date) => date < new Date()} name="endDate" label="Check out" placeholder="Check out" className="w-full" />
+                    <div className="grid grid-cols-3 gap-6 justify-items-end">
+                      <DateRangePicker name="startEndDate" disabled={(date) => date < new Date()} label={t("form.startEndDate.name")} placeholder={t("form.startEndDate.placeholder")} className="w-full col-span-2" />
+                      <FormNumberInput name="guests" label={t("form.guests.name")} />
                     </div>
 
-                    <Label className="-mb-2">{t("form.guests.name")}</Label>
+                    {/* <div className="grid grid-cols-2 space-y-1 gap-4">
+                      <DatePicker disabled={(date) => date < new Date()} name="startDate" label="Check-in" placeholder="Check-in" className="w-full" />
+                      <DatePicker disabled={(date) => date < new Date()} name="endDate" label="Check out" placeholder="Check out" className="w-full" />
+                    </div> */}
+
+
+                    {/* <Label className="-mb-2">{t("form.guests.name")}</Label>
                     <Popover open={open} onOpenChange={setOpen}>
                       <PopoverTrigger asChild>
                         <Button type="button" variant="outline" className="font-normal justify-start border-slades text-muted-foreground hover:bg-terceary/[0.4] hover:text-black">
@@ -120,11 +125,16 @@ export default function Home() {
                         </div>
 
                       </PopoverContent>
-                    </Popover>
+                    </Popover> */}
                   </div>
                 </CardContent>
                 <CardFooter >
-                  <Button type="submit" className="gap-2 w-full">{t("form.search")} <SearchIcon /></Button>
+                  <Button type="submit" className="gap-2 w-full" disabled={loading}>
+                    {loading && (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin bg-transparent" />
+                    )}
+                    {t("form.search")} <SearchIcon />
+                  </Button>
                 </CardFooter>
               </form>
             </Form>

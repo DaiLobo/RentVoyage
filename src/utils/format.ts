@@ -41,6 +41,16 @@ const parseDate = (dateString: string | null) => {
   return new Date(Number(year), Number(month) - 1, Number(day));
 };
 
+const parseTimeStampDate = (date: string) => {
+  if (!date) return "";
+
+  return new Date(date).toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric"
+  });
+};
+
 /**
  * Generate a query to search for date intervals and number guests
  * @param values
@@ -50,14 +60,14 @@ const parseDate = (dateString: string | null) => {
  */
 function generateQueryString(
   values: { startDate?: Date | null; endDate?: Date | null },
-  updateGuests: number,
+  updateGuests: number | null,
   local: string
 ) {
   const query = new URLSearchParams({
     localization: local,
     checkin: values?.startDate ? formatDate(`${values.startDate}`) : "",
     checkout: values?.endDate ? formatDate(`${values.endDate}`) : "",
-    guests: updateGuests.toString()
+    guests: updateGuests ? updateGuests.toString() : ""
   });
 
   return query.toString();
@@ -67,5 +77,6 @@ export {
   convertFirebaseDateToJSDate,
   formatDate,
   parseDate,
+  parseTimeStampDate,
   generateQueryString
 };

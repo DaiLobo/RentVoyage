@@ -3,11 +3,15 @@
   "text": "Start your travel story with us—choose from a variety of unique properties around the world.",
   "form": {
     "title": "Book your stays",
-    "description": "Search for hotel, villas, chalet, apartment and more.",
+    "description": "Search for hotels, villas, chalet, apartment and more.",
     "search": "Search",
     "local": {
       "name": "Localization",
       "placeholder": "Where are you going?"
+    },
+    "startEndDate": {
+      "name": "Check-in Date ─ Check-out Date",
+      "placeholder": "Enter your dates"
     },
     "guests": {
       "name": "Guests",

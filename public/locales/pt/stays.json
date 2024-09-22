@@ -14,9 +14,9 @@
     "guests": {
       "name": "Hóspedes",
       "placeholder": "hóspedes"
-    }
+    },
+    "details": "Ver mais detalhes"
   },
   "reserve": "Reserve",
-  "details": "Ver mais detalhes",
   "error-generic": "Ocorreu um erro, tente novamente!"
 }

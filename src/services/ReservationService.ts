@@ -51,7 +51,32 @@ async function getReservedDates(
   return reservedDates;
 }
 
+async function getReservationsByUser(userId: string): Promise<any[] | null> {
+  const q = query(
+    collection(db, "reservations"),
+    where("userId", "==", userId)
+  );
+
+  try {
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+      return querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+        startDate: `${convertFirebaseDateToJSDate(doc.data()?.startDate ?? "")}`,
+        endDate: `${convertFirebaseDateToJSDate(doc.data()?.endDate ?? "")}`
+      }));
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching reservations data:", error);
+    return null;
+  }
+}
+
 export const ReservationService = {
   createReservation,
-  getReservedDates
+  getReservedDates,
+  getReservationsByUser
 };
