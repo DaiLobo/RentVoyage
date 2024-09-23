@@ -7,11 +7,9 @@ export interface SearchTypes {
 
 export interface SearchValuesTypes {
   localization: string;
-  startDate: Date | null;
-  endDate: Date | null;
   startEndDate: {
     from: Date | null;
     to: Date | null;
   };
-  guests?: number;
+  guests: number;
 }

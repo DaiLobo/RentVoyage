@@ -36,7 +36,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({ control, name, label, pl
               <Button
                 variant={"outline"}
                 className={cn(
-                  "group pl-3 text-left font-normal hover:bg-terceary/[0.4] hover:text-black border-input placeholder:text-muted-foreground",
+                  "group pl-3 text-left font-normal bg-background hover:bg-terceary/[0.4] hover:text-black border-input placeholder:text-muted-foreground",
                   !field.value && "text-muted-foreground"
                 )}
               >

@@ -11,6 +11,10 @@
       "name": "Localization",
       "placeholder": "Where are you going?"
     },
+    "startEndDate": {
+      "name": "Check-in Date ─ Check-out Date",
+      "placeholder": "Enter your dates"
+    },
     "guests": {
       "name": "Guests",
       "placeholder": "guests"

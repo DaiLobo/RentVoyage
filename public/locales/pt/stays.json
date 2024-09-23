@@ -11,6 +11,10 @@
       "name": "Localização",
       "placeholder": "Onde estás indo?"
     },
+    "startEndDate": {
+      "name": "Data Check-in ─ Data Check-out",
+      "placeholder": "Insira as datas"
+    },
     "guests": {
       "name": "Hóspedes",
       "placeholder": "hóspedes"

@@ -21,7 +21,7 @@ export const FormInput: React.FC<FormInputProps> = ({ name, label, placeholder, 
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem className="relative">
+        <FormItem className="flex flex-col self-center">
           <FormLabel>{label}</FormLabel>
           <FormControl>
             <Input

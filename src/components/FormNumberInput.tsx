@@ -10,9 +10,10 @@ interface FormNumberInputProps {
   label?: string;
   min?: number;
   max?: number;
+  className?: string;
 }
 
-export const FormNumberInput: React.FC<FormNumberInputProps> = ({ name, label, min = 1, max = 15 }) => {
+export const FormNumberInput: React.FC<FormNumberInputProps> = ({ name, label, min = 1, max = 15, className }) => {
   const form = useFormContext();
 
   function onClick(adjustment: number) {
@@ -24,7 +25,7 @@ export const FormNumberInput: React.FC<FormNumberInputProps> = ({ name, label, m
       name={name}
       control={form.control}
       render={({ field }) => (
-        <FormItem className="flex flex-col self-center ${className}">
+        <FormItem className={`flex flex-col self-center ${className}`} >
           <FormLabel>{label}</FormLabel>
           <FormControl>
             <div className="flex items-center space-x-2">
@@ -63,7 +64,7 @@ export const FormNumberInput: React.FC<FormNumberInputProps> = ({ name, label, m
             </div>
           </FormControl>
           <FormMessage />
-        </FormItem>
+        </FormItem >
       )}
     />);
 }
