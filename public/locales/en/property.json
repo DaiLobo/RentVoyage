@@ -12,6 +12,7 @@
   "cancel": "Cancel",
   "edit": "Edit",
   "details": "See more details",
+  "reviews": "reviews",
   "name": {
     "name": "Name",
     "placeholder": "Enter your name"
@@ -40,8 +41,13 @@
     "name": "Name is required",
     "number": "Number invalid"
   },
+  "startEndDate": {
+    "name": "Check-in Date ─ Check-out Date",
+    "placeholder": "Enter your dates"
+  },
   "search": {
     "title": "Book now",
+    "total-price": "Total price: ",
     "guests": {
       "name": "Guests",
       "placeholder": "guests"

@@ -12,6 +12,7 @@
   "details": "Ver mais detalhes",
   "save": "Salvar",
   "cancel": "Cancelar",
+  "reviews": "avaliações",
   "name": {
     "name": "Nome",
     "placeholder": "Insira seu nome"
@@ -40,8 +41,13 @@
     "name": "Nome é obrigatório",
     "number": "Número inválido"
   },
+  "startEndDate": {
+    "name": "Data Check-in ─ Data Check-out",
+    "placeholder": "Insira as datas"
+  },
   "search": {
     "title": "Reserve já",
+    "total-price": "Preço total: ",
     "local": {
       "name": "Localização",
       "placeholder": "Onde estás indo?"

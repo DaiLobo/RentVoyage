@@ -23,7 +23,7 @@ export default function Header() {
   const isAuthPage = router.pathname === "/login" || router.pathname === "/register";
 
   return (
-    <header className="bg-primary">
+    <header className="bg-primary mb-12">
       <div className="relative flex flex-col h-full">
         <div className="flex self-end mt-4 p-4 space-x-4 pr-32">
           <LanguageSelector />

@@ -95,14 +95,6 @@ async function getAllPropertiesFiltered(searchParams: {
   //Primeira consulta de propriedades
   const propertyQuery = query(collection(db, "property"));
 
-  // if (location) {
-  //   propertyQuery = query(
-  //     collection(db, "property"),
-  //     where("address", ">=", location),
-  //     where("address", "<=", location + "\uf8ff")
-  //   );
-  // }
-
   try {
     const propertySnapshot = await getDocs(propertyQuery);
 

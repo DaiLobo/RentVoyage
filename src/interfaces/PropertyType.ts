@@ -8,7 +8,7 @@ export interface PropertyType {
   propertyType: string;
   description?: string;
   images?: File[] | null;
-  price?: number;
+  price: number;
   capacity: number;
   reservations?: ReservationType[];
 }

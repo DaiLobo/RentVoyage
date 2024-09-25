@@ -46,7 +46,7 @@ export const FormNumberInput: React.FC<FormNumberInputProps> = ({ name, label, m
                 {...field}
                 onChange={(e) => {
                   const newValue = Number(e.target.value);
-                  if (newValue >= 1 && newValue <= 15) {
+                  if (newValue >= 1 && newValue <= max) {
                     field.onChange(newValue);
                   }
                 }}
@@ -56,7 +56,7 @@ export const FormNumberInput: React.FC<FormNumberInputProps> = ({ name, label, m
                 variant="outline"
                 size="icon"
                 onClick={() => onClick(1)}
-                disabled={field.value >= 15}
+                disabled={field.value >= max}
                 className="h-6 w-6 shrink-0 rounded-full p-0"
               >
                 <Plus className="h-4 w-4" />

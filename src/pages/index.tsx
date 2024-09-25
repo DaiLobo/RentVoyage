@@ -34,7 +34,7 @@ export default function Home() {
 
   const handleSearch = (values: SearchValuesTypes) => {
     setLoading(true);
-    console.log(values)
+
     const query = generateQueryString(
       {
         startDate: values?.startEndDate?.from ?? null,
