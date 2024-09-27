@@ -19,8 +19,13 @@
       "name": "Hóspedes",
       "placeholder": "hóspedes"
     },
-    "details": "Ver mais detalhes"
+    "reserve": "Reserve",
+    "details": "Ver mais detalhes",
+    "error-generic": "Ocorreu um erro, tente novamente!"
   },
-  "reserve": "Reserve",
-  "error-generic": "Ocorreu um erro, tente novamente!"
+  "validation": {
+    "start-date-required": "Data inicial é obrigatória",
+    "end-date-required": "Data final é obrigatória",
+    "guests-required": "O número de hóspedes é obrigatório"
+  }
 }

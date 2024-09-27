@@ -22,5 +22,10 @@
     "reserve": "Reserve",
     "details": "See more details",
     "error-generic": "An error occurred, please try again!"
+  },
+  "validation": {
+    "start-date-required": "Start date is required",
+    "end-date-required": "End date is required",
+    "guests-required": "The number of guests is required"
   }
 }
