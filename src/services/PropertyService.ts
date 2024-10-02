@@ -160,6 +160,42 @@ async function getAllPropertiesFiltered(searchParams: {
   }
 }
 
+async function filterAvailableProperties(
+  hits: any[],
+  from: Date | null,
+  to: Date | null
+): Promise<PropertyType[]> {
+  const availableHits: any[] = [];
+
+  for (const hit of hits) {
+    const reservationQuery = query(
+      collection(db, "reservations"),
+      where("propertyId", "==", hit.objectID)
+    );
+
+    const reservationSnapShot = await getDocs(reservationQuery);
+
+    if (reservationSnapShot.empty) {
+      availableHits.push(hit);
+    } else {
+      reservationSnapShot.docs.filter((doc) => {
+        const reservation = doc.data();
+        const reservationStart = reservation?.startDate.toDate();
+        const reservationEnd = reservation?.endDate.toDate();
+
+        if (from && to) {
+          // Se a reserva não está dentro do intervalo
+          if (reservationEnd < from || reservationStart > to) {
+            availableHits.push(hit);
+          }
+        }
+      });
+    }
+  }
+
+  return availableHits;
+}
+
 async function getAllProperties(): Promise<any[] | null> {
   const propertyQuery = query(collection(db, "property"));
 
@@ -252,6 +288,7 @@ export const PropertyService = {
   registerProperty,
   editProperty,
   getAllPropertiesFiltered,
+  filterAvailableProperties,
   getAllProperties,
   getProperties,
   getProperty

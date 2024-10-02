@@ -2,10 +2,13 @@ import { HouseIcon } from "lucide-react";
 import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useState } from "react";
+import { Configure, Hits, InstantSearch } from "react-instantsearch";
 
 import { PropertyCard } from "@/components/PropertyCard";
 import { SearchBar } from "@/components/SearchBar";
 import { PropertyType } from "@/interfaces/PropertyType";
+import { ALGOLIA_INDEX_NAME, searchClient } from "@/lib/algolia";
 import { PropertyService } from "@/services/PropertyService";
 
 interface BookingProps {
@@ -21,7 +24,7 @@ export function Booking({ properties, localization, checkin, checkout, guests }:
 
   if (!properties) {
     return <div className="pt-28 px-2 grid grid-cols-1 justify-items-center w-full">
-      <SearchBar localization={localization} startDate={checkin} endDate={checkout} guests={guests} />
+      <SearchBar setFilteredHits={() => []} localization={localization} startDate={checkin} endDate={checkout} guests={guests} />
 
       <div className="flex flex-row gap-1 pt-28 pb-40 px-2 justify-center pb-40 w-full">
         <HouseIcon className="justify-self-end" /> {t("not-found")}
@@ -29,19 +32,31 @@ export function Booking({ properties, localization, checkin, checkout, guests }:
     </div>
   }
 
+  const [filteredHits, setFilteredHits] = useState<PropertyType[]>(properties);
+
   return (
     <div className="grid pt-28 pb-40 px-2 grid grid-cols-1 justify-items-center w-full">
       <div className="mb-16 justify-items-start items-baseline w-1/2">
         <p className="flex justify-start justify-self-start text-4xl text-slate-700">{t("stays")}</p>
       </div>
 
-      <SearchBar localization={localization} startDate={checkin} endDate={checkout} guests={guests} />
+      <InstantSearch searchClient={searchClient} indexName={ALGOLIA_INDEX_NAME}>
+        {/* <RangeInput attribute="price" /> */}
 
-      <div className="space-y-4 ">
-        {properties.map((property) => (
-          <PropertyCard property={property} />
-        ))}
-      </div>
+        <SearchBar setFilteredHits={setFilteredHits} localization={localization} startDate={checkin} endDate={checkout} guests={guests} />
+
+        <Configure hitsPerPage={10} />
+        {/* <div className="space-y-4 ">
+          <Hits hitComponent={PropertyCard} />
+        </div> */}
+        <div className="space-y-4 ">
+          {filteredHits.map((property) => (
+            <PropertyCard hit={property} />
+          ))}
+        </div>
+      </InstantSearch>
+
+
     </div>
   );
 }

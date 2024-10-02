@@ -1,8 +1,13 @@
+import { Dispatch, SetStateAction } from "react";
+
+import { PropertyType } from "./PropertyType";
+
 export interface SearchTypes {
   localization: string;
   startDate: string | null;
   endDate: string | null;
   guests?: number;
+  setFilteredHits: Dispatch<SetStateAction<PropertyType[]>>;
 }
 
 export interface SearchValuesTypes {

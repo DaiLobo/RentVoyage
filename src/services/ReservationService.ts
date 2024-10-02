@@ -12,18 +12,19 @@ export const createReservation = async (reservation: ReservationType) => {
     if (!user) {
       throw new Error("User not authenticated");
     }
-
     if (!reservation.propertyId) {
       throw new Error("Property not found");
     }
 
     //Buscar as reservas da propriedade para validar se está disponível
-    const reservationRef = await addDoc(collection(db, "reservations"), {
+
+    const reservationDoc = await addDoc(collection(db, "reservations"), {
       ...reservation,
       userId: user.uid,
       createdAt: new Date().toISOString()
     });
-    return reservationRef.id;
+
+    return reservationDoc.id;
   } catch (error) {
     console.error("Error creating reservation: ", error);
     throw new Error("Failed to create reservation.");

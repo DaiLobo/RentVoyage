@@ -24,7 +24,6 @@ export const PropertyForm = () => {
       </div>
 
       <FormTextArea control={form.control} name="description" label={t("description.name")} placeholder={t("description.placeholder")} />
-
     </>
   )
 }

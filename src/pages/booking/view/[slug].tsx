@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
 import { PropertyType } from "@/interfaces/PropertyType";
-import { ReservationType } from "@/interfaces/ReservationType";
+import { ReservationFormType } from "@/interfaces/ReservationType";
 import { PropertyService } from "@/services/PropertyService";
 import { ReservationService } from "@/services/ReservationService";
 import { PropertyTypeEnum } from "@/utils/list";
@@ -35,6 +35,7 @@ export function BookingDetails({ id, name, description, address, images, propert
   const { t } = useTranslation("property");
   const reservation = useFormReservation();
   const [loading, setLoading] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(price);
 
   const form = useForm({
     resolver: zodResolver(reservation),
@@ -57,34 +58,40 @@ export function BookingDetails({ id, name, description, address, images, propert
     );
   };
 
-  const handleReserve = async (values: ReservationType) => {
+  const handleReserve = async (values: ReservationFormType) => {
     setLoading(true);
 
-    try {
+    if (!id) return;
+    if (!values.startEndDate?.from || !values.startEndDate?.to) {
+      return
+    }
 
+    try {
       if (values.startEndDate?.from && values.startEndDate?.to) {
         if (isSameDay(values.startEndDate.from, values.startEndDate.to)) {
           showToast("info", t("same-dates"));
           return;
         }
+
+        setTotalPrice(differenceInCalendarDays(values?.startEndDate?.to, values?.startEndDate?.from) * price);
       }
 
       const result = await ReservationService.createReservation({
         propertyId: id,
-        ...values,
-        totalPrice: price,
         startDate: values?.startEndDate?.from,
         endDate: values?.startEndDate?.to,
+        guests: values.guests,
+        totalPrice: totalPrice
       });
 
       if (result) {
         showToast("success", "Reserva realizada com sucesso!");
       } else {
-        showToast("error", "Erro");
+        showToast("error", "Erro ao realizar a reserva");
       }
 
     } catch (error) {
-      showToast("error", "Erro");
+      showToast("error", "Erro ao realizar a reserva");
     } finally {
       setLoading(false);
     }
@@ -165,7 +172,7 @@ export function BookingDetails({ id, name, description, address, images, propert
 
                 <div className="grid grid-row-2 gap-4">
                   <div className="flex gap-12 mb-4">
-                    <DateRangePicker name="startEndDate" disabled={(date) => date < new Date()} label={t("startEndDate.name")} placeholder={t("startEndDate.placeholder")} className="w-full col-span-2" />
+                    <DateRangePicker name="startEndDate" disabled={(date) => date < new Date() || isDateDisabled(date)} label={t("startEndDate.name")} placeholder={t("startEndDate.placeholder")} className="w-full col-span-2" />
                     <FormNumberInput name="guests" label={t("search.guests.name")} max={capacity} />
                   </div>
 
@@ -174,8 +181,6 @@ export function BookingDetails({ id, name, description, address, images, propert
                     {t("search.title")}
                   </Button>
                 </div>
-
-
               </div>
             </form>
           </Form>
