@@ -2,7 +2,7 @@ import { ReservationType } from "./ReservationType";
 
 export interface PropertyType {
   id?: string;
-  objectID: string;
+  objectID?: string;
   uidUser?: string;
   name: string;
   address: string;

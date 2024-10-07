@@ -188,6 +188,8 @@ async function filterAvailableProperties(
           if (reservationEnd < from || reservationStart > to) {
             availableHits.push(hit);
           }
+        } else {
+          availableHits.push(hit);
         }
       });
     }

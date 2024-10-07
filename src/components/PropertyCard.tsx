@@ -15,10 +15,10 @@ export const PropertyCard = ({ hit }: { hit: PropertyType }) => {
   const { t } = useTranslation("stays");
 
   const handleSeeMore = () => {
-    if (hit.objectID) {
-      Router.push(`/booking/view/${hit.objectID}`);
+    if (hit.objectID || hit.id) {
+      Router.push(`/booking/view/${hit.objectID || hit.id}`);
     } else {
-      showToast("error", t("error-generic"));
+      showToast("error", t("search.error-generic"));
     }
   }
 
@@ -40,7 +40,6 @@ export const PropertyCard = ({ hit }: { hit: PropertyType }) => {
         <p className="text-gray-500 mr-8">{hit.address}</p>
         <Separator className="my-4" />
         <p className="text-gray-500 mr-8 line-clamp-2">{hit.description}</p>
-        <p className="text-gray-500 mr-8">Quantidade de reservas: {hit?.reservations?.length ?? 0}</p>
       </div>
 
       <div className="flex flex-col gap-4 ml-8 self-end">

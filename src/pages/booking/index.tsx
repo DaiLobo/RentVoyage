@@ -3,13 +3,15 @@ import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useState } from "react";
-import { Configure, Hits, InstantSearch } from "react-instantsearch";
+import { Configure, InstantSearch } from "react-instantsearch";
 
 import { PropertyCard } from "@/components/PropertyCard";
 import { SearchBar } from "@/components/SearchBar";
+import { Slider } from "@/components/ui/slider";
 import { PropertyType } from "@/interfaces/PropertyType";
 import { ALGOLIA_INDEX_NAME, searchClient } from "@/lib/algolia";
-import { PropertyService } from "@/services/PropertyService";
+
+import { getData } from "../api/search";
 
 interface BookingProps {
   properties: PropertyType[] | null;
@@ -21,6 +23,7 @@ interface BookingProps {
 
 export function Booking({ properties, localization, checkin, checkout, guests }: BookingProps) {
   const { t } = useTranslation("stays");
+  const [priceRange, setPriceRange] = useState([100, 400]);
 
   if (!properties) {
     return <div className="pt-28 px-2 grid grid-cols-1 justify-items-center w-full">
@@ -32,10 +35,10 @@ export function Booking({ properties, localization, checkin, checkout, guests }:
     </div>
   }
 
-  const [filteredHits, setFilteredHits] = useState<PropertyType[]>(properties);
+  const [filteredHits, setFilteredHits] = useState<PropertyType[]>(properties ?? []);
 
   return (
-    <div className="grid pt-28 pb-40 px-2 grid grid-cols-1 justify-items-center w-full">
+    <div className="grid pt-10 pb-40 px-2 grid grid-cols-1 justify-items-center w-full">
       <div className="mb-16 justify-items-start items-baseline w-1/2">
         <p className="flex justify-start justify-self-start text-4xl text-slate-700">{t("stays")}</p>
       </div>
@@ -45,15 +48,17 @@ export function Booking({ properties, localization, checkin, checkout, guests }:
 
         <SearchBar setFilteredHits={setFilteredHits} localization={localization} startDate={checkin} endDate={checkout} guests={guests} />
 
-        <Configure hitsPerPage={10} />
-        {/* <div className="space-y-4 ">
-          <Hits hitComponent={PropertyCard} />
-        </div> */}
+        {/* <Configure hitsPerPage={10} /> 
+            <Hits hitComponent={PropertyCard} />
+        */}
+
         <div className="space-y-4 ">
-          {filteredHits.map((property) => (
+          {filteredHits?.map((property) => (
             <PropertyCard hit={property} />
           ))}
         </div>
+
+
       </InstantSearch>
 
 
@@ -67,24 +72,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const parsedGuests = guests ? parseInt(guests as string, 10) : null;
 
+  const q = {
+    localization,
+    from: checkin,
+    to: checkout,
+    guests: Number(guests),
+  };
   // const properties = await PropertyService.getAllProperties();
 
-  // Converte as datas para objetos Date
-  const parsedCheckin = checkin ? new Date(checkin as string) : null;
-  const parsedCheckout = checkout ? new Date(checkout as string) : null;
-
-  // Chama o serviço com os parâmetros de filtro
-  const propertiesFiltered = await PropertyService.getAllPropertiesFiltered({
-    location: localization as string || "",
-    startDate: parsedCheckin,
-    endDate: parsedCheckout,
-    guests: parsedGuests
-  });
+  const availableProperties = await getData(q);
 
   return {
     props: {
-      properties: propertiesFiltered,
-      localization: localization ? localization : null,
+      properties: availableProperties,
+      localization: localization ? localization : "",
       checkin: checkin ? checkin : null,
       checkout: checkout ? checkout : null,
       guests: parsedGuests,

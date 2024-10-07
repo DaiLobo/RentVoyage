@@ -44,7 +44,7 @@ export const CarouselThumbsGallery: React.FC<CarouselThumbsGalleryProps> = ({ im
       >
         {
           images.map((image, index) => (
-            <SwiperSlide key={index} className="swiper-slide">
+            <SwiperSlide key={index} className="swiper-slide cursor-pointer">
               <img src={image} alt={`Thumbnail ${index}`} className="rounded-lg" />
             </SwiperSlide>
           )

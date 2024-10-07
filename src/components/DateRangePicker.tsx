@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { CalendarDays } from "lucide-react";
 import { Matcher } from "react-day-picker";
-import { Control, FieldValues } from "react-hook-form";
+import { Control, FieldValues, useFormContext } from "react-hook-form";
 
 import { cn } from "@/lib/utils";
 
@@ -9,6 +9,7 @@ import { Button } from "./ui/button";
 import { Calendar } from "./ui/calendar";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { X } from "@phosphor-icons/react";
 
 interface DateRangePickerProps {
   control?: Control<FieldValues> | undefined;
@@ -20,6 +21,8 @@ interface DateRangePickerProps {
 }
 
 export const DateRangePicker: React.FC<DateRangePickerProps> = ({ control, name, label, placeholder, disabled, className }) => {
+  const form = useFormContext();
+
   return <FormField
     control={control}
     name={name}
@@ -44,9 +47,30 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({ control, name,
                       <>
                         {format(field.value.from, "LLL dd, y")} -{" "}
                         {format(field.value.to, "LLL dd, y")}
+                        <span className="flex flex-1 justify-end z-10"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            form.setValue(name, {
+                              from: null, to: null
+                            })
+                          }}>
+                          <X color="gray" />
+                        </span>
                       </>
                     ) : (
-                      format(field.value.from, "LLL dd, y")
+                      <>
+                        {format(field.value.from, "LLL dd, y")}
+                        <span className="flex flex-1 justify-end z-10"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            form.setValue(name, {
+                              from: null, to: null
+                            })
+                          }}>
+                          <X color="gray" />
+                        </span>
+                      </>
+
                     )
                   ) : (
                     <span className="text-muted-foreground">{placeholder}</span>
