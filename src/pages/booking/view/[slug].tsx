@@ -4,7 +4,7 @@ import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Router from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { CarouselThumbsGallery } from "@/components/CarouselThumbsGallery";
@@ -72,15 +72,13 @@ export function BookingDetails({ id, name, description, address, images, propert
           showToast("info", t("same-dates"));
           return;
         }
-
-        setTotalPrice(differenceInCalendarDays(values?.startEndDate?.to, values?.startEndDate?.from) * price);
       }
 
       const result = await ReservationService.createReservation({
         propertyId: id,
         startDate: values?.startEndDate?.from,
         endDate: values?.startEndDate?.to,
-        guests: values.guests,
+        guests: values?.guests,
         totalPrice: totalPrice
       });
 
@@ -96,6 +94,12 @@ export function BookingDetails({ id, name, description, address, images, propert
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    if (dates.to && dates.from) {
+      setTotalPrice(differenceInCalendarDays(dates.to, dates.from) * price);
+    }
+  }, [dates])
 
   return (
     <div className="grid grid-row-2 bg-[#FFFAFA] pt-10 pb-40 px-32 justify-items-start w-full">

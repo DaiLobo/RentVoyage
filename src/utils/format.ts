@@ -17,7 +17,7 @@ const convertFirebaseDateToJSDate = (
  * @param dateString
  * @returns string
  */
-function formatDate(dateString: string | null): string {
+function formatDate(dateString: string | Date | null): string {
   if (!dateString) {
     return "";
   }
@@ -61,13 +61,17 @@ const parseTimeStampDate = (date: string) => {
 function generateQueryString(
   values: { startDate?: Date | null; endDate?: Date | null },
   updateGuests: number | null,
-  local: string
+  local: string,
+  minPrice?: number | null,
+  maxPrice?: number | null
 ) {
   const query = new URLSearchParams({
     localization: local,
     checkin: values?.startDate ? formatDate(`${values.startDate}`) : "",
     checkout: values?.endDate ? formatDate(`${values.endDate}`) : "",
-    guests: updateGuests ? updateGuests.toString() : ""
+    guests: updateGuests ? updateGuests.toString() : "",
+    minPrice: minPrice ? minPrice.toString() : "",
+    maxPrice: maxPrice ? maxPrice.toString() : ""
   });
 
   return query.toString();

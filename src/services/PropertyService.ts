@@ -12,6 +12,7 @@ import {
 
 import { PropertyType } from "@/interfaces/PropertyType";
 import { convertFirebaseDateToJSDate } from "@/utils/format";
+import { filterUniqueByObjectId } from "@/utils/hits";
 
 import { auth, db } from "./firebaseConfig";
 import { StorageServices } from "./RegisterUploadService";
@@ -162,9 +163,10 @@ async function getAllPropertiesFiltered(searchParams: {
 
 async function filterAvailableProperties(
   hits: any[],
-  from: Date | null,
-  to: Date | null
+  from: Date | string | null,
+  to: Date | string | null
 ): Promise<PropertyType[]> {
+  const checkedProperties = new Set();
   const availableHits: any[] = [];
 
   for (const hit of hits) {
@@ -175,27 +177,35 @@ async function filterAvailableProperties(
 
     const reservationSnapShot = await getDocs(reservationQuery);
 
-    if (reservationSnapShot.empty) {
-      availableHits.push(hit);
-    } else {
-      reservationSnapShot.docs.filter((doc) => {
+    let isAvailable = true;
+
+    if (!reservationSnapShot.empty) {
+      // Verifica todas as reservas dessa propriedade
+      for (const doc of reservationSnapShot.docs) {
         const reservation = doc.data();
         const reservationStart = reservation?.startDate.toDate();
         const reservationEnd = reservation?.endDate.toDate();
 
         if (from && to) {
-          // Se a reserva não está dentro do intervalo
-          if (reservationEnd < from || reservationStart > to) {
-            availableHits.push(hit);
+          const searchStart = new Date(from);
+          const searchEnd = new Date(to);
+
+          // Se qualquer reserva conflitar com o intervalo, marca como indisponível
+          if (reservationStart <= searchEnd && reservationEnd >= searchStart) {
+            isAvailable = false;
+            break; // Se uma reserva estiver indisponível, já pode parar a verificação
           }
-        } else {
-          availableHits.push(hit);
         }
-      });
+      }
+    }
+
+    // Adiciona a propriedade à lista apenas se ela estiver disponível
+    if (isAvailable) {
+      availableHits.push(hit);
     }
   }
 
-  return availableHits;
+  return filterUniqueByObjectId(availableHits);
 }
 
 async function getAllProperties(): Promise<any[] | null> {

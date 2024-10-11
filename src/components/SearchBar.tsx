@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { SearchTypes, SearchValuesTypes } from "@/interfaces/SearchType";
-import { generateQueryString, parseDate } from "@/utils/format";
+import { formatDate, generateQueryString, parseDate } from "@/utils/format";
 
 import { DateRangePicker } from "./DateRangePicker";
 import { FormInput } from "./FormInput";
@@ -13,7 +13,7 @@ import { FormNumberInput } from "./FormNumberInput";
 import { Button } from "./ui/button";
 import { Form } from "./ui/form";
 
-export const SearchBar: React.FC<SearchTypes> = ({ localization, startDate, endDate, guests, setFilteredHits }) => {
+export const SearchBar: React.FC<SearchTypes> = ({ localization, startDate, endDate, guests = 0, minPrice = 10, maxPrice = 1000, setFilteredHits }) => {
   const { t } = useTranslation("stays");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -35,7 +35,7 @@ export const SearchBar: React.FC<SearchTypes> = ({ localization, startDate, endD
     const { from, to } = startEndDate;
 
     try {
-      const response = await fetch(`/api/search?localization=${localization}&from=${from !== null ? from : ""}&to=${to !== null ? to : ""}&guests=${guests}`);
+      const response = await fetch(`/api/search?localization=${localization}&from=${from !== null ? formatDate(from) : ""}&to=${to !== null ? formatDate(to) : ""}&guests=${guests}&minPrice=${minPrice}&maxPrice=${maxPrice}`);
 
       if (!response.ok) {
         throw new Error('Failed to fetch data');
@@ -55,7 +55,9 @@ export const SearchBar: React.FC<SearchTypes> = ({ localization, startDate, endD
           endDate: to ?? null
         },
         values?.guests ?? null,
-        values?.localization ?? null
+        values?.localization ?? null,
+        minPrice,
+        maxPrice
       );
 
       Router.push(`/booking?${query}`);

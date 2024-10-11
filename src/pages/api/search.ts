@@ -9,17 +9,26 @@ export async function getData(query: {
   from?: string | string[] | undefined;
   to?: string | string[] | undefined;
   guests?: number | null;
+  minPrice?: number | null;
+  maxPrice?: number | null;
 }) {
-  const { localization, guests, from, to } = query;
+  const { localization, guests, from, to, minPrice, maxPrice } = query;
 
-  if (!localization && !guests && !from && !to) {
+  if (!localization && !guests && !from && !to && minPrice && maxPrice) {
     const jsonData = await PropertyService.getAllProperties();
     return jsonData;
   }
   try {
+    let filters = `capacity >= ${guests || 0}`;
+
+    if (minPrice !== null && minPrice !== undefined && maxPrice) {
+      console.log(minPrice, "entrando no console");
+      filters += ` AND price >= ${minPrice || 10} AND price <= ${maxPrice || 1000}`;
+    }
+
     const algoliaQuery = {
       query: localization as string,
-      filters: `capacity >= ${guests}`
+      filters
     };
 
     const searchResults = await searchClient.searchSingleIndex({

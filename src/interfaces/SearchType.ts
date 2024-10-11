@@ -7,6 +7,8 @@ export interface SearchTypes {
   startDate: string | null;
   endDate: string | null;
   guests?: number;
+  minPrice?: number;
+  maxPrice?: number;
   setFilteredHits: Dispatch<SetStateAction<PropertyType[]>>;
 }
 
