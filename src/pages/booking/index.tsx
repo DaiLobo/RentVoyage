@@ -3,7 +3,7 @@ import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Router from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { InstantSearch } from "react-instantsearch";
 
 import { PropertyCard } from "@/components/PropertyCard";
@@ -30,6 +30,7 @@ export function Booking({ properties, localization, checkin, checkout, guests, m
   const { t } = useTranslation("stays");
   const [priceRange, setPriceRange] = useState([10, 1000]);
   const debouncedPriceRange = useDebounce(priceRange, 500);
+  const hasMounted = useRef(false);
 
   if (!properties) {
     return <div className="pt-28 px-2 grid grid-cols-1 justify-items-center w-full">
@@ -44,38 +45,44 @@ export function Booking({ properties, localization, checkin, checkout, guests, m
   const [filteredHits, setFilteredHits] = useState<PropertyType[]>(properties ?? []);
 
   useEffect(() => {
-    const fetchProperties = async () => {
-      try {
-        const response = await fetch(`/api/search?localization=${localization}&from=${checkin !== null ? checkin : ""}&to=${checkout !== null ? checkout : ""}&guests=${guests}&minPrice=${priceRange[0]}&maxPrice=${priceRange[1]}`);
+    if (!hasMounted.current) {
+      hasMounted.current = true;
+    } else {
 
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
+      const fetchProperties = async () => {
+        try {
+          const response = await fetch(`/api/search?localization=${localization}&from=${checkin !== null ? checkin : ""}&to=${checkout !== null ? checkout : ""}&guests=${guests}&minPrice=${priceRange[0]}&maxPrice=${priceRange[1]}`);
+
+          if (!response.ok) {
+            throw new Error('Failed to fetch data');
+          }
+
+          const { hits } = await response.json();
+          setFilteredHits(hits);
+
+        } catch (error) {
+          console.error('Erro ao buscar propriedades:', error);
+        } finally {
+          const query = generateQueryString(
+            {
+              startDate: parseDate(checkin),
+              endDate: parseDate(checkout)
+            },
+            guests ?? null,
+            localization ?? null,
+            priceRange[0],
+            priceRange[1]
+          );
+
+          Router.push(`/booking?${query}`);
         }
 
-        const { hits } = await response.json();
-        setFilteredHits(hits);
+      };
 
-      } catch (error) {
-        console.error('Erro ao buscar propriedades:', error);
-      } finally {
-        const query = generateQueryString(
-          {
-            startDate: parseDate(checkin),
-            endDate: parseDate(checkout)
-          },
-          guests ?? null,
-          localization ?? null,
-          priceRange[0],
-          priceRange[1]
-        );
-
-        Router.push(`/booking?${query}`);
+      if (debouncedPriceRange.length) {
+        fetchProperties();
       }
 
-    };
-
-    if (debouncedPriceRange.length) {
-      fetchProperties();
     }
   }, [debouncedPriceRange])
 
@@ -153,11 +160,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       properties: availableProperties,
       localization: localization ? localization : "",
-      checkin: checkin ? checkin : null,
-      checkout: checkout ? checkout : null,
-      guests: guests ? guests : null,
-      minPrice: minPrice ? minPrice : null,
-      maxPrice: maxPrice ? maxPrice : null,
+      checkin: checkin ? checkin : "",
+      checkout: checkout ? checkout : "",
+      guests: guests ? guests : 0,
+      minPrice: minPrice ? minPrice : 0,
+      maxPrice: maxPrice ? maxPrice : 1000,
       ...(await serverSideTranslations(locale ?? "pt", ["stays", "common"]))
     }
   };
