@@ -6,6 +6,7 @@ import Router from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { InstantSearch } from "react-instantsearch";
 
+import MapComponent from "@/components/MapComponent";
 import { PropertyCard } from "@/components/PropertyCard";
 import { SearchBar } from "@/components/SearchBar";
 import { Slider } from "@/components/ui/slider";
@@ -95,7 +96,7 @@ export function Booking({ properties, localization, checkin, checkout, guests, m
       <div className="grid grid-cols-3 gap-16">
         <div className="col-span-1">
           <div className="mb-16 bg-white px-4">
-            MAPA
+            <MapComponent />
           </div>
 
           <div className="bg-white p-4">
