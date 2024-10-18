@@ -40,6 +40,7 @@
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
     "react-firebase-hooks": "^5.1.1",
+    "react-geocode": "^1.0.0-alpha.1",
     "react-hook-form": "^7.52.2",
     "react-i18next": "^15.0.1",
     "react-instantsearch": "^7.13.2",

@@ -3530,6 +3530,11 @@ react-firebase-hooks@^5.1.1:
   resolved "https://registry.npmjs.org/react-firebase-hooks/-/react-firebase-hooks-5.1.1.tgz"
   integrity sha512-y2UpWs82xs+39q5Rc/wq316ca52QsC0n8m801V+yM4IC4hbfOL4yQPVSh7w+ydstdvjN9F+lvs1WrO2VYxpmdA==
 
+react-geocode@^1.0.0-alpha.1:
+  version "1.0.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/react-geocode/-/react-geocode-1.0.0-alpha.1.tgz#d0d3f63e8220a1feb116e719f4d9c32ea4bbedc4"
+  integrity sha512-MCzPh2uVabBHUYv/nrkEfkiAdRsVgcgyKKMEKFoB9il/zVltCjy3k81TGRIIxE246hmbZgIJeV5afIJ739EBhA==
+
 react-hook-form@^7.52.2:
   version "7.52.2"
   resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.52.2.tgz"

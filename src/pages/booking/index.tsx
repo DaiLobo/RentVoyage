@@ -96,7 +96,7 @@ export function Booking({ properties, localization, checkin, checkout, guests, m
       <div className="grid grid-cols-3 gap-16">
         <div className="col-span-1">
           <div className="mb-16 bg-white px-4">
-            <MapComponent />
+            <MapComponent properties={filteredHits} />
           </div>
 
           <div className="bg-white p-4">
