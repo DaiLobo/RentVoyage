@@ -16,8 +16,8 @@
       "placeholder": "Insira as datas"
     },
     "guests": {
-      "name": "Hóspedes",
-      "placeholder": "hóspedes"
+      "name": "Hóspede(s)",
+      "placeholder": "hóspede(s)"
     },
     "reserve": "Reserve",
     "details": "Ver mais detalhes",
@@ -27,5 +27,9 @@
     "start-date-required": "Data inicial é obrigatória",
     "end-date-required": "Data final é obrigatória",
     "guests-required": "O número de hóspedes é obrigatório"
+  },
+  "map": {
+    "price": "Preço",
+    "capacity": "Capacidade"
   }
 }

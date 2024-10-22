@@ -27,5 +27,9 @@
     "start-date-required": "Start date is required",
     "end-date-required": "End date is required",
     "guests-required": "The number of guests is required"
+  },
+  "map": {
+    "price": "Price",
+    "capacity": "Capacity"
   }
 }

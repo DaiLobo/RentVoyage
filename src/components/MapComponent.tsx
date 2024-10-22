@@ -1,3 +1,4 @@
+import { useTranslation } from "next-i18next";
 import Router from "next/router";
 import { useEffect, useState } from "react";
 
@@ -12,6 +13,7 @@ interface MapComponentProps {
 }
 
 const MapComponent: React.FC<MapComponentProps> = ({ properties, position = { lat: -8.0476, lng: -34.8770 }, zoom = 10 }) => {
+  const { t } = useTranslation("stays");
   const [selectedLocation, setSelectedLocation] = useState<number | null>(null);
   const [locations, setLocations] = useState<{
     lat: number,
@@ -58,12 +60,13 @@ const MapComponent: React.FC<MapComponentProps> = ({ properties, position = { la
               maxWidth={200}
               headerDisabled
               position={{ lat: locations[selectedLocation].lat, lng: locations[selectedLocation].lng }}
+              pixelOffset={[0, -40]}
             >
-              <div>
-                <h4>{locations[selectedLocation].property.name}</h4>
-                <p>{locations[selectedLocation].property.description}</p>
-                <p>Preço: R$ {locations[selectedLocation].property.price}</p>
-                <p>Capacidade: {locations[selectedLocation].property.capacity} pessoas</p>
+              <div className="grid gap-1">
+                <h4 className="text-sm font-semibold">{locations[selectedLocation].property.name}</h4>
+                <p className="text-gray-600 line-clamp-3">{locations[selectedLocation].property.description}</p>
+                <p className="text-[#1FC162]"><span className="font-medium">{t("map.price")}:</span> R$ {locations[selectedLocation].property.price.toFixed(2)}</p>
+                <p><span className="font-medium">{t("map.capacity")}: </span> {locations[selectedLocation].property.capacity} {t("search.guests.placeholder")}</p>
               </div>
             </InfoWindow>
           )

@@ -95,11 +95,11 @@ export function Booking({ properties, localization, checkin, checkout, guests, m
 
       <div className="grid grid-cols-3 gap-16">
         <div className="col-span-1">
-          <div className="mb-16 bg-white px-4">
+          <div className="mb-16 bg-white px-4 rounded">
             <MapComponent properties={filteredHits} />
           </div>
 
-          <div className="bg-white p-4">
+          <div className="bg-white p-4 rounded">
             <p className="text-gray-700 font-medium line-clamp-2 mb-12">Preço por diária</p>
 
             <Slider
@@ -110,7 +110,7 @@ export function Booking({ properties, localization, checkin, checkout, guests, m
               step={10}
             />
 
-            <p className="text-gray-600 line-clamp-2 mt-8">R${priceRange[0]} - R${priceRange[1]}</p>
+            <p className="text-gray-600 line-clamp-2 mt-8">R${priceRange[0].toFixed(2)} - R${priceRange[1].toFixed(2)}</p>
           </div>
         </div>
 
