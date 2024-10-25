@@ -73,7 +73,6 @@ export function MyProperties({ properties }: MyPropertiesProps) {
               (
                 <TableRow key={property.id}>
                   <TableCell className="font-medium">{property.name}</TableCell>
-                  {/* @ts-ignore */}
                   <TableCell>{PropertyTypeEnum[property.propertyType]}</TableCell>
                   <TableCell>{property.address}</TableCell>
                   <TableCell className="text-right">R${property?.price || 0}</TableCell>

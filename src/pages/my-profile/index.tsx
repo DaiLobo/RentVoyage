@@ -66,7 +66,10 @@ export function MyProfile() {
 
       if (existUser) {
         await SignUpEditService.editUser(existUser.ref, { ...values });
-      } else {
+      } else if (userAuth?.providerData[0].providerId === "google.com") {
+        await SignUpEditService.updateUserProviderGoogle(values.name);
+      }
+      else {
         await SignUpEditService.registerUser({ uid: userAuth?.uid, ...values });
       }
 

@@ -1,11 +1,17 @@
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 
 import { ReservationType } from "@/interfaces/ReservationType";
-import { convertFirebaseDateToJSDate } from "@/utils/format";
+import { generateEmailHTML } from "@/templates/emailConfirmationTemplate";
+import { convertFirebaseDateToJSDate, formatDateToBR } from "@/utils/format";
+import { PropertyTypeEnum } from "@/utils/list";
 
 import { auth, db } from "./firebaseConfig";
 
-export const createReservation = async (reservation: ReservationType) => {
+export const createReservation = async (
+  reservation: ReservationType,
+  propertyName: string,
+  propertyType: keyof typeof PropertyTypeEnum
+) => {
   try {
     const user = auth.currentUser;
 
@@ -22,6 +28,26 @@ export const createReservation = async (reservation: ReservationType) => {
       ...reservation,
       userId: user.uid,
       createdAt: new Date().toISOString()
+    });
+
+    //Criação do documento para disparo de e-mail
+    const emailHtml = generateEmailHTML({
+      userName: user.displayName || "",
+      reservationCode: reservationDoc.id,
+      accommodationName: propertyName, // ajuste conforme necessário
+      checkInDate: formatDateToBR(reservation.startDate),
+      checkOutDate: formatDateToBR(reservation.endDate),
+      totalPrice: reservation.totalPrice.toFixed(2).toString(),
+      reservationLink: `https://rent-voyage/my-bookings/${reservationDoc.id}`,
+      propertyType
+    });
+
+    await addDoc(collection(db, "mail"), {
+      to: user.email,
+      message: {
+        subject: `RentVoyage | Confirmação de reserva em ${propertyName}`,
+        html: emailHtml
+      }
     });
 
     return reservationDoc.id;

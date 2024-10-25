@@ -51,6 +51,16 @@ const parseTimeStampDate = (date: string) => {
   });
 };
 
+const formatDateToBR = (date: Date) => {
+  if (!date) return "";
+
+  return new Intl.DateTimeFormat("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric"
+  }).format(date);
+};
+
 /**
  * Generate a query to search for date intervals and number guests
  * @param values
@@ -82,5 +92,6 @@ export {
   formatDate,
   parseDate,
   parseTimeStampDate,
+  formatDateToBR,
   generateQueryString
 };

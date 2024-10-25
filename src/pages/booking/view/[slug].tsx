@@ -80,7 +80,7 @@ export function BookingDetails({ id, name, description, address, images, propert
         endDate: values?.startEndDate?.to,
         guests: values?.guests,
         totalPrice: totalPrice
-      });
+      }, name, propertyType);
 
       if (result) {
         showToast("success", "Reserva realizada com sucesso!");

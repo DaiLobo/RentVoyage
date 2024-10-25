@@ -1,3 +1,5 @@
+import { PropertyTypeEnum } from "@/utils/list";
+
 import { ReservationType } from "./ReservationType";
 
 export interface PropertyType {
@@ -6,7 +8,7 @@ export interface PropertyType {
   uidUser?: string;
   name: string;
   address: string;
-  propertyType: string;
+  propertyType: keyof typeof PropertyTypeEnum;
   description?: string;
   images?: File[] | null;
   price: number;

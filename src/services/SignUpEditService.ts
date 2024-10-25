@@ -1,3 +1,4 @@
+import { getAuth, updateProfile } from "firebase/auth";
 import {
   addDoc,
   collection,
@@ -53,7 +54,26 @@ async function editUser(userDocRef: DocumentReference, data: UserType) {
   }
 }
 
+const updateUserProviderGoogle = async (newDisplayName: string) => {
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+  if (user) {
+    try {
+      await updateProfile(user, {
+        displayName: newDisplayName
+      });
+      console.log("Nome de exibição atualizado com sucesso!");
+    } catch (error) {
+      console.error("Erro ao atualizar o nome de exibição: ", error);
+    }
+  } else {
+    console.error("Usuário não autenticado.");
+  }
+};
+
 export const SignUpEditService = {
   registerUser,
-  editUser
+  editUser,
+  updateUserProviderGoogle
 };
