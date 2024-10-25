@@ -10,14 +10,14 @@ import {
   where
 } from "firebase/firestore";
 
-import { PropertyType } from "@/interfaces/PropertyType";
+import { PropertyFormType, PropertyType } from "@/interfaces/PropertyType";
 import { convertFirebaseDateToJSDate } from "@/utils/format";
 import { filterUniqueByObjectId } from "@/utils/hits";
 
 import { auth, db } from "./firebaseConfig";
 import { StorageServices } from "./RegisterUploadService";
 
-async function registerProperty(property: PropertyType) {
+async function registerProperty(property: PropertyFormType) {
   try {
     const user = auth.currentUser;
 
@@ -44,7 +44,7 @@ async function registerProperty(property: PropertyType) {
   }
 }
 
-async function editProperty(propertyId: string, data: PropertyType) {
+async function editProperty(propertyId: string, data: PropertyFormType) {
   try {
     const user = auth.currentUser;
     if (!user) {

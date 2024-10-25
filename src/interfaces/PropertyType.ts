@@ -15,3 +15,15 @@ export interface PropertyType {
   capacity: number;
   reservations?: ReservationType[];
 }
+
+export interface PropertyFormType {
+  uidUser?: string;
+  name: string;
+  address: string;
+  propertyType: string;
+  description?: string;
+  images?: File[] | null;
+  price: number;
+  capacity: number;
+  reservations?: ReservationType[];
+}
