@@ -41,7 +41,7 @@ const parseDate = (dateString: string | null) => {
   return new Date(Number(year), Number(month) - 1, Number(day));
 };
 
-const parseTimeStampDate = (date: string) => {
+const parseTimeStampDate = (date: string | Date) => {
   if (!date) return "";
 
   return new Date(date).toLocaleDateString("pt-BR", {

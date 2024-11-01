@@ -11,6 +11,7 @@
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
     "@phosphor-icons/react": "^2.1.7",
+    "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-navigation-menu": "^1.2.0",
     "@radix-ui/react-popover": "^1.1.1",
@@ -27,7 +28,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.2.0",
-    "firebase": "^10.12.5",
+    "firebase": "^11.0.1",
     "i18next": "^23.12.2",
     "instantsearch.css": "^8.5.1",
     "lucide-react": "^0.424.0",
@@ -51,6 +52,7 @@
     "swiper": "^11.1.14",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
+    "vaul": "^1.1.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {

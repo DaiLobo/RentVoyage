@@ -89,6 +89,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     signInWithPopup(auth, provider)
       .then((result) => {
         console.log(result);
+        setUserData(result?.user as unknown as UserType);
+
         Router.push("/");
       })
       .catch((error) => {
