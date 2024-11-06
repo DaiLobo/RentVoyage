@@ -75,7 +75,7 @@ export function Booking({ properties, localization, checkin, checkout, guests, m
             priceRange[1]
           );
 
-          Router.push(`/booking?${query}`);
+          Router.push(`/booking?${query}`, undefined, { scroll: false });
         }
 
       };
@@ -100,7 +100,22 @@ export function Booking({ properties, localization, checkin, checkout, guests, m
           </div>
 
           <div className="bg-white p-4 rounded">
-            <p className="text-gray-700 font-medium line-clamp-2 mb-12">{t("filter-price")}</p>
+            <p className="text-gray-700 font-medium line-clamp-2 mb-2">{t("filter-price")}</p>
+
+            <div className="flex items-center mb-8 gap-4">
+              <div className="border-2 border-slate-500 rounded-md p-2 w-1/2">
+                <p className="text-sm font-bold">Min.</p>
+                <p className="text-gray-600 line-clamp-2">
+                  R${priceRange[0].toFixed(2)}
+                </p>
+              </div>
+              <div className="border-2 border-slate-500 rounded-md p-2 w-1/2">
+                <p className="text-sm font-bold">Max.</p>
+                <p className="text-gray-600 line-clamp-2">
+                  R${`${priceRange[1].toFixed(2)} ${priceRange[1] === 1000 ? " +" : ""}`}
+                </p>
+              </div>
+            </div>
 
             <Slider
               value={priceRange}
@@ -110,7 +125,6 @@ export function Booking({ properties, localization, checkin, checkout, guests, m
               step={10}
             />
 
-            <p className="text-gray-600 line-clamp-2 mt-8">R${priceRange[0].toFixed(2)} - R${priceRange[1].toFixed(2)}</p>
           </div>
         </div>
 
