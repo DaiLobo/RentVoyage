@@ -11,9 +11,10 @@ interface FormInputProps {
   type?: HTMLInputTypeAttribute;
   className?: string;
   required?: boolean;
+  disabled?: boolean;
 }
 
-export const FormInput: React.FC<FormInputProps> = ({ name, label, placeholder, type, className, required }) => {
+export const FormInput: React.FC<FormInputProps> = ({ name, label, placeholder, type, className, required, disabled }) => {
   const form = useFormContext();
 
   return (
@@ -29,6 +30,7 @@ export const FormInput: React.FC<FormInputProps> = ({ name, label, placeholder, 
               type={type}
               placeholder={placeholder}
               required={required}
+              disabled={disabled}
               className={className}
               {...field}
             />

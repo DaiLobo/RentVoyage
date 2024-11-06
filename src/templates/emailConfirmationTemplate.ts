@@ -227,10 +227,10 @@ export const generateEmailHTML = ({
                                                                       Obrigado pela sua reserva!
                                                                     </p>
                                                                     <p style="margin: 0; margin-bottom: 16px;">
-                                                                       Sua reserva foi confirmada com sucesso em nossa plataforma.
-                                                                       Agradecemos por escolher nosso serviço e estamos ansiosos para recebê-lo. 
-                                                                       Nossa equipe está preparando tudo para garantir que sua estadia seja confortável e agradável. 
-                                                                       Enquanto isso, você pode revisar os detalhes da propriedade e as instruções de check-in para que sua chegada seja tranquila e sem complicações!
+                                                                      Sua reserva foi confirmada com sucesso em nossa plataforma.
+                                                                      Agradecemos por escolher nosso serviço e estamos ansiosos para recebê-lo. 
+                                                                      Nossa equipe está preparando tudo para garantir que sua estadia seja confortável e agradável. 
+                                                                      Enquanto isso, você pode revisar os detalhes da propriedade e as instruções de check-in para que sua chegada seja tranquila e sem complicações!
                                                                     </p>
                                                                 </div>
                                                             </td>
@@ -376,8 +376,8 @@ export const generateEmailHTML = ({
                                                                                 <p><strong>Acomodação:</strong> ${PropertyTypeEnum[propertyType]}</p>
                                                                                 <p><strong>Data de Chegada:</strong> ${checkInDate}</p>
                                                                                 <p><strong>Data de Partida:</strong> ${checkOutDate}</p>
-                                                                                <p><strong>Check-in:</strong> 14:00</p>
-                                                                                <p><strong>Check-out:</strong> 11:00</p>
+                                                                                <p><strong>Check-in:</strong> 14h</p>
+                                                                                <p><strong>Check-out:</strong> 11h</p>
                                                                                 <p><strong>Valor total:</strong> R$${totalPrice}
                                                                                 </p>
                                                                             </div>
@@ -416,9 +416,11 @@ export const generateEmailHTML = ({
                                                             </td>
                                                         </tr>
                                                     </table>
+                                                    
                                                     <div class="spacer_block block-10"
                                                         style="height:30px;line-height:30px;font-size:1px;">&#8202;
                                                     </div>
+                                                    
                                                     <table class="social_block block-11" width="100%" border="0"
                                                         cellpadding="10" cellspacing="0" role="presentation"
                                                         style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">

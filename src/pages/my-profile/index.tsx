@@ -29,17 +29,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 export function MyProfile() {
   const { t } = useTranslation("profile");
   const { userAuth, userData, setUserData } = useAuth();
-  const [selectedImage, setSelectedImage] = useState<string | null>(userData?.profileImage as unknown as string);
+  const [selectedImage, setSelectedImage] = useState<string | null>((userData?.profileImage || userAuth?.photoURL) as unknown as string);
   const [loading, setLoading] = useState(false);
   const edit = useFormEdit();
 
   const form = useForm<z.infer<typeof edit>>({
     resolver: zodResolver(edit),
     defaultValues: {
-      name: userData?.name,
+      name: (userData?.name || userAuth?.displayName) ?? "",
       lastName: userData?.lastName,
-      email: userData?.email,
-      phone: userData?.phone,
+      email: (userData?.email || userAuth?.email) ?? "",
+      phone: (userData?.phone || userAuth?.phoneNumber) ?? "",
       birthDate: convertFirebaseDateToJSDate(userData?.birthDate as any),
       address: userData?.address,
       gender: userData?.gender
@@ -66,12 +66,13 @@ export function MyProfile() {
 
       if (existUser) {
         await SignUpEditService.editUser(existUser.ref, { ...values });
-      } else if (userAuth?.providerData[0].providerId === "google.com") {
-        await SignUpEditService.updateUserProviderGoogle(values.name);
-      }
-      else {
+      } else {
         await SignUpEditService.registerUser({ uid: userAuth?.uid, ...values });
       }
+      /*  else if (userAuth?.providerData[0].providerId === "google.com") {
+          await SignUpEditService.registerUser({ uid: userAuth?.uid, ...values });
+          await SignUpEditService.updateUserProviderGoogle(values.name);
+       } */
 
       const updateUser = await GetUserService.getUser();
       if (updateUser) setUserData(updateUser.data() as UserType);
@@ -130,7 +131,7 @@ export function MyProfile() {
             <FormInput type="text" name="lastName" label={t("last-name.name")} placeholder={t("last-name.placeholder")} />
           </div>
 
-          <FormInput type="email" name="email" label={t("email.name")} placeholder={t("email.placeholder")} />
+          <FormInput disabled type="email" name="email" label={t("email.name")} placeholder={t("email.placeholder")} />
           <FormInput required type="phone" name="phone" label={t("phone.name")} placeholder={t("phone.placeholder")} />
 
           <DatePicker required disabled={(date) =>

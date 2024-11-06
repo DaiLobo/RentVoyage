@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/table";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { PropertyType } from "@/interfaces/PropertyType";
+import { GetUserService } from "@/services/GetUserService";
 import { PropertyService } from "@/services/PropertyService";
 import { PropertyTypeEnum } from "@/utils/list";
 import { ChatCircleText } from "@phosphor-icons/react";
@@ -26,6 +27,8 @@ export function MyProperties({ properties }: MyPropertiesProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [chatId, setChatId] = useState("");
 
+  const [guestId, setGuestId] = useState<string | null>(null);
+  console.log(properties)
   if (!properties) {
     return <div className="flex flex-row gap-1 pt-28 pb-40 px-2 justify-center pb-40 w-full">
       <FileIcon className="justify-self-end" /> {t("not-found")}
@@ -40,9 +43,13 @@ export function MyProperties({ properties }: MyPropertiesProps) {
     }
   };
 
-  const handleViewChat = (reservationId: string) => {
+  // CHAT
+  const handleViewChat = async (reservationId: string, userId: string) => {
     setIsOpen(true);
     setChatId(reservationId ?? "");
+
+    const user = await GetUserService.getUserById(userId);
+    setGuestId(user?.name ?? "Convidado");
   }
 
   const handleViewClick = (propertyId?: string) => {
@@ -100,10 +107,10 @@ export function MyProperties({ properties }: MyPropertiesProps) {
                   <TableCell className="text-right cursor-pointer">
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <ChatCircleText size={22} onClick={() => handleViewChat("yh3PBMqSm7WYBvgYWSDD")} />
+                        <ChatCircleText size={22} onClick={() => handleViewChat("yh3PBMqSm7WYBvgYWSDD", "0rBaEfJ41wgqPmigMTqQ")} />
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>{"Ver chat"}</p> {/* TRADUÇÃO AQUI ------------------ */}
+                        <p>{t("chat")}</p>
                       </TooltipContent>
                     </Tooltip>
                   </TableCell>
@@ -126,7 +133,13 @@ export function MyProperties({ properties }: MyPropertiesProps) {
       </div>
 
       <div className="absolute bottom-0 right-0">
-        <ChatComponent isOpen={isOpen} setIsOpen={setIsOpen} chatId={chatId} />
+        <ChatComponent
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          chatId={chatId}
+          guestId={"KKAi7lmMOHWlqYaTwaZLWAmYusP2"}
+          guestName={guestId}
+        />
       </div>
     </div>
   )
@@ -152,7 +165,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       properties,
-      ...(await serverSideTranslations(locale ?? "pt", ["property", "common"]))
+      ...(await serverSideTranslations(locale ?? "pt", ["property", "chat", "common"]))
     }
   };
 };

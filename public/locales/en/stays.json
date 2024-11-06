@@ -28,6 +28,7 @@
     "end-date-required": "End date is required",
     "guests-required": "The number of guests is required"
   },
+  "filter-price": "Price per nights",
   "map": {
     "price": "Price",
     "capacity": "Capacity"

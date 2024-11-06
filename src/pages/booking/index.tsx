@@ -100,7 +100,7 @@ export function Booking({ properties, localization, checkin, checkout, guests, m
           </div>
 
           <div className="bg-white p-4 rounded">
-            <p className="text-gray-700 font-medium line-clamp-2 mb-12">Preço por diária</p>
+            <p className="text-gray-700 font-medium line-clamp-2 mb-12">{t("filter-price")}</p>
 
             <Slider
               value={priceRange}

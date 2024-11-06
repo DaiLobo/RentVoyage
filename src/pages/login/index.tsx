@@ -96,12 +96,6 @@ export function Login() {
                     className="mt-1"
                     {...field}
                   />
-                  {/* <Input id="password"
-                                        type="password"
-                                        placeholder={t("password.placeholder")}
-                                        className="mt-1"
-                                        {...field}
-                                    /> */}
                 </FormControl>
                 <FormMessage className="absolute text-red-500 text-xs left-0" />
               </FormItem>

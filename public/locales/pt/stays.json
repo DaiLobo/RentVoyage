@@ -28,6 +28,7 @@
     "end-date-required": "Data final é obrigatória",
     "guests-required": "O número de hóspedes é obrigatório"
   },
+  "filter-price": "Preço por diária",
   "map": {
     "price": "Preço",
     "capacity": "Capacidade"

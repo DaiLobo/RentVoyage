@@ -1,15 +1,16 @@
 import {
   AuthError, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut, User
 } from "firebase/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useTranslation } from "next-i18next";
 import Router from "next/router";
-import { setCookie, destroyCookie } from "nookies";
+import { destroyCookie, setCookie } from "nookies";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 
 import { showToast } from "@/components/Toast";
 import { UserType } from "@/interfaces/UserType";
-import { auth } from "@/services/firebaseConfig";
+import { auth, db } from "@/services/firebaseConfig";
 import { GetUserService } from "@/services/GetUserService";
 
 interface AuthContextType {
@@ -86,7 +87,37 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
 
-    signInWithPopup(auth, provider)
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      if (user) {
+        const userData = {
+          name: user.displayName || "",
+          email: user.email || "",
+          profileImage: user.photoURL || "",
+          phone: user.phoneNumber || "",
+          uid: user.uid,
+        };
+
+        const userRef = doc(db, "users", user.uid);
+        const docSnapshot = await getDoc(userRef);
+
+        if (!docSnapshot.exists()) {
+          await setDoc(userRef, userData);
+          console.log("Documento de usuário criado no Firestore.");
+        } else {
+          console.log("Documento de usuário já existe no Firestore.");
+        }
+
+        setUserData(user as unknown as UserType);
+        Router.push("/");
+      }
+    } catch (error) {
+      console.error("Erro ao fazer login com o Google:", error);
+    }
+
+    /* signInWithPopup(auth, provider)
       .then((result) => {
         console.log(result);
         setUserData(result?.user as unknown as UserType);
@@ -95,7 +126,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       })
       .catch((error) => {
         console.log(error);
-      });
+      }); */
   };
 
   const logOut = async () => {

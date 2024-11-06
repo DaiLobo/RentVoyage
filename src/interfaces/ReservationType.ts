@@ -1,6 +1,6 @@
 export interface ReservationType {
   id: string;
-  userId?: string;
+  userId: string;
   propertyId: string;
   startDate: Date;
   endDate: Date;
