@@ -35,7 +35,7 @@ export default function Header() {
                   <button className="relative w-10 h-10 rounded-full overflow-hidden">
                     <Image
                       // @ts-ignore
-                      src={(userData.profileImage || userAuth.photoURL) ?? "/assets/avatar.png"}
+                      src={(userData?.profileImage || userAuth?.photoURL) ?? "/assets/avatar.png"}
                       alt="Profile"
                       layout="fill"
                       objectFit="cover"
@@ -45,7 +45,7 @@ export default function Header() {
                 <PopoverContent className="w-50 p-2 flex flex-col items-start gap-2">
                   <button className="w-full text-pretty text-left bg-transparent hover:bg-accent hover:text-accent-foreground" onClick={() => router.push("/my-profile")}>
                     {t("profile")}:{" "}
-                    {userData?.name || userAuth.displayName}
+                    {(userData?.name || userAuth?.displayName) ?? "Convidado"}
                   </button>
 
                   <button className="w-full flex items-center text-left bg-transparent hover:bg-accent hover:text-accent-foreground" onClick={() => router.push("/my-properties")}>

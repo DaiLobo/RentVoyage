@@ -1,3 +1,4 @@
+import { doc, setDoc } from "firebase/firestore";
 import { Loader2 } from "lucide-react";
 import { GetStaticProps } from "next";
 import { useTranslation } from "next-i18next";
@@ -12,15 +13,10 @@ import { PasswordInput } from "@/components/PasswordInput";
 import { showToast } from "@/components/Toast";
 import { Button } from "@/components/ui/button";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
+  Form, FormControl, FormField, FormItem, FormLabel, FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { auth } from "@/services/firebaseConfig";
+import { auth, db } from "@/services/firebaseConfig";
 import { useFormRegister } from "@/validations/signUp";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -46,12 +42,26 @@ export function Register() {
         values.password
       );
 
-      if (result) {
+      if (result?.user) {
+        const userData = {
+          email: values.email,
+          uid: result.user.uid
+        };
+
+        await setDoc(doc(db, "users", result.user.uid), userData);
+
         showToast("success", t("message.success"));
         Router.push("/");
       } else {
         showToast("error", `${t("message.error")} ${error?.message}`);
       }
+
+      /* if (result) {
+        showToast("success", t("message.success"));
+        Router.push("/");
+      } else {
+        showToast("error", `${t("message.error")} ${error?.message}`);
+      } */
     } catch (erro) {
       showToast("error", `Error: ${error}`);
     }

@@ -41,13 +41,13 @@ async function editUser(userDocRef: DocumentReference, data: UserType) {
 
     await updateDoc(userDocRef, {
       name: data.name,
-      lastName: data.lastName,
+      lastName: data.lastName ?? "",
       email: data.email,
       profileImage: urlImage,
       phone: data.phone,
       birthDate: data.birthDate,
-      address: data.address,
-      gender: data.gender
+      address: data.address ?? "",
+      gender: data.gender ?? ""
     });
   } catch (error) {
     console.error(error);

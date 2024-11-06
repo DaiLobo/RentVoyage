@@ -135,6 +135,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     setUserAuth(null);
     setUserData(null);
     destroyCookie(null, "uid");
+    localStorage.removeItem("userData");
   };
 
   return (
