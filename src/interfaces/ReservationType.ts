@@ -1,5 +1,5 @@
 export interface ReservationType {
-  id?: string;
+  id: string;
   userId?: string;
   propertyId: string;
   startDate: Date;
@@ -13,5 +13,13 @@ export interface ReservationFormType {
     from: Date | null;
     to: Date | null;
   };
+  guests: number;
+}
+
+export interface ReservationRegisterType {
+  propertyId: string;
+  startDate: Date;
+  endDate: Date;
+  totalPrice: number;
   guests: number;
 }

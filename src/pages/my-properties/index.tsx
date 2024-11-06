@@ -4,7 +4,9 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Router from "next/router";
 import { parseCookies } from "nookies";
+import { useState } from "react";
 
+import { ChatComponent } from "@/components/ChatComponent";
 import { showToast } from "@/components/Toast";
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow
@@ -13,6 +15,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { PropertyType } from "@/interfaces/PropertyType";
 import { PropertyService } from "@/services/PropertyService";
 import { PropertyTypeEnum } from "@/utils/list";
+import { ChatCircleText } from "@phosphor-icons/react";
 
 interface MyPropertiesProps {
   properties: PropertyType[] | null
@@ -20,6 +23,8 @@ interface MyPropertiesProps {
 
 export function MyProperties({ properties }: MyPropertiesProps) {
   const { t } = useTranslation("property");
+  const [isOpen, setIsOpen] = useState(false);
+  const [chatId, setChatId] = useState("");
 
   if (!properties) {
     return <div className="flex flex-row gap-1 pt-28 pb-40 px-2 justify-center pb-40 w-full">
@@ -34,6 +39,11 @@ export function MyProperties({ properties }: MyPropertiesProps) {
       showToast("error", "Ocorreu um erro, tente novamente!");
     }
   };
+
+  const handleViewChat = (reservationId: string) => {
+    setIsOpen(true);
+    setChatId(reservationId ?? "");
+  }
 
   const handleViewClick = (propertyId?: string) => {
     if (propertyId) {
@@ -52,7 +62,7 @@ export function MyProperties({ properties }: MyPropertiesProps) {
 
   return (
     <div className="grid pt-28 pb-40 px-2 grid grid-cols-1 justify-items-center pb-40 w-full">
-      <div className="grid justify-items-center pb-40 w-1/2">
+      <div className="grid justify-items-center pb-40 w-3/4">
 
         <p className="flex-1 justify-start justify-self-start text-4xl text-slate-700 pb-8 grow">
           {t("properties")}
@@ -86,6 +96,18 @@ export function MyProperties({ properties }: MyPropertiesProps) {
                       </TooltipContent>
                     </Tooltip>
                   </TableCell>
+
+                  <TableCell className="text-right cursor-pointer">
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <ChatCircleText size={22} onClick={() => handleViewChat("yh3PBMqSm7WYBvgYWSDD")} />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{"Ver chat"}</p> {/* TRADUÇÃO AQUI ------------------ */}
+                      </TooltipContent>
+                    </Tooltip>
+                  </TableCell>
+
                   <TableCell className="text-right cursor-pointer">
                     <Tooltip>
                       <TooltipTrigger asChild>
@@ -101,6 +123,10 @@ export function MyProperties({ properties }: MyPropertiesProps) {
             }
           </TableBody>
         </Table>
+      </div>
+
+      <div className="absolute bottom-0 right-0">
+        <ChatComponent isOpen={isOpen} setIsOpen={setIsOpen} chatId={chatId} />
       </div>
     </div>
   )

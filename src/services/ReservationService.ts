@@ -1,6 +1,6 @@
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 
-import { ReservationType } from "@/interfaces/ReservationType";
+import { ReservationRegisterType } from "@/interfaces/ReservationType";
 import { generateEmailHTML } from "@/templates/emailConfirmationTemplate";
 import { convertFirebaseDateToJSDate, formatDateToBR } from "@/utils/format";
 import { PropertyTypeEnum } from "@/utils/list";
@@ -8,7 +8,7 @@ import { PropertyTypeEnum } from "@/utils/list";
 import { auth, db } from "./firebaseConfig";
 
 export const createReservation = async (
-  reservation: ReservationType,
+  reservation: ReservationRegisterType,
   propertyName: string,
   propertyType: keyof typeof PropertyTypeEnum
 ) => {

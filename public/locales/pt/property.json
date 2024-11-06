@@ -60,11 +60,11 @@
   },
   "message": {
     "success": {
-      "crate": "Propriedade cadastrada com sucesso!",
+      "create": "Propriedade cadastrada com sucesso!",
       "edit": "Propriedade atualizada com sucesso!"
     },
     "error": {
-      "crate": "Erro ao realizar o cadastro",
+      "create": "Erro ao realizar o cadastro",
       "edit": "Erro ao atualizar os dados!"
     }
   },

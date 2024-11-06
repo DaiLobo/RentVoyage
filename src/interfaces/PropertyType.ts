@@ -3,7 +3,7 @@ import { PropertyTypeEnum } from "@/utils/list";
 import { ReservationType } from "./ReservationType";
 
 export interface PropertyType {
-  id?: string;
+  id: string;
   objectID?: string;
   uidUser?: string;
   name: string;
