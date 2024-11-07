@@ -23,56 +23,11 @@ export default function Header() {
   const isAuthPage = router.pathname === "/login" || router.pathname === "/register";
 
   return (
-    <header className="bg-primary mb-12">
-      <div className="relative flex flex-col h-full">
-        <div className="flex self-end mt-4 p-4 space-x-4 pr-32">
-          <LanguageSelector />
-          <div className="flex items-center space-x-4">
-            {userAuth ? (
-              <Popover>
-                <PopoverTrigger asChild>
-                  {/* <div className="grid grid-rows-2 justify-items-center"> */}
-                  <button className="relative w-10 h-10 rounded-full overflow-hidden">
-                    <Image
-                      // @ts-ignore
-                      src={(userData?.profileImage || userAuth?.photoURL) ?? "/assets/avatar.png"}
-                      alt="Profile"
-                      layout="fill"
-                      objectFit="cover"
-                    />
-                  </button>
-                </PopoverTrigger>
-                <PopoverContent className="w-50 p-2 flex flex-col items-start gap-2">
-                  <button className="w-full text-pretty text-left bg-transparent hover:bg-accent hover:text-accent-foreground" onClick={() => router.push("/my-profile")}>
-                    {t("profile")}:{" "}
-                    {(userData?.name || userAuth?.displayName) ?? "Convidado"}
-                  </button>
-
-                  <button className="w-full flex items-center text-left bg-transparent hover:bg-accent hover:text-accent-foreground" onClick={() => router.push("/my-properties")}>
-                    {t("properties")}
-                    <HotelIcon size={20} className="ml-2" />
-                  </button>
-
-                  <button className="w-full flex items-center text-left bg-transparent hover:bg-accent hover:text-accent-foreground" onClick={() => router.push("/my-bookings")}>
-                    {t("booking")}
-                    <MapPinned size={20} className="ml-2" />
-                  </button>
-
-                  <button
-                    className="w-full flex items-center text-left bg-transparent hover:bg-accent hover:text-accent-foreground"
-                    onClick={logOut}
-                  >
-                    {t("logout")}{" "}
-                    <LogOutIcon size={20} className="ml-2" />
-                  </button>
-                </PopoverContent>
-              </Popover>
-            ) : null}
-          </div>
-        </div>
+    <header className="bg-primary mt-2 mb-6">
+      <div className="relative flex flex-1 flex-row h-full w-full px-24">
 
         {!isAuthPage ? (
-          <div className="flex justify-center space-x-8">
+          <div className="flex flex-1 justify-center space-x-8">
             <NavigationMenu className="flex justify-center space-x-8 p-2">
               <NavigationMenuList className="flex items-end space-x-4 p-2">
                 <NavigationMenuItem className="mr-32">
@@ -173,6 +128,52 @@ export default function Header() {
             </NavigationMenu>
           </div>
         ) : null}
+
+        <div className="flex self-end mt-4 p-4 space-x-4 justify-end">
+          <LanguageSelector />
+          <div className="flex items-center space-x-4">
+            {userAuth ? (
+              <Popover>
+                <PopoverTrigger asChild>
+                  {/* <div className="grid grid-rows-2 justify-items-center"> */}
+                  <button className="relative w-10 h-10 rounded-full overflow-hidden">
+                    <Image
+                      // @ts-ignore
+                      src={(userData?.profileImage || userAuth?.photoURL) ?? "/assets/avatar.png"}
+                      alt="Profile"
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent className="w-50 p-2 flex flex-col items-start gap-2">
+                  <button className="w-full text-pretty text-left bg-transparent hover:bg-accent hover:text-accent-foreground" onClick={() => router.push("/my-profile")}>
+                    {t("profile")}:{" "}
+                    {(userData?.name || userAuth?.displayName) ?? "Convidado"}
+                  </button>
+
+                  <button className="w-full flex items-center text-left bg-transparent hover:bg-accent hover:text-accent-foreground" onClick={() => router.push("/my-properties")}>
+                    {t("properties")}
+                    <HotelIcon size={20} className="ml-2" />
+                  </button>
+
+                  <button className="w-full flex items-center text-left bg-transparent hover:bg-accent hover:text-accent-foreground" onClick={() => router.push("/my-bookings")}>
+                    {t("booking")}
+                    <MapPinned size={20} className="ml-2" />
+                  </button>
+
+                  <button
+                    className="w-full flex items-center text-left bg-transparent hover:bg-accent hover:text-accent-foreground"
+                    onClick={logOut}
+                  >
+                    {t("logout")}{" "}
+                    <LogOutIcon size={20} className="ml-2" />
+                  </button>
+                </PopoverContent>
+              </Popover>
+            ) : null}
+          </div>
+        </div>
       </div>
     </header>
   );

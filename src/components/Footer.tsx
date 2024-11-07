@@ -12,7 +12,7 @@ export const Footer = () => {
     <footer className="bg-secondary text-white py-8 bottom-0 xs:bottom-10 w-auto">
       <div className="bg-secondary container mx-auto px-4">
         <div className=" bg-secondary flex flex-wrap justify-between">
-          <div className="w-full md:w-1/4 md:mb-0 bg-secondary">
+          <div className="w-full md:w-1/4 md:mb-0 mb-6 bg-secondary">
             <Separator className="w-20 h-1 mb-2 rounded" />
 
             <h2 className="font-bold text-white text-xl">
@@ -80,7 +80,9 @@ export const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-8 text-center text-gray-400 bg-transparent ">
+        <Separator className="w-full mt-8 rounded" />
+
+        <div className="mt-6 text-center text-gray-400 bg-transparent ">
           <p className="text-white">
             &copy; {new Date().getFullYear()} RentVoyage. {t("footer.rights")}
           </p>
