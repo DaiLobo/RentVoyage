@@ -9,85 +9,87 @@ export const Footer = () => {
   const { t } = useTranslation("common");
 
   return (
-    <footer className="bg-secondary text-white py-8 bottom-0 xs:bottom-10 w-auto">
-      <div className="bg-secondary container mx-auto px-4">
-        <div className=" bg-secondary flex flex-wrap justify-between">
-          <div className="w-full md:w-1/4 md:mb-0 mb-6 bg-secondary">
-            <Separator className="w-20 h-1 mb-2 rounded" />
+    <footer className="bg-secondary text-white py-8 lg:px-24 px-8 lg:w-full">
+      <div className="flex flex-wrap justify-between space-y-6 lg:space-y-0">
+        {/* Telefone */}
+        <div className="w-full lg:w-1/3 flex flex-col items-start lg:items-start">
+          <Separator className="w-20 h-1 mb-2 rounded" />
 
-            <h2 className="font-bold text-white text-xl">
-              {t("footer.call")}
-            </h2>
+          <h2 className="font-bold text-white text-xl">
+            {t("footer.call")}
+          </h2>
 
-            <p className="mt-4 text-gray-300">(21) 3456-7890</p>
-          </div>
-
-          <div className="bg-secondary w-full md:w-1/4 mb-6 md:mb-0">
-            <Separator className="w-20 h-1 mb-2 rounded" />
-
-            <h2 className="font-bold mb-4 text-white text-xl">
-              {t("footer.contact")}
-            </h2>
-
-            <ul className="bg-secondary">
-              <li className="mb-2 bg-secondary text-gray-300">
-                Email: contato@rentvoyage.com
-              </li>
-              <li className="mb-2 bg-secondary text-gray-300">
-                {t("footer.phone")}: +55 (21) 99999-9999
-              </li>
-              <li className="mb-2 bg-secondary text-gray-300">{t("footer.address")}: Av. Exemplo, 123, Pernambuco, PE</li>
-            </ul>
-          </div>
-
-          <div className="w-full md:w-1/4 bg-secondary">
-            <Separator className="w-20 h-1 mb-2 rounded" />
-
-            <h2 className="font-bold mb-4 bg-secondary text-white text-xl">
-              {t("footer.follow")}
-            </h2>
-
-            <ul className="flex space-x-4 bg-secondary">
-              <li className="bg-secondary">
-                <a
-                  className="bg-secondary"
-                  href="https://facebook.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FacebookLogo size={28} color="white" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <InstagramLogo size={28} color="white" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/DaiLobo/RentVoyage"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <GithubLogo size={28} color="white" />
-                </a>
-              </li>
-            </ul>
-          </div>
+          <p className="mt-4 text-gray-300">(21) 3456-7890</p>
         </div>
 
-        <Separator className="w-full mt-8 rounded" />
+        {/* Contato */}
+        <div className="w-full lg:w-1/3 flex flex-col items-start lg:items-center">
+          <ul>
+            <li>
+              <Separator className="w-20 h-1 mb-2 rounded" />
+              <h2 className="font-bold mb-4 text-white text-xl">
+                {t("footer.contact")}
+              </h2>
+            </li>
 
-        <div className="mt-6 text-center text-gray-400 bg-transparent ">
-          <p className="text-white">
-            &copy; {new Date().getFullYear()} RentVoyage. {t("footer.rights")}
-          </p>
+            <li className="mb-2 text-gray-300">
+              Email: contato@rentvoyage.com
+            </li>
+            <li className="mb-2 text-gray-300">
+              {t("footer.phone")}: +55 (21) 99999-9999
+            </li>
+            <li className="mb-2 text-gray-300">{t("footer.address")}: Av. Exemplo, 123, Pernambuco, PE</li>
+          </ul>
+        </div>
+
+        {/* Redes sociais */}
+        <div className="w-full lg:w-1/3 flex flex-col items-start lg:items-end">
+          <Separator className="w-20 h-1 mb-2 rounded" />
+
+          <h2 className="font-bold mb-4 text-white text-xl">
+            {t("footer.follow")}
+          </h2>
+
+          <ul className="flex space-x-4">
+            <li>
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FacebookLogo size={28} color="white" />
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <InstagramLogo size={28} color="white" />
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://github.com/DaiLobo/RentVoyage"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <GithubLogo size={28} color="white" />
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
+
+      <Separator className="w-full mt-8 rounded" />
+
+      <div className="mt-6 text-center text-gray-400">
+        <p className="text-white">
+          &copy; {new Date().getFullYear()} RentVoyage. {t("footer.rights")}
+        </p>
+      </div>
+
     </footer>
   );
 };
