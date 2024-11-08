@@ -6,6 +6,7 @@ export interface ReservationType {
   endDate: Date;
   totalPrice: number;
   guests: number;
+  userName?: string;
 }
 
 export interface ReservationFormType {

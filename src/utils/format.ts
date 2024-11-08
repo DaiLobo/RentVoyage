@@ -1,3 +1,5 @@
+import { useTranslation } from "next-i18next";
+
 const convertFirebaseDateToJSDate = (
   firebaseDate:
     | {
@@ -44,7 +46,10 @@ const parseDate = (dateString: string | null) => {
 const parseTimeStampDate = (date: string | Date) => {
   if (!date) return "";
 
-  return new Date(date).toLocaleDateString("pt-BR", {
+  const { i18n } = useTranslation();
+  const language = i18n.language || "pt-BR";
+
+  return new Date(date).toLocaleDateString(language, {
     day: "2-digit",
     month: "long",
     year: "numeric"

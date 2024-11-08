@@ -122,7 +122,7 @@ export function BookingDetails({ id, name, description, address, images, propert
             <p className="text-sm text-slate-500">{address}</p>
           </div>
 
-          <Separator className="my-3.5 bg-[#ACA2A2]" />
+          <Separator className="my-3.5 bg-[#CACACA]" />
 
           <div className="flex flex-row gap-4">
             <Star size={24} weight="fill" /> {/* 1 */}
