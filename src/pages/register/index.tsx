@@ -68,8 +68,8 @@ export function Register() {
   };
 
   return (
-    <div className="pt-10 pb-64 px-20 grid grid-cols-1 gap-8 justify-items-center pb-40">
-      <p className="flex justify-start text-4xl text-slate-700">
+    <div className="lg:pt-10 pt-6 pb-16 lg:px-16 px-4 flex flex-1 flex-col gap-8 lg:h-[60vh] items-center justify-items-center">
+      <p className="flex justify-start lg:text-4xl text-3xl text-slate-700">
         {t("create-account")}
       </p>
 

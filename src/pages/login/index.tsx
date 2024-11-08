@@ -55,8 +55,8 @@ export function Login() {
   };
 
   return (
-    <div className="pt-10 pb-28 px-20 grid grid-cols-1 gap-8 justify-items-center">
-      <p className="flex justify-start text-4xl text-slate-700">Login</p>
+    <div className="lg:pt-10 pt-6 pb-24 lg:px-16 px-4 grid grid-cols-1 gap-8 justify-items-center">
+      <p className="flex justify-start lg:text-4xl text-3xl text-slate-700">Login</p>
 
       <Form {...form}>
         <form
