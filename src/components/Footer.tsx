@@ -9,7 +9,7 @@ export const Footer = () => {
   const { t } = useTranslation("common");
 
   return (
-    <footer className="bg-secondary text-white py-8 lg:px-24 px-8 lg:w-full">
+    <footer className="bg-secondary text-white py-8 lg:px-16 px-8 lg:w-full">
       <div className="flex flex-wrap justify-between space-y-6 lg:space-y-0">
         {/* Telefone */}
         <div className="w-full lg:w-1/3 flex flex-col items-start lg:items-start">

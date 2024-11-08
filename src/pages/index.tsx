@@ -55,11 +55,11 @@ export default function Home() {
       <div className="relative h-[80vh]">
         <div className="absolute inset-0 bg-gradient-to-r from-black opacity-60" />
 
-        <div className="relative pt-24 px-24 z-10">
-          <p className="text-5xl text-white">{t("title")}</p>
-          <p className="mt-4 text-xl text-white w-2/6">{t("text")}</p>
+        <div className="relative lg:pt-24 pt-6 lg:px-16 px-8 z-10">
+          <p className="lg:text-5xl text-2xl text-white">{t("title")}</p>
+          <p className="mt-2 lg:text-xl text-sm text-white lg:w-2/6 w-full">{t("text")}</p>
 
-          <Card className="mt-10 w-fit shadow-lg">
+          <Card className="lg:mt-10 mt-4 w-fit shadow-lg">
             <CardHeader>
               <CardTitle>{t("form.title")}</CardTitle>
               <CardDescription>{t("form.description")}</CardDescription>
@@ -67,8 +67,7 @@ export default function Home() {
             <Form {...form}>
               <form className="grid grid-cols-1 gap-2 w-full max-w-xl" onSubmit={form.handleSubmit(handleSearch)}>
                 <CardContent>
-                  <div className="grid w-full items-center gap-6">
-
+                  <div className="grid w-full items-center lg:gap-6 gap-4">
                     <FormInput
                       type="text"
                       name="localization"
@@ -77,7 +76,7 @@ export default function Home() {
                       className="w-full"
                     />
 
-                    <div className="grid grid-cols-3 gap-6 justify-items-end">
+                    <div className="grid lg:grid-cols-3 grid-cols-1 grid-row-2 lg:gap-y-6 gap-y-4 lg:justify-items-end justify-items-start">
                       <DateRangePicker
                         name="startEndDate"
                         disabled={(date) => date < new Date()} label={t("form.startEndDate.name")}
