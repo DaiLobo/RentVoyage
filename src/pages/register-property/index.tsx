@@ -54,8 +54,8 @@ export function RegisterProperty() {
   };
 
   return (
-    <div className="pt-28 pb-40 px-2 grid grid-cols-1 justify-items-center pb-40 w-full">
-      <p className="flex-1 justify-center justify-self-center text-4xl text-slate-700 pb-8 grow">
+    <div className="bg-white lg:pt-16 pt-8 pb-16 px-4 grid grid-cols-1 justify-items-center w-full">
+      <p className="flex-1 justify-center justify-self-center lg:text-4xl sm:text-3xl text-2xl text-slate-700 pb-8 grow">
         {t("advertise")}
       </p>
       <Form {...form}>
@@ -93,7 +93,6 @@ export function RegisterProperty() {
           </div>
         </form>
       </Form>
-
     </div>
   );
 }

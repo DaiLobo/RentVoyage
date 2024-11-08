@@ -28,7 +28,7 @@ export function MyProperties({ properties }: MyPropertiesProps) {
   const [chatId, setChatId] = useState("");
 
   const [guestId, setGuestId] = useState<string | null>(null);
-  console.log(properties)
+
   if (!properties) {
     return <div className="flex flex-row gap-1 pt-28 pb-40 px-2 justify-center pb-40 w-full">
       <FileIcon className="justify-self-end" /> {t("not-found")}
@@ -68,17 +68,17 @@ export function MyProperties({ properties }: MyPropertiesProps) {
   // }, [userAuth]);
 
   return (
-    <div className="grid pt-28 pb-40 px-2 grid grid-cols-1 justify-items-center pb-40 w-full">
-      <div className="grid justify-items-center pb-40 w-3/4">
+    <div className="grid bg-white lg:pt-24 pt-8 lg:pb-40 pb-0 lg:px-16 px-4 grid grid-cols-1 justify-items-center w-full">
+      <div className="grid justify-items-center lg:pb-40 pb-16 w-full">
 
-        <p className="flex-1 justify-start justify-self-start text-4xl text-slate-700 pb-8 grow">
+        <p className="flex-1 justify-start justify-self-start lg:text-4xl sm:text-3xl text-2xl text-slate-700 pb-8 grow">
           {t("properties")}
         </p>
 
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[200px]">{t("name.name")}</TableHead>
+              <TableHead>{t("name.name")}</TableHead>
               <TableHead>{t("type-property.name")}</TableHead>
               <TableHead>{t("address.name")}</TableHead>
               <TableHead className="text-right">{t("price.name")}</TableHead>
@@ -93,37 +93,33 @@ export function MyProperties({ properties }: MyPropertiesProps) {
                   <TableCell>{PropertyTypeEnum[property.propertyType]}</TableCell>
                   <TableCell>{property.address}</TableCell>
                   <TableCell className="text-right">R${property?.price || 0}</TableCell>
-                  <TableCell className="text-right cursor-pointer">
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <PencilIcon size={20} onClick={() => handleEditClick(property.id)} />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{t("edit")}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TableCell>
-
-                  <TableCell className="text-right cursor-pointer">
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <ChatCircleText size={22} onClick={() => handleViewChat("yh3PBMqSm7WYBvgYWSDD", "0rBaEfJ41wgqPmigMTqQ")} />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{t("chat")}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TableCell>
-
-                  <TableCell className="text-right cursor-pointer">
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Search size={20} onClick={() => handleViewClick(property.id)} />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        {t("details")}
-                      </TooltipContent>
-                    </Tooltip>
+                  <TableCell>
+                    <div className="flex gap-8 justify-end">
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <PencilIcon size={20} onClick={() => handleEditClick(property.id)} className="cursor-pointer" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>{t("edit")}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Search size={20} onClick={() => handleViewClick(property.id)} className="cursor-pointer" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          {t("details")}
+                        </TooltipContent>
+                      </Tooltip>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <ChatCircleText size={22} onClick={() => handleViewChat("yh3PBMqSm7WYBvgYWSDD", "0rBaEfJ41wgqPmigMTqQ")} className="cursor-pointer" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>{t("chat")}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
                   </TableCell>
                 </TableRow>)
               )

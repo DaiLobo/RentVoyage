@@ -93,7 +93,7 @@ export function MyProfile() {
   }, [userAuth]);
 
   return (
-    <div className="pt-28 pb-40 px-2 grid grid-cols-1 justify-items-center pb-40 w-full">
+    <div className="bg-white lg:pt-16 pt-8 pb-20 px-4 grid grid-cols-1 justify-items-center w-full">
       <Form {...form}>
         <form
           className="grid grid-rows-8 grid-cols-1 gap-2 w-full max-w-xl"
@@ -101,7 +101,7 @@ export function MyProfile() {
         >
 
           <div className="flex grid-cols-2 gap-4 justify-items-end">
-            <p className="flex-1 justify-start justify-self-start text-4xl text-slate-700 pb-8 grow">
+            <p className="flex-1 justify-start justify-self-start lg:text-4xl sm:text-3xl text-2xl text-slate-700 pb-8 grow">
               {t("account-settings")}
             </p>
 
