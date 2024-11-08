@@ -21,11 +21,11 @@ export default function HeaderResponsive() {
   const isAuthPage = router.pathname === "/login" || router.pathname === "/register";
 
   return (
-    <header className="bg-primary mt-4 mb-4 px-8">
+    <header className="bg-primary mt-4 mb-4 px-4">
       <div className="flex flex-1 flex-col h-full w-full">
 
         <div className="flex flex-1 flex-row flex-wrap justify-between items-baseline">
-          <div className="-ml-4 w-1/2">
+          <div className="-ml-2 w-1/2">
             <Link href="/" legacyBehavior passHref>
               <Image
                 src="/assets/logo_h_small.png"
@@ -87,72 +87,63 @@ export default function HeaderResponsive() {
         </div>
 
         {!isAuthPage ? (
-          <div className="flex items-center">
-            <div className="flex-1 overflow-x-auto scrollbar-hide pl-24">
-              <NavigationMenu className="flex space-x-2">
-                <NavigationMenuList>
-                  <NavigationMenuItem className="-ml-[56px]">
-                    <Link href="/" legacyBehavior passHref>
+          <div className="flex items-center w-full space-x-2">
+            <div className="flex-1 overflow-x-auto scrollbar-hide">
+              <div className="flex space-x-2">
+                <Link href="/" passHref>
+                  <Badge
+                    variant="outline"
+                    className="cursor-pointer border-0 text-md font-semibold px-4 pl-0 py-2 hover:bg-[#FFF4F4]"
+                  >
+                    {t("home")}
+                  </Badge>
+                </Link>
+
+                <Link href="/about" passHref>
+                  <Badge
+                    variant="outline"
+                    className="cursor-pointer border-0 text-md font-semibold px-4 py-2 hover:bg-[#FFF4F4]"
+                  >
+                    {t("about")}
+                  </Badge>
+                </Link>
+
+                {userAuth &&
+                  <Link href="/register-property" passHref>
+                    <Badge
+                      variant="outline"
+                      className="cursor-pointer border-0 text-md font-semibold px-4 py-2 hover:bg-[#FFF4F4] w-max"
+                    >
+                      {t("list-property")}
+                    </Badge>
+                  </Link>
+                }
+
+                {!userAuth && (
+                  <>
+                    <Link href="/register" passHref>
                       <Badge
                         variant="outline"
-                        className="pr-4 py-2 cursor-pointer border-0 text-md font-semibold hover:bg-[#FFF4F4] border-transparent"
+                        className="cursor-pointer border-0 text-md font-semibold px-4 py-2 hover:bg-[#FFF4F4] w-max"
                       >
-                        {t("home")}
+                        {t("register")}
                       </Badge>
                     </Link>
-                  </NavigationMenuItem>
 
-                  <NavigationMenuItem>
-                    <Link href="/about" legacyBehavior passHref>
+                    <Link href="/login" passHref>
                       <Badge
                         variant="outline"
-                        className="px-4 py-2 cursor-pointer border-0 text-md font-semibold hover:bg-[#FFF4F4] border-transparent"
+                        className="cursor-pointer border-0 text-md font-semibold px-4 py-2 hover:bg-[#FFF4F4]"
                       >
-                        {t("about")}
+                        {t("login")}
                       </Badge>
                     </Link>
-                  </NavigationMenuItem>
+                  </>
+                )}
 
-                  {userAuth && <NavigationMenuItem>
-                    <Link href="/register-property" legacyBehavior passHref>
-                      <Badge
-                        variant="outline"
-                        className="px-4 py-2 cursor-pointer border-0 text-md font-semibold hover:bg-[#FFF4F4] border-transparent"
-                      >
-                        {t("list-property")}
-                      </Badge>
-                    </Link>
-                  </NavigationMenuItem>}
+              </div>
 
-                  {!userAuth && (
-                    <>
-                      <NavigationMenuItem>
-                        <Link href="/register" legacyBehavior passHref>
-                          <Badge
-                            variant="outline"
-                            className="px-4 py-2 cursor-pointer border-0 text-md font-semibold hover:bg-[#FFF4F4] border-transparent"
-                          >
-                            {t("register")}
-                          </Badge>
-                        </Link>
-                      </NavigationMenuItem>
-
-                      <NavigationMenuItem>
-                        <Link href="/login" legacyBehavior passHref>
-                          <Badge
-                            variant="outline"
-                            className="px-4 py-2 cursor-pointer border-0 text-md font-semibold hover:bg-[#FFF4F4] border-transparent"
-                          >
-                            {t("login")}
-                          </Badge>
-                        </Link>
-                      </NavigationMenuItem>
-                    </>
-                  )}
-                </NavigationMenuList>
-              </NavigationMenu>
             </div>
-
             <Link href="/booking" legacyBehavior passHref>
               <a
                 className={cn(

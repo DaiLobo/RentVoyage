@@ -52,12 +52,12 @@ export default function Home() {
       className="relative bg-cover bg-center h-auto"
       style={{ backgroundImage: "url('/assets/open_door.jpg')" }}
     >
-      <div className="relative h-[80vh]">
+      <div className="flex relative max-[340px]:h-[110vh] sm:h-[80vh]">
         <div className="absolute inset-0 bg-gradient-to-r from-black opacity-60" />
 
-        <div className="relative lg:pt-24 pt-6 lg:px-16 px-8 z-10">
-          <p className="lg:text-5xl text-2xl text-white">{t("title")}</p>
-          <p className="mt-2 lg:text-xl text-sm text-white lg:w-2/6 w-full">{t("text")}</p>
+        <div className="relative py-6 sm:py-0 lg:px-16 px-4 z-10 content-center">
+          <p className="lg:text-4xl sm:text-3xl text-2xl text-white">{t("title")}</p>
+          <p className="mt-2 lg:text-xl text-sm text-white sm:w-1/2 w-full">{t("text")}</p>
 
           <Card className="lg:mt-10 mt-4 w-fit shadow-lg">
             <CardHeader>
@@ -76,7 +76,7 @@ export default function Home() {
                       className="w-full"
                     />
 
-                    <div className="grid lg:grid-cols-3 grid-cols-1 grid-row-2 lg:gap-y-6 gap-y-4 lg:justify-items-end justify-items-start">
+                    <div className="grid lg:grid-cols-3 grid-cols-1 grid-row-2 lg:gap-x-6 gap-x-0 lg:gap-y-6 gap-y-4 lg:justify-items-end justify-items-start">
                       <DateRangePicker
                         name="startEndDate"
                         disabled={(date) => date < new Date()} label={t("form.startEndDate.name")}
