@@ -98,6 +98,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           profileImage: user.photoURL || "",
           phone: user.phoneNumber || "",
           uid: user.uid,
+          createdAt: new Date().toISOString()
         };
 
         const userRef = doc(db, "users", user.uid);
