@@ -82,7 +82,7 @@ export const ChatComponent: React.FC<ChatComponentProps> = ({ isOpen, setIsOpen,
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen} direction="bottom">
       <DrawerOverlay className="bg-black bg-opacity-30" />
-      <DrawerContent className="left-auto w-1/3 max-w-md bg-white border border-gray-300 rounded-t-lg shadow-lg">
+      <DrawerContent className="left-auto sm:w-1/2 w-full sm:max-w-md max-w-full bg-white border border-gray-300 rounded-t-lg shadow-lg">
         <header className="p-4 border-b">
           <h2 className="text-lg font-bold text-slate-700">{t("title")}</h2>
         </header>

@@ -55,6 +55,5 @@ export const PropertyCard = ({ hit }: { hit: PropertyType }) => {
       </div>
 
     </div>
-
   )
 }
