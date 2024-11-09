@@ -107,6 +107,10 @@ Usando Google Maps JavaScript API, os usuários podem visualizar a localização
 
 <hr/>
 
+![Diagrama bd](https://github.com/user-attachments/assets/62b9e13a-65a6-4cd5-8fad-ecfb0a309c17)
+![Modelo mail](https://github.com/user-attachments/assets/122de60d-af50-44e7-90a2-0fd2e36690d4)
+
+
 ## 🛠 Tecnologias
 <div align="center">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" height="40" width="52" alt="react logo"  />
