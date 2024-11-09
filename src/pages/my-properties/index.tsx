@@ -51,7 +51,7 @@ export function MyProperties({ properties }: MyPropertiesProps) {
   // }, [userAuth]);
 
   return (
-    <div className="bg-white lg:pt-24 pt-8 lg:pb-40 pb-0 lg:px-16 px-4 grid grid-cols-1 justify-items-center w-full">
+    <div className="bg-white lg:pt-12 pt-8 lg:pb-40 pb-0 lg:px-16 px-4 grid grid-cols-1 justify-items-center w-full">
       <div className="grid justify-items-center lg:pb-40 pb-16 w-full">
 
         <p className="flex-1 justify-start justify-self-start lg:text-4xl sm:text-3xl text-2xl text-slate-700 pb-8 grow">

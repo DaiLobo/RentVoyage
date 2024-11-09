@@ -45,7 +45,7 @@ export function MyBookings({ reservations }: MyBookingsProps) {
 
   return (
     <>
-      <div className="bg-white lg:pt-16 pt-8 lg:pb-40 pb-10 lg:px-16 px-4 grid grid-cols-1 justify-items-center w-full">
+      <div className="bg-white lg:pt-12 pt-8 lg:pb-40 pb-10 lg:px-16 px-4 grid grid-cols-1 justify-items-center w-full">
         <div className="w-full">
           <p className="flex-1 justify-start justify-self-start lg:text-4xl sm:text-3xl text-2xl text-slate-700">
             {t("bookings")}

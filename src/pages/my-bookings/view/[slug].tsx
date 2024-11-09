@@ -23,7 +23,7 @@ export function MyBookingsView({ reservation }: MyBookingsViewProps) {
   const { userAuth, userData } = useAuth();
 
   return (
-    <div className="bg-white lg:pt-16 pt-8 pb-20 lg:px-16 px-4 grid grid-cols-1 justify-items-center w-full">
+    <div className="bg-white lg:pt-12 pt-8 pb-20 lg:px-16 px-4 grid grid-cols-1 justify-items-center w-full">
       <div className="flex flex-row gap-4 justify-items-start items-center w-full">
         <ArrowLeftCircle size={28} className="cursor-pointer" onClick={() => Router.push("/my-bookings")} />
         <p className="flex-1 justify-start justify-self-start lg:text-2xl text-xl text-slate-800 font-medium">

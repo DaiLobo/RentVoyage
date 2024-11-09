@@ -7,6 +7,7 @@ import Router from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
+import { CarouselResponsive } from "@/components/CarouselResponsive";
 import { CarouselThumbsGallery } from "@/components/CarouselThumbsGallery";
 import { DateRangePicker } from "@/components/DateRangePicker";
 import { FormNumberInput } from "@/components/FormNumberInput";
@@ -103,21 +104,20 @@ export function BookingDetails({ id, name, description, address, images, propert
   }, [dates])
 
   return (
-    <div className="grid grid-row-2 bg-[#FFFAFA] pt-10 pb-40 px-32 justify-items-start w-full">
-      <div className="flex flex-row gap-8 mb-16 justify-items-start items-center">
+    <div className="grid grid-row-2 bg-[#FFFAFA] lg:pt-12 pt-8 pb-20 lg:px-16 px-4 justify-items-start w-full">
+      <div className="flex flex-row gap-4 lg:mb-12 mb-6 justify-items-start items-center">
         <ArrowLeftCircle size={24} className="cursor-pointer" onClick={() => Router.back()} />
 
-        <p className="flex justify-start justify-self-start text-2xl font-medium text-slate-700">{t("properties")}</p>
+        <p className="flex justify-start justify-self-start lg:text-2xl text-lg font-medium text-slate-700">{t("properties")}</p>
       </div>
 
-
-      <div className="grid grid-cols-2 gap-8">
-        <div className="w-full">
+      <div className="grid lg:grid-cols-2 flex md:gap-8 gap-6">
+        <div className="w-full hidden lg:block">
           <CarouselThumbsGallery images={images} />
         </div>
 
         <div className="flex flex-col"> {/* NOME E ENDEREÇO */}
-          <p className="text-3xl font-medium text-slate-900 mb-2">{name}</p>
+          <p className="lg:text-3xl sm:text-2xl text-xl font-medium text-slate-900 mb-2">{name}</p>
           <div className="flex flex-row gap-2">
             <MapPinArea size={20} color="black" weight="bold" />
             <p className="text-sm text-slate-500">{address}</p>
@@ -126,59 +126,62 @@ export function BookingDetails({ id, name, description, address, images, propert
           <Separator className="my-3.5 bg-[#CACACA]" />
 
           <div className="flex flex-row gap-4">
-            <Star size={24} weight="fill" /> {/* 1 */}
-            <Star size={24} weight="fill" /> {/* 2 */}
-            <Star size={24} weight="fill" /> {/* 3 */}
-            <StarHalf size={24} weight="fill" /> {/* 4 */}
-            <Star size={24} /> {/* 5 */}
+            <Star size={24} weight="fill" className="lg:w-6 w-5 h-5 lg:h-6" /> {/* 1 */}
+            <Star size={24} weight="fill" className="lg:w-6 w-5 h-5 lg:h-6" /> {/* 2 */}
+            <Star size={24} weight="fill" className="lg:w-6 w-5 h-5 lg:h-6" /> {/* 3 */}
+            <StarHalf size={24} weight="fill" className="lg:w-6 w-5 h-5 lg:h-6" /> {/* 4 */}
+            <Star size={24} className="lg:w-6 w-5 h-5 lg:h-6" /> {/* 5 */}
 
-            <p className="text-lg font-medium">1.445 {t("reviews")}</p>
+            <p className="lg:text-lg text-md font-medium">1.445 {t("reviews")}</p>
+          </div>
+
+          <div className="mt-8 block lg:hidden">
+            <CarouselResponsive images={images} />
           </div>
 
           {/* DESCRIÇÃO */}
-          <div className="flex flex-col mt-6 mb-8 gap-2">
+          <div className="flex flex-col mt-6 mb-6 gap-2">
             <p className="text-xl font-medium">{t("description.name")}</p>
 
             <p>{description}</p>
           </div>
 
           {/* Características de propriedade */}
-          <div className="flex flex-row flex-1 gap-2 justify-between mb-7">
-            <div className="flex gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 gap-4 mb-8">
+            <div className="flex items-center gap-2">
               <Hotel size={24} />
-              {/* @ts-ignore */}
               <p className="text-base">{PropertyTypeEnum[propertyType]}</p>
             </div>
 
-            <div className="flex gap-2">
+            <div className="flex items-center gap-2">
               <BedDouble size={24} />
               <p className="text-base">{capacity} {t("person")}</p>
             </div>
 
-            <div className="flex gap-2">
+            <div className="flex items-center gap-2">
               <CircleDollarSign size={24} color="#1FC162" />
               <p className="text-base text-[#1FC162]">R${price.toFixed(2)}</p>
             </div>
           </div>
 
-          {/* BOOK FORM */}
 
+          {/* BOOK FORM */}
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleReserve)}>
+            <form onSubmit={form.handleSubmit(handleReserve)} className="flex-1 content-end">
               <div className="bg-[#F3F4F8] rounded-lg p-4">
                 <div className="flex gap-1 items-center justify-center mb-5">
                   <p className="font-medium">{t("search.total-price")}</p>
                   <p className="text-lg font-medium">
                     R${dates?.to && dates?.from ?
-                      differenceInCalendarDays(dates.to, dates.from) * price
+                      (differenceInCalendarDays(dates.to, dates.from) * price)
                       : price}
                   </p>
                 </div>
 
                 <div className="grid grid-row-2 gap-4">
-                  <div className="flex gap-12 mb-4">
+                  <div className="flex sm:flex-row flex-col sm:gap-12 gap-4 sm:mb-4 mb-2">
                     <DateRangePicker name="startEndDate" disabled={(date) => date < new Date() || isDateDisabled(date)} label={t("startEndDate.name")} placeholder={t("startEndDate.placeholder")} className="w-full col-span-2" />
-                    <FormNumberInput name="guests" label={t("search.guests.name")} max={capacity} />
+                    <FormNumberInput name="guests" label={t("search.guests.name")} max={capacity} className="sm:self-auto self-start" />
                   </div>
 
                   <Button type="submit" disabled={loading} className="w-44 justify-self-center">

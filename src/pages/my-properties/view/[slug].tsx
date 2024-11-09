@@ -53,10 +53,10 @@ export function PropertyView({ name, description, address, images, propertyType,
   }
 
   return (
-    <div className="bg-white lg:pt-16 pt-8 pb-20 lg:px-16 px-4 grid grid-cols-1 justify-items-center w-full">
-      <div className="flex flex-row gap-4 justify-items-start items-center w-full">
+    <div className="bg-white lg:pt-12 pt-8 pb-20 lg:px-16 px-4 grid grid-cols-1 justify-items-center w-full">
+      <div className="flex flex-row gap-4 lg:mb-12 mb-4 justify-items-start items-center w-full">
         <ArrowLeftCircle size={28} className="cursor-pointer" onClick={() => Router.push("/my-properties")} />
-        <p className="flex-1 justify-start justify-self-start lg:text-2xl text-xl text-slate-800 font-medium">
+        <p className="flex-1 justify-start justify-self-start lg:text-2xl text-xl text-slate-700 font-medium">
           {t("back-list-property")}
         </p>
       </div>
@@ -87,7 +87,7 @@ export function PropertyView({ name, description, address, images, propertyType,
           : null
       }
 
-      <Separator className="bg-[#CACACA]" />
+      <Separator className="bg-[#CACACA] mt-2" />
 
       <div className="flex lg:flex-row flex-col gap-8 mt-6 lg:mb-8 mb-4">
         {/* Detalhes da propriedade */}

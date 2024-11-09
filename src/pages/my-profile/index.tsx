@@ -93,7 +93,7 @@ export function MyProfile() {
   }, [userAuth]);
 
   return (
-    <div className="bg-white lg:pt-16 pt-8 pb-20 px-4 grid grid-cols-1 justify-items-center w-full">
+    <div className="bg-white lg:pt-12 pt-8 pb-20 px-4 grid grid-cols-1 justify-items-center w-full">
       <Form {...form}>
         <form
           className="grid grid-rows-8 grid-cols-1 gap-2 w-full max-w-xl"

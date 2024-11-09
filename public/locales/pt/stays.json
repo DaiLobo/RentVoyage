@@ -30,6 +30,9 @@
   },
   "filter-price": "Preço por diária",
   "close": "Fechar",
+  "filter-button": "Filtro",
+  "map-button": "Mapa",
+  "close-map": "Fechar mapa",
   "map": {
     "price": "Preço",
     "capacity": "Capacidade"

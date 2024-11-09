@@ -80,7 +80,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ properties, position = { la
         onClick={() => setIsFullScreen(false)}
         className="absolute top-16 right-1.5 bg-white hover:text-white px-4 py-2 rounded-lg shadow-md z-10"
       >
-        Fechar mapa
+        {t("close-map")}
       </button>}
 
     </div >

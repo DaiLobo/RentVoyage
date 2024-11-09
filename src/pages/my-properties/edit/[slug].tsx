@@ -67,7 +67,7 @@ const EditProperty: React.FC<EditPropertyProps> = ({ property, propertyId }) => 
   }
 
   return (
-    <div className="bg-white lg:pt-16 pt-8 pb-20 lg:px-16 px-4 grid grid-cols-1 justify-items-center w-full">
+    <div className="bg-white lg:pt-12 pt-8 pb-20 lg:px-16 px-4 grid grid-cols-1 justify-items-center w-full">
       <p className="flex-1 justify-center justify-self-center lg:text-4xl sm:text-3xl text-2xl text-slate-700 pb-8 grow">
         {t("advertise-edit")}
       </p>

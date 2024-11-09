@@ -30,6 +30,9 @@
   },
   "filter-price": "Price per nights",
   "close": "Close",
+  "filter-button": "Filter",
+  "map-button": "Map",
+  "close-map": "Close map",
   "map": {
     "price": "Price",
     "capacity": "Capacity"

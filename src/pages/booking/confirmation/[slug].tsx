@@ -24,7 +24,7 @@ export function BookingsConfimation({ reservation }: BookingsConfimationProps) {
   const { userAuth, userData } = useAuth();
 
   return (
-    <div className="bg-white lg:pt-16 pt-8 pb-20 lg:px-16 px-4 grid grid-cols-1 justify-items-center w-full">
+    <div className="bg-white lg:pt-12 pt-8 pb-20 lg:px-16 px-4 grid grid-cols-1 justify-items-center w-full">
       <div className="flex flex-col gap-4 justify-items-start items-start w-full">
         <p className="lg:text-4xl sm:text-3xl text-2xl font-medium text-slate-700">{t("confirmation.congrats")}</p>
         <p className="font-medium text-sm">{userData?.name || userAuth?.displayName}, {t("confirmation.booked")}.</p>

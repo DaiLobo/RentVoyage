@@ -112,10 +112,10 @@ export function Booking({ properties, localization, checkin, checkout, guests, m
         <div className="grid lg:grid-cols-3 flex md:gap-8 gap-6">
           <div className="flex flex-row gap-4 block md:hidden">
             <Button variant="outline" className="flex flex-1 gap-2" onClick={() => setIsOpen(true)}>
-              <Coins size={24} /> Filtro
+              <Coins size={24} /> {t("filter-button")}
             </Button>
             <Button variant="outline" className="flex flex-1 gap-2" onClick={() => setIsFullScreen(true)}>
-              <MapTrifold size={24} /> Mapa
+              <MapTrifold size={24} /> {t("map-button")}
             </Button>
           </div>
 
