@@ -1,22 +1,23 @@
 {
-  "bookings": "Minhas reservas",
-  "back-list-bookings": "Voltar para reservas",
-  "not-found": "Não foi encontrado nenhuma reserva",
-  "confirmation": "Confirmada",
-  "no-taxes": "Cancelamento grátis",
-  "initial-date": "Entrada",
-  "final-date": "Saída",
-  "details-booking": "Detalhes da reserva",
-  "address": "Endereço",
+  "bookings": "My bookings",
+  "back-list-bookings": "Back to bookings",
+  "not-found": "No bookings found",
+  "confirmation": "Confirmed",
+  "no-taxes": "Free cancellation",
+  "initial-date": "Check-in",
+  "final-date": "Check-out",
+  "details-booking": "Booking details",
+  "address": "Address",
   "chat": {
-    "title": "Mensagem",
-    "content": "Envie uma mensagem para acomodação",
-    "button": "Conversar com proprietário"
+    "title": "Message",
+    "content": "Send a message to accommodation",
+    "button": "Chat with owner"
   },
-  "person": "pessoa(s)",
-  "daily": "diárias",
-  "room": "quarto",
-  "number": "Número de confirmação:",
-  "guest-name": "Nome do hóspede:",
-  "total-price": "Preço final:"
+  "until": "until",
+  "person": "person(s)",
+  "daily": "nights",
+  "room": "room",
+  "number": "Confirmation number:",
+  "guest-name": "Guest name:",
+  "total-price": "Total price:"
 }

@@ -32,5 +32,20 @@
   "map": {
     "price": "Preço",
     "capacity": "Capacidade"
+  },
+  "confirmation": {
+    "congrats": "Parabéns!",
+    "booked": "sua reserva foi realizada",
+    "receive-email": "Assim que sua reserva for confirmada, você receberá um e-mail.",
+    "initial-date": "Entrada",
+    "final-date": "Saída",
+    "details-booking": "Detalhes da reserva",
+    "address": "Endereço",
+    "until": "até as",
+    "person": "pessoa(s)",
+    "daily": "diárias",
+    "room": "quarto",
+    "property-type": "Tipo da propriedade",
+    "total-value": "Valor total"
   }
 }

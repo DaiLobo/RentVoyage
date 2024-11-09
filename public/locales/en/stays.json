@@ -32,5 +32,20 @@
   "map": {
     "price": "Price",
     "capacity": "Capacity"
+  },
+  "confirmation": {
+    "congrats": "Congratulations!",
+    "booked": "your reservation has been made",
+    "receive-email": "As soon as your reservation is confirmed, you will receive an email.",
+    "initial-date": "Check-in",
+    "final-date": "Check-out",
+    "details-booking": "Reservation details",
+    "address": "Address",
+    "until": "until",
+    "person": "person(s)",
+    "daily": "nights",
+    "room": "room",
+    "property-type": "Property type",
+    "total-value": "Total value"
   }
 }

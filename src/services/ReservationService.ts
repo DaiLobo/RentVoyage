@@ -191,9 +191,58 @@ async function getReservationsByPropertyId(
   }
 }
 
+async function getReservationByIdWithProperty(
+  reservationId: string
+): Promise<any | null> {
+  try {
+    const reservationRef = doc(db, "reservations", reservationId);
+    const reservationDoc = await getDoc(reservationRef);
+
+    if (!reservationDoc.exists()) {
+      console.error("Reserva não encontrada");
+      return null;
+    }
+
+    const reservationData = reservationDoc.data();
+    const propertyId = reservationData?.propertyId;
+
+    // Verifica se o propertyId está presente na reserva
+    if (!propertyId) {
+      console.error("ID da propriedade não encontrado na reserva");
+      return null;
+    }
+
+    // Busca o documento da propriedade associada usando o ID
+    const propertyRef = doc(db, "property", propertyId);
+    const propertyDoc = await getDoc(propertyRef);
+
+    if (!propertyDoc.exists()) {
+      console.error("Propriedade associada não encontrada");
+      return null;
+    }
+
+    // Combina os dados da reserva e da propriedade
+    const propertyData = propertyDoc.data();
+    return {
+      reservationId: reservationDoc.id,
+      ...reservationData,
+      startDate: `${convertFirebaseDateToJSDate(reservationData?.startDate ?? "")}`,
+      endDate: `${convertFirebaseDateToJSDate(reservationData.endDate ?? "")}`,
+      property: {
+        id: propertyDoc.id,
+        ...propertyData
+      }
+    };
+  } catch (error) {
+    console.error("Erro ao buscar reserva e propriedade:", error);
+    return null;
+  }
+}
+
 export const ReservationService = {
   createReservation,
   getReservedDates,
   getReservationsByUser,
-  getReservationsByPropertyId
+  getReservationsByPropertyId,
+  getReservationByIdWithProperty
 };

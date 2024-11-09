@@ -56,6 +56,20 @@ const parseTimeStampDate = (date: string | Date) => {
   });
 };
 
+// Formato da data: dom., 2 de fev. de 2025
+function formatLocalizedDate(date: Date | null) {
+  if (!date) return "dom., 2 de fev. de 2025";
+
+  const { i18n } = useTranslation("pt-BR");
+
+  return new Intl.DateTimeFormat(i18n.language, {
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+    year: "numeric"
+  }).format(new Date(date));
+}
+
 const formatDateToBR = (date: Date) => {
   if (!date) return "";
 
@@ -97,6 +111,7 @@ export {
   formatDate,
   parseDate,
   parseTimeStampDate,
+  formatLocalizedDate,
   formatDateToBR,
   generateQueryString
 };
