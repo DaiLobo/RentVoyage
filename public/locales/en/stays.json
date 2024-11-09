@@ -29,6 +29,7 @@
     "guests-required": "The number of guests is required"
   },
   "filter-price": "Price per nights",
+  "close": "Close",
   "map": {
     "price": "Price",
     "capacity": "Capacity"

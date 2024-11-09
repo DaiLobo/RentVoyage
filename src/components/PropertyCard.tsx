@@ -25,17 +25,17 @@ export const PropertyCard = ({ hit }: { hit: PropertyType }) => {
   return (
     <div
       key={hit.objectID}
-      className="flex items-center p-4 bg-white shadow-lg rounded-lg w-[916px] mb-4"
+      className="flex lg:flex-row flex-col items-center p-4 bg-white shadow-md rounded-lg w-full mb-4"
     >
       {hit.images &&
         hit.images?.length > 0 &&
         <img
           src={hit?.images[0] as unknown as string}
           alt={hit.name}
-          className="w-36 h-36 rounded-lg object-cover"
+          className="lg:w-36 w-full h-36 lg:mb:0 mb-4 rounded-lg object-cover"
         />
       }
-      <div className="ml-4 flex-1">
+      <div className="lg:ml-4 ml-0 flex-1 w-full">
         <h2 className="text-xl font-semibold">{hit.name}</h2>
         <p className="text-gray-500 mr-8">{hit.address}</p>
         <Separator className="my-4" />

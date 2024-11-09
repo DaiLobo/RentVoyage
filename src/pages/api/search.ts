@@ -22,7 +22,6 @@ export async function getData(query: {
     let filters = `capacity >= ${guests || 0}`;
 
     if (minPrice !== null && minPrice !== undefined && maxPrice) {
-      console.log(minPrice, "entrando no console");
       filters += ` AND price >= ${minPrice || 10} AND price <= ${maxPrice || 1000}`;
     }
 

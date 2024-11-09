@@ -29,6 +29,7 @@
     "guests-required": "O número de hóspedes é obrigatório"
   },
   "filter-price": "Preço por diária",
+  "close": "Fechar",
   "map": {
     "price": "Preço",
     "capacity": "Capacidade"

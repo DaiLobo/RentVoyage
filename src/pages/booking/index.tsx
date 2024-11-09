@@ -6,14 +6,17 @@ import Router from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { InstantSearch } from "react-instantsearch";
 
+import { FilterModal } from "@/components/FilterModal";
 import MapComponent from "@/components/MapComponent";
 import { PropertyCard } from "@/components/PropertyCard";
 import { SearchBar } from "@/components/SearchBar";
+import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { useDebounce } from "@/hooks/useDebounce";
 import { PropertyType } from "@/interfaces/PropertyType";
 import { ALGOLIA_INDEX_NAME, searchClient } from "@/lib/algolia";
 import { generateQueryString, parseDate } from "@/utils/format";
+import { Coins, MapTrifold } from "@phosphor-icons/react";
 
 import { getData } from "../api/search";
 
@@ -29,6 +32,8 @@ interface BookingProps {
 
 export function Booking({ properties, localization, checkin, checkout, guests, minPrice, maxPrice }: BookingProps) {
   const { t } = useTranslation("stays");
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [priceRange, setPriceRange] = useState([10, 1000]);
   const debouncedPriceRange = useDebounce(priceRange, 500);
   const hasMounted = useRef(false);
@@ -88,47 +93,73 @@ export function Booking({ properties, localization, checkin, checkout, guests, m
   }, [debouncedPriceRange])
 
   return (
-    <div className="pt-10 pb-40 px-56 grid grid-row-2 bg-[#FFFAFA] justify-items-start w-full">
-      <div className="mb-16 justify-items-start items-baseline w-1/2">
-        <p className="flex justify-start justify-self-start text-4xl text-slate-700">{t("stays")}</p>
+    <div className="pt-8 pb-20 lg:px-16 px-4 grid grid-row-3 bg-[#FFFAFA] justify-items-start w-full">
+      <div className="lg:mb-16 mb-8 justify-items-start items-baseline">
+        <p className="flex justify-start justify-self-start lg:text-4xl sm:text-3xl text-2xl text-slate-700">{t("stays")}</p>
       </div>
 
-      <div className="grid grid-cols-3 gap-16">
-        <div className="col-span-1">
-          <div className="mb-16 bg-white px-4 rounded">
-            <MapComponent properties={filteredHits} />
+      <InstantSearch searchClient={searchClient} indexName={ALGOLIA_INDEX_NAME}>
+        <SearchBar
+          setFilteredHits={setFilteredHits}
+          localization={localization}
+          startDate={checkin}
+          endDate={checkout}
+          guests={guests}
+          minPrice={minPrice}
+          maxPrice={maxPrice}
+        />
+
+        <div className="grid lg:grid-cols-3 flex md:gap-8 gap-6">
+          <div className="flex flex-row gap-4 block md:hidden">
+            <Button variant="outline" className="flex flex-1 gap-2" onClick={() => setIsOpen(true)}>
+              <Coins size={24} /> Filtro
+            </Button>
+            <Button variant="outline" className="flex flex-1 gap-2" onClick={() => setIsFullScreen(true)}>
+              <MapTrifold size={24} /> Mapa
+            </Button>
           </div>
 
-          <div className="bg-white p-4 rounded">
-            <p className="text-gray-700 font-medium line-clamp-2 mb-2">{t("filter-price")}</p>
+          {isFullScreen && <MapComponent properties={filteredHits} isFullScreen={isFullScreen} setIsFullScreen={setIsFullScreen} />}
 
-            <div className="flex items-center mb-8 gap-4">
-              <div className="border-2 border-slate-500 rounded-md p-2 w-1/2">
-                <p className="text-sm font-bold">Min.</p>
-                <p className="text-gray-600 line-clamp-2">
-                  R${priceRange[0].toFixed(2)}
-                </p>
-              </div>
-              <div className="border-2 border-slate-500 rounded-md p-2 w-1/2">
-                <p className="text-sm font-bold">Max.</p>
-                <p className="text-gray-600 line-clamp-2">
-                  R${`${priceRange[1].toFixed(2)} ${priceRange[1] === 1000 ? " +" : ""}`}
-                </p>
-              </div>
+          <div className="lg:col-span-1 hidden md:block">
+            <div className="lg:mb-12 mb-8 bg-white px-4 rounded shadow-md">
+              <MapComponent properties={filteredHits} />
             </div>
 
-            <Slider
-              value={priceRange}
-              onValueChange={(value) => setPriceRange(value)}
-              min={0}
-              max={1000}
-              step={10}
-            />
+            <div className="bg-white p-4 rounded shadow-md">
+              <p className="text-gray-700 font-medium line-clamp-2 mb-2">{t("filter-price")}</p>
 
+              <div className="flex items-center mb-8 gap-4">
+                <div className="border-2 border-slate-500 rounded-md p-2 w-1/2">
+                  <p className="text-sm font-bold">Min.</p>
+                  <p className="text-gray-600 line-clamp-2">
+                    R${priceRange[0].toFixed(2)}
+                  </p>
+                </div>
+                <div className="border-2 border-slate-500 rounded-md p-2 w-1/2">
+                  <p className="text-sm font-bold">Max.</p>
+                  <p className="text-gray-600 line-clamp-2">
+                    R${`${priceRange[1].toFixed(2)} ${priceRange[1] === 1000 ? " +" : ""}`}
+                  </p>
+                </div>
+              </div>
+
+              <Slider
+                value={priceRange}
+                onValueChange={(value) => setPriceRange(value)}
+                min={0}
+                max={1000}
+                step={10}
+              />
+            </div>
           </div>
-        </div>
 
-        <div className="col-span-2">
+          <div className="space-y-4 lg:col-span-2">
+            {filteredHits?.map((property) => (
+              <PropertyCard hit={property} />
+            ))}
+          </div>
+          {/* <div className="col-span-2">
           <InstantSearch searchClient={searchClient} indexName={ALGOLIA_INDEX_NAME}>
             <SearchBar
               setFilteredHits={setFilteredHits}
@@ -140,18 +171,22 @@ export function Booking({ properties, localization, checkin, checkout, guests, m
               maxPrice={maxPrice}
             />
 
-            {/* <Configure hitsPerPage={10} /> 
-            <Hits hitComponent={PropertyCard} />
-            */}
-
             <div className="space-y-4 ">
               {filteredHits?.map((property) => (
                 <PropertyCard hit={property} />
               ))}
             </div>
           </InstantSearch>
+        </div> */}
         </div>
-      </div>
+      </InstantSearch>
+
+      <FilterModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        priceRange={priceRange}
+        setPriceRange={setPriceRange}
+      />
     </div>
   );
 }

@@ -10,7 +10,7 @@ import { useState } from "react";
 import { ChatComponent } from "@/components/ChatComponent";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { ReservationByUserType, ReservationType } from "@/interfaces/ReservationType";
+import { ReservationByUserType } from "@/interfaces/ReservationType";
 import { PropertyService } from "@/services/PropertyService";
 import { ReservationService } from "@/services/ReservationService";
 import { parseTimeStampDate } from "@/utils/format";
@@ -47,12 +47,11 @@ export function MyBookings({ reservations }: MyBookingsProps) {
     <>
       <div className="bg-white lg:pt-16 pt-8 lg:pb-40 pb-10 lg:px-16 px-4 grid grid-cols-1 justify-items-center w-full">
         <div className="w-full">
-
           <p className="flex-1 justify-start justify-self-start lg:text-4xl sm:text-3xl text-2xl text-slate-700">
             {t("bookings")}
           </p>
 
-          <div className="relative lg:mt-16 mt-6 w-full lg:h-[275px] h-[125px] rounded-2xl overflow-hidden">
+          <div className="relative lg:mt-12 mt-6 w-full lg:h-[275px] h-[125px] rounded-2xl overflow-hidden">
             <Image
               src="/assets/rent-voyage-banner.png"
               alt="banner"
@@ -63,12 +62,12 @@ export function MyBookings({ reservations }: MyBookingsProps) {
             />
           </div>
 
-          <div className="lg:mt-18 mt-8 flex flex-col gap-4">
+          <div className="lg:mt-18 mt-6 flex flex-col gap-4">
             {
               reservations.map((reservation, index) => (
                 <div
                   key={index}
-                  className="flex lg:flex-row flex-col items-center p-4 bg-white shadow-lg hover:shadow-xl rounded-lg w-full mb-4 cursor-pointer"
+                  className="flex lg:flex-row flex-col items-center p-4 bg-white shadow-md hover:shadow-xl rounded-lg w-full mb-4 cursor-pointer"
                   onClick={() => Router.push(`my-bookings/view/${reservation.id}`)}
                 >
                   {reservation?.property.images &&

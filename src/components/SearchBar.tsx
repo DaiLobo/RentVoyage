@@ -66,14 +66,32 @@ export const SearchBar: React.FC<SearchTypes> = ({ localization, startDate, endD
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSearch)}>
-        <div className="grid grid-cols-5 gap-4 items-center p-4 pb-6 shadow-lg rounded-lg bg-white mb-8 w-[916px]">
+      <form onSubmit={form.handleSubmit(handleSearch)} className="w-full">
+        <div className="grid grid-cols-1 gap-4 items-center p-4 pb-6 shadow-md rounded-lg bg-white mb-8 w-full sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
 
-          <FormInput type="text" name="localization" label={t("search.local.name")} placeholder={t("search.local.placeholder")} />
-          <DateRangePicker name="startEndDate" disabled={(date) => date < new Date()} label={t("search.startEndDate.name")} placeholder={t("search.startEndDate.placeholder")} className="w-full col-span-2" />
-          <FormNumberInput name="guests" label={t("search.guests.name")} />
+          <FormInput
+            className="w-full col-span-1 sm:col-span-1 lg:col-span-2"
+            type="text"
+            name="localization"
+            label={t("search.local.name")}
+            placeholder={t("search.local.placeholder")}
+          />
 
-          <div className="items-center self-end">
+          <DateRangePicker
+            name="startEndDate"
+            disabled={(date) => date < new Date()}
+            label={t("search.startEndDate.name")}
+            placeholder={t("search.startEndDate.placeholder")}
+            className="w-full col-span-1 sm:col-span-1 md:col-span-2 lg:col-span-2"
+          />
+
+          <FormNumberInput
+            name="guests"
+            label={t("search.guests.name")}
+            className="w-full col-span-1"
+          />
+
+          <div className="items-center self-end col-span-1 md:col-start-4 lg:col-span-1">
             <Button disabled={isLoading} type="submit" className="gap-2 w-full">
               {isLoading && (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin bg-transparent" />
