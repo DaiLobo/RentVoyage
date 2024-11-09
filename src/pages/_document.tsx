@@ -4,7 +4,6 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>{/* Adicione aqui suas tags de meta ou fontes */}
-        <title>RentVoyage</title>
       </Head>
       <body className="bg-primary text-black">
         <Main />

@@ -4,6 +4,7 @@ import { GetStaticProps } from "next";
 import { appWithTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { AppProps } from "next/app";
+import Head from "next/head";
 import { Toaster } from "sonner";
 
 import { Footer } from "@/components/Footer";
@@ -17,6 +18,7 @@ function App({ Component, pageProps }: AppProps) {
     <ShadcnProvider>
       <AuthProvider>
         <TooltipProvider>
+          <Head><title>RentVoyage</title></Head>
           <Header />
           <Component {...pageProps} />
           <Toaster position="bottom-right" />

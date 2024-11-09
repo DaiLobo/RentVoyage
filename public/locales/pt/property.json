@@ -2,7 +2,7 @@
   "properties": "Propriedades",
   "advertise": "Anuncie sua propriedade",
   "advertise-edit": "Edite os dados de sua propriedade",
-  "details-property": "Detalhes da propriedade",
+  "back-list-property": "Voltar para propriedades",
   "not-found": "Não existe propriedades cadastradas",
   "dropzone": {
     "button": "Anexar Imagens",
@@ -69,5 +69,14 @@
       "edit": "Erro ao atualizar os dados!"
     }
   },
-  "person": "pessoa(s)"
+  "person": "pessoa(s)",
+  "bookings": {
+    "title": "Reservas",
+    "number": "Nº da reserva",
+    "guest": "Hóspede",
+    "qnt-guests": "Qtd. (Hóspedes)",
+    "date": "Data da reserva",
+    "price": "Preço",
+    "not-found": "Lista vazia"
+  }
 }

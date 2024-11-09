@@ -4,6 +4,7 @@ import {
   doc,
   getDoc,
   getDocs,
+  orderBy,
   query,
   where
 } from "firebase/firestore";
@@ -45,7 +46,7 @@ export const createReservation = async (
     const emailHtml = generateEmailHTML({
       userName: user.displayName || "",
       reservationCode: shortUid.generate(),
-      accommodationName: propertyName, // ajuste conforme necessário
+      accommodationName: propertyName,
       checkInDate: formatDateToBR(reservation.startDate),
       checkOutDate: formatDateToBR(reservation.endDate),
       totalPrice: reservation.totalPrice.toFixed(2).toString(),
@@ -89,24 +90,55 @@ async function getReservedDates(
   return reservedDates;
 }
 
+//Buscar as reservas do usuário incluindo as informações da propriedade da reserva
 async function getReservationsByUser(userId: string): Promise<any[] | null> {
   const q = query(
     collection(db, "reservations"),
-    where("userId", "==", userId)
+    where("userId", "==", userId),
+    orderBy("startDate", "asc")
   );
 
   try {
     const querySnapshot = await getDocs(q);
-    if (!querySnapshot.empty) {
-      return querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-        startDate: `${convertFirebaseDateToJSDate(doc.data()?.startDate ?? "")}`,
-        endDate: `${convertFirebaseDateToJSDate(doc.data()?.endDate ?? "")}`
-      }));
-    } else {
+
+    if (querySnapshot.empty) {
       return null;
     }
+
+    const reservationsWithPropertyData = await Promise.all(
+      querySnapshot.docs.map(async (reservationDoc) => {
+        const reservationData = {
+          id: reservationDoc.id,
+          ...reservationDoc.data(),
+          startDate: `${convertFirebaseDateToJSDate(reservationDoc.data()?.startDate ?? "")}`,
+          endDate: `${convertFirebaseDateToJSDate(reservationDoc.data()?.endDate ?? "")}`
+        };
+
+        // Busca as informações da propriedade
+        // @ts-ignore
+        const propertyId = reservationData.propertyId;
+        const propertyDoc = await getDoc(doc(db, "property", propertyId));
+        const propertyData = propertyDoc.exists() ? propertyDoc.data() : null;
+
+        return {
+          ...reservationData,
+          property: propertyData ?? null
+        };
+      })
+    );
+
+    return reservationsWithPropertyData;
+
+    // if (!querySnapshot.empty) {
+    //   return querySnapshot.docs.map((doc) => ({
+    //     id: doc.id,
+    //     ...doc.data(),
+    //     startDate: `${convertFirebaseDateToJSDate(doc.data()?.startDate ?? "")}`,
+    //     endDate: `${convertFirebaseDateToJSDate(doc.data()?.endDate ?? "")}`
+    //   }));
+    // } else {
+    //   return null;
+    // }
   } catch (error) {
     console.error("Error fetching reservations data:", error);
     return null;

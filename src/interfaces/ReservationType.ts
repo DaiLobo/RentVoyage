@@ -1,3 +1,5 @@
+import { PropertyType } from "./PropertyType";
+
 export interface ReservationType {
   id: string;
   userId: string;
@@ -23,4 +25,15 @@ export interface ReservationRegisterType {
   endDate: Date;
   totalPrice: number;
   guests: number;
+}
+
+export interface ReservationByUserType {
+  id: string;
+  userId: string;
+  propertyId: string;
+  startDate: Date;
+  endDate: Date;
+  totalPrice: number;
+  guests: number;
+  property: PropertyType;
 }

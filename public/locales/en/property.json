@@ -2,7 +2,7 @@
   "properties": "Properties",
   "advertise": "Advertise your property",
   "advertise-edit": "Edit your property",
-  "details-property": "Details of your property",
+  "back-list-property": "Back to properties",
   "not-found": "No property found",
   "dropzone": {
     "button": "Attach Images",
@@ -65,5 +65,14 @@
       "edit": "Error occurred while updating the data!"
     }
   },
-  "person": "guest(s)"
+  "person": "guest(s)",
+  "bookings": {
+    "title": "Bookings",
+    "number": "Booking No.",
+    "guest": "Guest",
+    "qnt-guests": "Qty. (Guests)",
+    "date": "Booking Date",
+    "price": "Price",
+    "not-found": "No bookings found"
+  }
 }

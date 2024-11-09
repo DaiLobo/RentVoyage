@@ -4,19 +4,15 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Router from "next/router";
 import { parseCookies } from "nookies";
-import { useState } from "react";
 
-import { ChatComponent } from "@/components/ChatComponent";
 import { showToast } from "@/components/Toast";
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow
 } from "@/components/ui/table";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { PropertyType } from "@/interfaces/PropertyType";
-import { GetUserService } from "@/services/GetUserService";
 import { PropertyService } from "@/services/PropertyService";
 import { PropertyTypeEnum } from "@/utils/list";
-import { ChatCircleText } from "@phosphor-icons/react";
 
 interface MyPropertiesProps {
   properties: PropertyType[] | null
@@ -24,10 +20,6 @@ interface MyPropertiesProps {
 
 export function MyProperties({ properties }: MyPropertiesProps) {
   const { t } = useTranslation("property");
-  const [isOpen, setIsOpen] = useState(false);
-  const [chatId, setChatId] = useState("");
-
-  const [guestId, setGuestId] = useState<string | null>(null);
 
   if (!properties) {
     return <div className="flex flex-row gap-1 pt-28 pb-40 px-2 justify-center pb-40 w-full">
@@ -37,24 +29,15 @@ export function MyProperties({ properties }: MyPropertiesProps) {
 
   const handleEditClick = (propertyId?: string) => {
     if (propertyId) {
-      Router.push(`/property/edit/${propertyId}`);
+      Router.push(`/my-properties/edit/${propertyId}`);
     } else {
       showToast("error", "Ocorreu um erro, tente novamente!");
     }
   };
 
-  // CHAT
-  const handleViewChat = async (reservationId: string, userId: string) => {
-    setIsOpen(true);
-    setChatId(reservationId ?? "");
-
-    const user = await GetUserService.getUserById(userId);
-    setGuestId(user?.name ?? "Convidado");
-  }
-
   const handleViewClick = (propertyId?: string) => {
     if (propertyId) {
-      Router.push(`/property/view/${propertyId}`);
+      Router.push(`/my-properties/view/${propertyId}`);
     } else {
       showToast("error", "Ocorreu um erro, tente novamente!");
     }
@@ -68,7 +51,7 @@ export function MyProperties({ properties }: MyPropertiesProps) {
   // }, [userAuth]);
 
   return (
-    <div className="grid bg-white lg:pt-24 pt-8 lg:pb-40 pb-0 lg:px-16 px-4 grid grid-cols-1 justify-items-center w-full">
+    <div className="bg-white lg:pt-24 pt-8 lg:pb-40 pb-0 lg:px-16 px-4 grid grid-cols-1 justify-items-center w-full">
       <div className="grid justify-items-center lg:pb-40 pb-16 w-full">
 
         <p className="flex-1 justify-start justify-self-start lg:text-4xl sm:text-3xl text-2xl text-slate-700 pb-8 grow">
@@ -91,7 +74,7 @@ export function MyProperties({ properties }: MyPropertiesProps) {
                 <TableRow key={property.id}>
                   <TableCell className="font-medium">{property.name}</TableCell>
                   <TableCell>{PropertyTypeEnum[property.propertyType]}</TableCell>
-                  <TableCell>{property.address}</TableCell>
+                  <TableCell className="min-w-[180px]">{property.address}</TableCell>
                   <TableCell className="text-right">R${property?.price || 0}</TableCell>
                   <TableCell>
                     <div className="flex gap-8 justify-end">
@@ -111,14 +94,6 @@ export function MyProperties({ properties }: MyPropertiesProps) {
                           {t("details")}
                         </TooltipContent>
                       </Tooltip>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <ChatCircleText size={22} onClick={() => handleViewChat("yh3PBMqSm7WYBvgYWSDD", "0rBaEfJ41wgqPmigMTqQ")} className="cursor-pointer" />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>{t("chat")}</p>
-                        </TooltipContent>
-                      </Tooltip>
                     </div>
                   </TableCell>
                 </TableRow>)
@@ -126,16 +101,6 @@ export function MyProperties({ properties }: MyPropertiesProps) {
             }
           </TableBody>
         </Table>
-      </div>
-
-      <div className="absolute bottom-0 right-0">
-        <ChatComponent
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          chatId={chatId}
-          guestId={"KKAi7lmMOHWlqYaTwaZLWAmYusP2"}
-          guestName={guestId}
-        />
       </div>
     </div>
   )
