@@ -84,6 +84,7 @@ export function BookingDetails({ id, name, description, address, images, propert
 
       if (result) {
         showToast("success", "Reserva realizada com sucesso!");
+        Router.push(`/booking/confirmation/${result}`);
       } else {
         showToast("error", "Erro ao realizar a reserva");
       }

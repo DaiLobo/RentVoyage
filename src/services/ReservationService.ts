@@ -45,7 +45,7 @@ export const createReservation = async (
     //Criação do documento para disparo de e-mail
     const emailHtml = generateEmailHTML({
       userName: user.displayName || "",
-      reservationCode: shortUid.generate(),
+      reservationCode: shortUid.generate().substring(5, 0),
       accommodationName: propertyName,
       checkInDate: formatDateToBR(reservation.startDate),
       checkOutDate: formatDateToBR(reservation.endDate),
