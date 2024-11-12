@@ -52,7 +52,7 @@ function Calendar({
           "day-outside text-muted-foreground bg-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30",
         day_disabled: "text-muted-foreground bg-muted-foreground opacity-50",
         day_range_middle:
-          "aria-selected:[#007489]/[0.7] aria-selected:text-white",
+          "aria-selected:[#007489]/[0.7] aria-selected:text-gray-700",
         day_hidden: "invisible",
         head: "",
         tbody: "text-black",
