@@ -42,17 +42,17 @@ function Calendar({
         cell: "h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
         day: cn(
           buttonVariants({ variant: "ghost" }),
-          "h-9 w-9 p-0 font-normal aria-selected:opacity-100 text-white hover:text-white"
+          "h-9 w-9 p-0 font-normal aria-selected:opacity-100 text-gray-700 hover:text-white"
         ),
-        day_range_start: "aria-selected:bg-secondary/[0.7] aria-selected:text-white aria-selected:font-medium",
-        day_range_end: "aria-selected:bg-secondary/[0.7] aria-selected:text-white aria-selected:font-medium",
-        day_selected: "bg-secondary/[0.5] text-black",
-        day_today: "!text-white !font-semibold bg-secondary/[0.7] text-white font-medium",
+        day_range_start: "aria-selected:bg-[#007489]/[0.7] aria-selected:text-white aria-selected:font-medium",
+        day_range_end: "aria-selected:bg-[#007489]/[0.7] aria-selected:text-white aria-selected:font-medium",
+        day_selected: "bg-[#007489]/[0.5] text-black",
+        day_today: "!text-white !font-semibold bg-[#007489]/[0.7] text-white font-medium",
         day_outside:
           "day-outside text-muted-foreground bg-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30",
         day_disabled: "text-muted-foreground bg-muted-foreground opacity-50",
         day_range_middle:
-          "aria-selected:secondary/[0.7] aria-selected:text-white",
+          "aria-selected:[#007489]/[0.7] aria-selected:text-white",
         day_hidden: "invisible",
         head: "",
         tbody: "text-black",

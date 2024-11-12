@@ -68,14 +68,14 @@ export function Register() {
   };
 
   return (
-    <div className="lg:pt-10 pt-6 pb-16 lg:px-16 px-4 flex flex-1 flex-col gap-8 lg:h-[60vh] items-center justify-items-center">
+    <div className="lg:pt-10 pt-6 pb-16 lg:px-16 px-4 flex flex-1 flex-col gap-8 lg:h-[80vh] items-center justify-items-center">
       <p className="flex justify-start lg:text-4xl text-3xl text-slate-700">
         {t("create-account")}
       </p>
 
       <Form {...form}>
         <form
-          className="flex flex-1 grid grid-rows-3 grid-cols-1 gap-2 w-full max-w-md"
+          className="grid grid-rows-3 grid-cols-1 gap-2 w-full max-w-md"
           onSubmit={form.handleSubmit(handleSignUp)}
         >
           <FormField

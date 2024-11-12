@@ -52,7 +52,7 @@ export default function Home() {
       className="relative bg-cover bg-center h-auto"
       style={{ backgroundImage: "url('/assets/open_door.jpg')" }}
     >
-      <div className="flex relative max-[340px]:h-[110vh] sm:h-[80vh]">
+      <div className="flex relative max-[340px]:h-[110vh] sm:h-[90vh]">
         <div className="absolute inset-0 bg-gradient-to-r from-black opacity-60" />
 
         <div className="relative py-6 sm:py-0 lg:px-16 px-4 z-10 content-center">

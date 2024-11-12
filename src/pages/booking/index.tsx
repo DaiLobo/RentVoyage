@@ -38,17 +38,11 @@ export function Booking({ properties, localization, checkin, checkout, guests, m
   const debouncedPriceRange = useDebounce(priceRange, 500);
   const hasMounted = useRef(false);
 
-  if (!properties) {
-    return <div className="pt-28 px-2 grid grid-cols-1 justify-items-center w-full">
-      <SearchBar setFilteredHits={() => []} localization={localization} startDate={checkin} endDate={checkout} guests={guests} />
+  const [filteredHits, setFilteredHits] = useState<PropertyType[]>([]);
 
-      <div className="flex flex-row gap-1 pt-28 pb-40 px-2 justify-center pb-40 w-full">
-        <HouseIcon className="justify-self-end" /> {t("not-found")}
-      </div>
-    </div>
-  }
-
-  const [filteredHits, setFilteredHits] = useState<PropertyType[]>(properties ?? []);
+  useEffect(() => {
+    setFilteredHits(properties ?? []);
+  }, [properties]);
 
   useEffect(() => {
     if (!hasMounted.current) {
@@ -92,6 +86,16 @@ export function Booking({ properties, localization, checkin, checkout, guests, m
     }
   }, [debouncedPriceRange])
 
+  if (!properties?.length) {
+    return <div className="pt-28 lg:px-16 px-4 grid grid-cols-1 justify-items-center w-full">
+      <SearchBar setFilteredHits={() => []} localization={localization} startDate={checkin} endDate={checkout} guests={guests} />
+
+      <div className="flex flex-row gap-1 pt-28 pb-40 px-2 justify-center pb-40 w-full">
+        <HouseIcon className="justify-self-end" /> {t("not-found")}
+      </div>
+    </div>
+  }
+
   return (
     <div className="pt-8 pb-20 lg:px-16 px-4 grid grid-row-3 bg-[#FFFAFA] justify-items-start w-full">
       <div className="lg:mb-16 mb-8 justify-items-start items-baseline">
@@ -109,7 +113,7 @@ export function Booking({ properties, localization, checkin, checkout, guests, m
           maxPrice={maxPrice}
         />
 
-        <div className="grid lg:grid-cols-3 flex md:gap-8 gap-6">
+        <div className="grid lg:grid-cols-3 flex md:gap-8 gap-6 w-full">
           <div className="flex flex-row gap-4 block md:hidden">
             <Button variant="outline" className="flex flex-1 gap-2" onClick={() => setIsOpen(true)}>
               <Coins size={24} /> {t("filter-button")}
@@ -154,7 +158,7 @@ export function Booking({ properties, localization, checkin, checkout, guests, m
             </div>
           </div>
 
-          <div className="space-y-4 lg:col-span-2">
+          <div className="space-y-4 lg:col-span-2 w-full">
             {filteredHits?.map((property) => (
               <PropertyCard hit={property} />
             ))}
