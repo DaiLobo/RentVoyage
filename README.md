@@ -16,7 +16,7 @@ Principais funcionalidades:
 - 🔎 **Busca avançada**: Propriedades podem ser pesquisadas por nome, capacidade, datas disponíveis e preço.
 - 🔑 **Autenticação**: Cadastro e login com email/senha ou pelo Google.
 - 🏘️ **Gestão de Propriedades**: Proprietários podem cadastrar, editar e gerenciar propriedades, incluindo imagens no Firebase Storage.
-- 🗪 **Reservas e Chat**: Reservas são registradas no Firestore, com um sistema de chat em tempo real entre hóspedes e proprietários.
+- 💬 **Reservas e Chat**: Reservas são registradas no Firestore, com um sistema de chat em tempo real entre hóspedes e proprietários.
 - 🗺️ **Visualização no Mapa**: As propriedades são exibidas no mapa usando Google Maps JavaScript API.
 - 📧 **Confirmação de Reservas por Email**: Um email é enviado ao usuário confirmando detalhes da reserva.
 
