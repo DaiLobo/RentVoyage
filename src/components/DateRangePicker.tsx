@@ -9,7 +9,7 @@ import { Button } from "./ui/button";
 import { Calendar } from "./ui/calendar";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { X } from "@phosphor-icons/react";
+import { X } from "@phosphor-icons/react/X";
 
 interface DateRangePickerProps {
   control?: Control<FieldValues> | undefined;

@@ -22,7 +22,9 @@ import { ReservationService } from "@/services/ReservationService";
 import { PropertyTypeEnum } from "@/utils/list";
 import { useFormReservation } from "@/validations/reservation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { MapPinArea, Star, StarHalf } from "@phosphor-icons/react";
+import { MapPinArea } from "@phosphor-icons/react/MapPinArea";
+import { Star } from "@phosphor-icons/react/Star";
+import { StarHalf } from "@phosphor-icons/react/StarHalf";
 
 interface BookingDetailsProps extends Omit<PropertyType, "images"> {
   images: string[];

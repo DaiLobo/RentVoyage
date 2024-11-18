@@ -3,8 +3,8 @@ import { useTranslation } from "next-i18next";
 import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 
 import { auth, realTimedatabase } from "@/services/firebaseConfig";
-import { PaperPlaneTilt } from "@phosphor-icons/react";
-import { ChatsCircle } from "@phosphor-icons/react/dist/ssr";
+import { PaperPlaneTilt } from "@phosphor-icons/react/PaperPlaneTilt";
+import { ChatsCircle } from "@phosphor-icons/react/ChatsCircle";
 
 import { Button } from "./ui/button";
 import { Drawer, DrawerContent, DrawerOverlay } from "./ui/drawer";

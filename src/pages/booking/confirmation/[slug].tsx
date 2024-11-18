@@ -13,7 +13,9 @@ import { ReservationByUserType } from "@/interfaces/ReservationType";
 import { ReservationService } from "@/services/ReservationService";
 import { formatLocalizedDate } from "@/utils/format";
 import { PropertyTypeEnum } from "@/utils/list";
-import { CalendarCheck, ListBullets, MapPinArea } from "@phosphor-icons/react";
+import { CalendarCheck } from "@phosphor-icons/react/CalendarCheck";
+import { ListBullets } from "@phosphor-icons/react/ListBullets";
+import { MapPinArea } from "@phosphor-icons/react/MapPinArea";
 
 interface BookingsConfimationProps {
   reservation: ReservationByUserType | null;

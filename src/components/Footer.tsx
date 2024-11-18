@@ -1,7 +1,8 @@
-
 import { useTranslation } from "next-i18next";
 
-import { FacebookLogo, GithubLogo, InstagramLogo } from "@phosphor-icons/react";
+import { FacebookLogo } from "@phosphor-icons/react/FacebookLogo";
+import { GithubLogo } from "@phosphor-icons/react/GithubLogo";
+import { InstagramLogo } from "@phosphor-icons/react/InstagramLogo";
 
 import { Separator } from "./ui/separator";
 

@@ -16,7 +16,8 @@ import { useDebounce } from "@/hooks/useDebounce";
 import { PropertyType } from "@/interfaces/PropertyType";
 import { ALGOLIA_INDEX_NAME, searchClient } from "@/lib/algolia";
 import { generateQueryString, parseDate } from "@/utils/format";
-import { Coins, MapTrifold } from "@phosphor-icons/react";
+import { Coins } from "@phosphor-icons/react/Coins";
+import { MapTrifold } from "@phosphor-icons/react/MapTrifold";
 
 import { getData } from "../api/search";
 

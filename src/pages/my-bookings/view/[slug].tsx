@@ -12,7 +12,11 @@ import { useAuth } from "@/context/AuthContext";
 import { ReservationByUserType } from "@/interfaces/ReservationType";
 import { ReservationService } from "@/services/ReservationService";
 import { formatLocalizedDate } from "@/utils/format";
-import { CalendarCheck, ListBullets, MapPinArea, Star, StarHalf } from "@phosphor-icons/react";
+import { CalendarCheck } from "@phosphor-icons/react/CalendarCheck";
+import { ListBullets } from "@phosphor-icons/react/ListBullets";
+import { MapPinArea } from "@phosphor-icons/react/MapPinArea";
+import { Star } from "@phosphor-icons/react/Star";
+import { StarHalf } from "@phosphor-icons/react/StarHalf";
 
 interface MyBookingsViewProps {
   reservation: ReservationByUserType | null;

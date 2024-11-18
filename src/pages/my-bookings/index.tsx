@@ -14,7 +14,7 @@ import { ReservationByUserType } from "@/interfaces/ReservationType";
 import { PropertyService } from "@/services/PropertyService";
 import { ReservationService } from "@/services/ReservationService";
 import { parseTimeStampDate } from "@/utils/format";
-import { ChatCircleText } from "@phosphor-icons/react";
+import { ChatCircleText } from "@phosphor-icons/react/ChatCircleText";
 
 interface MyBookingsProps {
   reservations: ReservationByUserType[] | null

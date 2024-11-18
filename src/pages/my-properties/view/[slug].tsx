@@ -26,7 +26,11 @@ import { PropertyService } from "@/services/PropertyService";
 import { ReservationService } from "@/services/ReservationService";
 import { parseTimeStampDate } from "@/utils/format";
 import { PropertyTypeEnum } from "@/utils/list";
-import { BookBookmark, ChatCircleText, MapPinArea, Star, StarHalf } from "@phosphor-icons/react";
+import { BookBookmark } from "@phosphor-icons/react/BookBookmark";
+import { ChatCircleText } from "@phosphor-icons/react/ChatCircleText";
+import { MapPinArea } from "@phosphor-icons/react/MapPinArea";
+import { Star } from "@phosphor-icons/react/Star";
+import { StarHalf } from "@phosphor-icons/react/StarHalf";
 
 interface PropertyViewProps extends Omit<PropertyType, "images"> {
   images: string[] | null;
