@@ -93,7 +93,7 @@ export function PropertyView({ name, description, address, images, propertyType,
 
       <Separator className="bg-[#CACACA] mt-2" />
 
-      <div className="flex lg:flex-row flex-col gap-8 mt-6 lg:mb-8 mb-4">
+      <div className="flex lg:flex-row flex-col gap-8 mt-6 lg:mb-8 mb-4 justify-self-stretch">
         {/* Detalhes da propriedade */}
         <div className="flex-1 justify-self-start">
           <div className="flex lg:flex-row flex-col items-baseline lg:gap-4 gap-2">
