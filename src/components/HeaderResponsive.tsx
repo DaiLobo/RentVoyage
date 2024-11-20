@@ -48,8 +48,10 @@ export default function HeaderResponsive() {
                         // @ts-ignore
                         src={(userData?.profileImage || userAuth?.photoURL) ?? "/assets/avatar.png"}
                         alt="Profile"
-                        objectFit="cover"
-                        layout="fill"
+                        fill
+                        style={{
+                          objectFit: "cover"
+                        }}
                       // width={50}
                       // height={50}
                       />

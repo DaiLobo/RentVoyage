@@ -2,7 +2,10 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 
-import { ArrowLeftCircle, BedDouble, CircleDollarSign, Hotel } from "lucide-react";
+import {
+  ArrowLeftCircle, BedDouble, CircleDollarSign, ClipboardEditIcon, ClipboardListIcon,
+  ClipboardMinus, Hotel
+} from "lucide-react";
 import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -170,10 +173,21 @@ export function PropertyView({ name, description, address, images, propertyType,
 
           <TableBody>
             {!reservations?.length ?
-              t("bookings.not-found")
+              <TableRow className="hover:bg-transparent">
+                <TableCell className="sm:hidden flex pt-8 gap-2 items-center justify-start">
+                  <ClipboardMinus /> {t("bookings.not-found")}
+                </TableCell>
+                <TableCell />
+                <TableCell />
+
+                <TableCell className="hidden sm:flex pt-8 gap-2 items-center justify-center">
+                  <ClipboardMinus /> {t("bookings.not-found")}
+                </TableCell>
+
+              </TableRow>
               :
               reservations?.map((reservation) => (
-                <TableRow className="text-base">
+                <TableRow key={reservation.id} className="text-base">
                   <TableCell className="font-medium">{reservation.id.substring(0, 8)}</TableCell>
                   <TableCell>{reservation.userName}</TableCell>
                   <TableCell className="flex items-center justify-center">{reservation.guests}</TableCell>

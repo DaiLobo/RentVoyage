@@ -148,8 +148,10 @@ export default function Header() {
                           // @ts-ignore
                           src={(userData?.profileImage || userAuth?.photoURL) ?? "/assets/avatar.png"}
                           alt="Profile"
-                          layout="fill"
-                          objectFit="cover"
+                          fill
+                          style={{
+                            objectFit: "cover"
+                          }}
                         />
                       </button>
                     </PopoverTrigger>

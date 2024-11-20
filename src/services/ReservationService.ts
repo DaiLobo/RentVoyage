@@ -50,7 +50,7 @@ export const createReservation = async (
       checkInDate: formatDateToBR(reservation.startDate),
       checkOutDate: formatDateToBR(reservation.endDate),
       totalPrice: reservation.totalPrice.toFixed(2).toString(),
-      reservationLink: `https://rent-voyage/my-bookings/${reservationDoc.id}`,
+      reservationLink: `https://rent-voyage.vercel.app/my-bookings/view/${reservationDoc.id}`,
       propertyType
     });
 
@@ -151,7 +151,8 @@ async function getReservationsByPropertyId(
   try {
     const reservationQuery = query(
       collection(db, "reservations"),
-      where("propertyId", "==", propertyId)
+      where("propertyId", "==", propertyId),
+      orderBy("startDate", "asc")
     );
 
     const reservationSnapshot = await getDocs(reservationQuery);

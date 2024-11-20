@@ -55,10 +55,12 @@ export function MyBookings({ reservations }: MyBookingsProps) {
             <Image
               src="/assets/rent-voyage-banner.png"
               alt="banner"
-              layout="fill"
-              objectFit="cover"
-              objectPosition="center"
+              fill
               className="rounded-2xl"
+              style={{
+                objectFit: "cover",
+                objectPosition: "center",
+              }}
             />
           </div>
 
