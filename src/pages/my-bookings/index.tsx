@@ -28,10 +28,33 @@ export function MyBookings({ reservations }: MyBookingsProps) {
   const [propertyName, setPropertyName] = useState<string | null>(null);
   const [guestId, setGuestId] = useState<string | null>(null);
 
-  if (!reservations) {
-    return <div className="flex flex-row gap-1 pt-28 pb-40 px-2 justify-center pb-40 w-full">
-      <FileIcon className="justify-self-end" /> {t("not-found")}
-    </div>
+  if (!reservations || !reservations.length) {
+    return (
+      <div className="bg-white lg:pt-12 pt-8 lg:pb-40 pb-10 lg:px-16 px-4 grid grid-cols-1 justify-items-center w-full">
+        <div className="w-full">
+          <p className="flex-1 justify-start justify-self-start lg:text-4xl sm:text-3xl text-2xl text-slate-700">
+            {t("bookings")}
+          </p>
+
+          <div className="relative lg:mt-12 mt-6 w-full lg:h-[275px] h-[125px] rounded-2xl overflow-hidden">
+            <Image
+              src="/assets/rent-voyage-banner.png"
+              alt="banner"
+              fill
+              className="rounded-2xl"
+              style={{
+                objectFit: "cover",
+                objectPosition: "center",
+              }}
+            />
+          </div>
+
+          <div className="flex flex-row gap-1 pt-28 pb-40 px-2 justify-center pb-40 ">
+            <FileIcon className="justify-self-end" /> {t("not-found")}
+          </div>
+        </div>
+      </div>
+    )
   }
 
   const handleChat = async (reservationId: string, propertyId: string, userId: string) => {
