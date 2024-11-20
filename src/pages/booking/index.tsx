@@ -19,6 +19,7 @@ import { generateQueryString, parseDate } from "@/utils/format";
 import { Coins } from "@phosphor-icons/react/Coins";
 import { MapTrifold } from "@phosphor-icons/react/MapTrifold";
 
+import nextI18nextConfig from "../../../next-i18next.config";
 import { getData } from "../api/search";
 
 interface BookingProps {
@@ -220,7 +221,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       guests: guests ? guests : 0,
       minPrice: minPrice ? minPrice : 0,
       maxPrice: maxPrice ? maxPrice : 1000,
-      ...(await serverSideTranslations(locale ?? "pt", ["stays", "common"]))
+      ...(await serverSideTranslations(locale ?? "pt", ["stays", "common"], nextI18nextConfig))
     }
   };
 };
