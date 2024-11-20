@@ -4,5 +4,8 @@ module.exports = {
     defaultLocale: "pt",
     locales: ["pt", "en"]
   },
+  backend: {
+    loadPath: "public/locales/{{lng}}/{{ns}}.json",
+  },
   reloadOnPrerender: process.env.NODE_ENV === "development"
 };
