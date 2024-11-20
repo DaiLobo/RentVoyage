@@ -4,7 +4,7 @@
     "success": "A reserva foi realizada com sucesso!",
     "error": "Não foi possível completar a reserva. Por favor, tente novamente."
   },
-  "not-found": "Não existe propriedades cadastradas",
+  "not-found": "Nenhuma propriedade encontrada",
   "search": {
     "title": "Buscar",
     "local": {

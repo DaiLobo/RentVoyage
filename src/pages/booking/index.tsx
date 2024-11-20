@@ -89,7 +89,11 @@ export function Booking({ properties, localization, checkin, checkout, guests, m
   }, [debouncedPriceRange])
 
   if (!properties?.length) {
-    return <div className="pt-28 lg:px-16 px-4 grid grid-cols-1 justify-items-center w-full">
+    return <div className="pt-8 lg:px-16 px-4 grid grid-cols-1 justify-items-start w-full">
+      <div className="lg:mb-16 mb-8 justify-items-start items-baseline">
+        <p className="flex justify-start justify-self-start lg:text-4xl sm:text-3xl text-2xl text-slate-700">{t("stays")}</p>
+      </div>
+
       <SearchBar setFilteredHits={() => []} localization={localization} startDate={checkin} endDate={checkout} guests={guests} />
 
       <div className="flex flex-row gap-1 pt-28 pb-40 px-2 justify-center pb-40 w-full">
