@@ -75,9 +75,15 @@ export function MyProfile() {
        } */
 
       const updateUser = await GetUserService.getUser();
-      if (updateUser) setUserData(updateUser.data() as UserType);
+      if (updateUser) {
+        setUserData(updateUser.data() as UserType);
+        showToast("success", t("message.success"));
 
-      showToast("success", t("message.success"));
+        Router.push("/");
+      } else {
+        showToast("error", t("message.error"));
+      }
+
       setLoading(false);
     } catch (error) {
       showToast("error", t("message.error"));
