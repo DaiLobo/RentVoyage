@@ -6,7 +6,8 @@ module.exports = {
   },
   localePath:
     typeof window === "undefined"
-      ? require("path").resolve("./public/locales/{{lng}}/{{ns}}.json")
-      : "/public/locales/{{lng}}/{{ns}}.json",
+      ? require("path").resolve("./public/locales")
+      : "/public/locales",
+  ns: ["common", "home", "about", "bookings", "chat", "login", "profile", "property", "register", "stays"],
   reloadOnPrerender: process.env.NODE_ENV === "development"
 };
