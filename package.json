@@ -48,6 +48,7 @@
     "react-instantsearch-dom": "^6.40.4",
     "react-instantsearch-hooks": "^6.47.3",
     "react-instantsearch-hooks-web": "^6.47.3",
+    "sharp": "^0.33.5",
     "short-uuid": "^5.2.0",
     "sonner": "^1.5.0",
     "swiper": "^11.1.14",

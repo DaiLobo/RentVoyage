@@ -50,7 +50,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ properties, position = { la
               title={location.property.name}
               position={{ lat: location.lat, lng: location.lng }}
               clickable
-              onClick={() => Router.push(`/booking/view/${location.property.id}`)}
+              onClick={() => Router.push(`/booking/view/${location.property.objectID ?? location.property.id}`)}
               onMouseOver={() => setSelectedLocation(index)}
               onMouseOut={() => setSelectedLocation(null)}
             />
@@ -82,7 +82,6 @@ const MapComponent: React.FC<MapComponentProps> = ({ properties, position = { la
       >
         {t("close-map")}
       </button>}
-
     </div >
   );
 };
