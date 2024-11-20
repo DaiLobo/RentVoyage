@@ -209,7 +209,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     localization,
     from: checkin,
     to: checkout,
-    guests: Number(guests),
+    guests: guests ? Number(guests) : 0,
     minPrice: Number(minPrice !== "" ? minPrice : "0"),
     maxPrice: Number(maxPrice)
   };

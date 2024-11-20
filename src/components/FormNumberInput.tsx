@@ -17,7 +17,10 @@ export const FormNumberInput: React.FC<FormNumberInputProps> = ({ name, label, m
   const form = useFormContext();
 
   function onClick(adjustment: number) {
-    form.setValue(name, Math.max(min, Math.min(max, form.watch(name) + adjustment)));
+    // form.setValue(name, Math.max(min, Math.min(max, form.watch(name) + adjustment)));
+    const currentValue = form.watch(name) || min;
+    const newValue = Math.max(min, Math.min(max, currentValue + adjustment));
+    form.setValue(name, newValue);
   }
 
   return (
@@ -34,7 +37,8 @@ export const FormNumberInput: React.FC<FormNumberInputProps> = ({ name, label, m
                 variant="outline"
                 size="icon"
                 onClick={() => onClick(-1)}
-                disabled={field.value <= min}
+                // disabled={field.value <= min}
+                disabled={(field.value || min) <= min}
                 className="h-6 w-6 shrink-0 rounded-full p-0"
               >
                 <Minus className="h-4 w-4" />
@@ -44,9 +48,10 @@ export const FormNumberInput: React.FC<FormNumberInputProps> = ({ name, label, m
                 // type="number"
                 className="text-center border p-2 rounded w-16 h-9"
                 {...field}
+                value={field.value || min}
                 onChange={(e) => {
-                  const newValue = Number(e.target.value);
-                  if (newValue >= 1 && newValue <= max) {
+                  const newValue = Number(e.target.value) || min;
+                  if (newValue >= min && newValue <= max) {
                     field.onChange(newValue);
                   }
                 }}
@@ -56,7 +61,7 @@ export const FormNumberInput: React.FC<FormNumberInputProps> = ({ name, label, m
                 variant="outline"
                 size="icon"
                 onClick={() => onClick(1)}
-                disabled={field.value >= max}
+                disabled={(field.value || min) >= max}
                 className="h-6 w-6 shrink-0 rounded-full p-0"
               >
                 <Plus className="h-4 w-4" />
