@@ -4,8 +4,10 @@ module.exports = {
     defaultLocale: "pt",
     locales: ["pt", "en"]
   },
-  backend: {
-    loadPath: "public/locales/{{lng}}/{{ns}}.json",
-  },
+  localePath:
+    typeof window === "undefined"
+      ? require("path").resolve("./public/locales")
+      : "/public/locales",
+  ns: ["common"],
   reloadOnPrerender: process.env.NODE_ENV === "development"
 };
