@@ -8,6 +8,6 @@ module.exports = {
     typeof window === "undefined"
       ? require("path").resolve("./public/locales")
       : "/public/locales",
-  ns: ["common"],
+  ns: ["common", "home"],
   reloadOnPrerender: process.env.NODE_ENV === "development"
 };
