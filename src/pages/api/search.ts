@@ -21,8 +21,17 @@ export async function getData(query: {
   try {
     let filters = `capacity >= ${guests || 0}`;
 
-    if (minPrice !== null && minPrice !== undefined && maxPrice) {
-      filters += ` AND price >= ${minPrice || 10} AND price <= ${maxPrice || 1000}`;
+    if (
+      minPrice !== null &&
+      minPrice !== undefined &&
+      maxPrice !== null &&
+      maxPrice !== undefined
+    ) {
+      if (maxPrice >= 1000) {
+        filters += ` AND price >= ${minPrice || 10}`;
+      } else {
+        filters += ` AND price >= ${minPrice || 10} AND price <= ${maxPrice || 1000}`;
+      }
     }
 
     const algoliaQuery = {

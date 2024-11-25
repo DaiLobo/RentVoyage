@@ -66,7 +66,7 @@ export function BookingsConfimation({ reservation }: BookingsConfimationProps) {
                 <div>
                   <p>{t("confirmation.details-booking")}</p>
                   <p className="text-sm font-semibold">
-                    {reservation?.guests} {t("person")} - {reservation?.startDate && reservation.endDate ? differenceInCalendarDays(reservation?.endDate, reservation?.startDate) : 3} {t("daily")}, 1 {t("room")}
+                    {reservation?.guests} {t("confirmation.person")} - {reservation?.startDate && reservation.endDate ? differenceInCalendarDays(reservation?.endDate, reservation?.startDate) : 3} {t("confirmation.daily")}, 1 {t("confirmation.room")}
                   </p>
                 </div>
               </div>

@@ -44,7 +44,7 @@ export function Booking({ properties, localization, checkin, checkout, guests, m
 
   useEffect(() => {
     setFilteredHits(properties ?? []);
-  }, [properties]);
+  }, []);
 
   useEffect(() => {
     if (!hasMounted.current) {
