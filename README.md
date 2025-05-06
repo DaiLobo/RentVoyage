@@ -4,7 +4,7 @@
 </div>
 
 <h4 align="center"> 
-	🚧 Em desenvolvimento: Acesse o projeto <a href="https://rent-voyage.vercel.app">RentVoyage</a> 🚧
+	Acesse o projeto <a href="https://rent-voyage.vercel.app">RentVoyage</a>
 </h4>
 
 ## 📝 Sobre
@@ -180,7 +180,7 @@ Esse processo automatiza o envio de e-mails de confirmação para os usuários, 
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" height="40" width="52" alt="tailwind logo"  />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/algolia/algolia-original.svg" height="40" width="52" alt="algolia logo" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg" height="40" width="52" alt="googlecloud logo" />
-  <img src="https://seeklogo.com/images/S/shadcn-ui-logo-EF735EC0E5-seeklogo.com.png?v=638421451470000000" height="40" width="52" alt="shadcn logo" />
+  <img src="https://github.com/user-attachments/assets/c9136a4e-90ab-4349-b1db-8046b33ad8f0" height="40" width="52" alt="shadcn logo" />
   <img src="https://avatars.githubusercontent.com/u/8546082?v=4&s=160" height="40" width="52" alt="i18n logo" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" height="40" width="52" alt="figma logo" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" height="38" width="50" alt="github logo" />
